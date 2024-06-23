@@ -4,9 +4,20 @@ import Layout from "@/layouts/Base.astro";
 const t = useTranslations(Astro.currentLocale as Lang);
 import { getRelativeLocaleUrl } from "astro:i18n";
 
-import heroImageEs from "@/assets/images/home/mariposa.png";
+/* import heroImageEs from "@/assets/images/home/mariposa.png";
 import heroImageEn from "@/assets/en/hero.svg";
-import heroImageptBR from "@/assets/images/home/mariposa.png";
+import heroImageptBR from "@/assets/images/home/mariposa.png"; */
+
+
+// Images
+
+import Mariposa from "@/assets/images/home/mariposa.png";
+import Astronauta from "@/assets/images/home/astronauta.png";
+import Pes from "@/assets/images/home/pes.png";
+import Ciencia from "@/assets/images/home/cientifica.png";
+import Caos from "@/assets/images/home/caos.png";
+
+
 import { Image } from "astro:assets";
 /* 
 import { cn } from "@/lib/utils";
@@ -24,7 +35,7 @@ export const getStaticPaths = () =>
 <Layout>
 
   
-  {
+<!--   {
     locale === "es" ? (
       <Image src={heroImageEs} alt="こんにちは" />
     ) : locale === "pt" ? (
@@ -32,7 +43,7 @@ export const getStaticPaths = () =>
     )   :  (
       <Image src={heroImageEn} alt="Hello" />
     )
-  }
+  } -->
 
 
 <section class="space-y-6 pt-8 lg:py-28 flex  ">
@@ -41,18 +52,33 @@ export const getStaticPaths = () =>
   >
   <div class="pl-8 pt-8">
   <h1
-      class="font-heading text-4xl text-6xl font-red pb-[1.5rem] sm:text-5xl md:text-6xl lg:text-7xl !leading-[1.1] text-balance"
+      class="font-heading text-4xl font-red pb-[1.5rem] sm:text-5xl md:text-6xl lg:text-7xl !leading-[1.1] text-balance"
     >
-    En el corazón de la evolución cientifica
+
+    {
+      t({
+        es: "En el corazón de la evolución cientifica",
+        en: "At the heart of scientific evolution",
+        pt: "No coração da evolução científica",
+      })
+    }
+
+
+   
     </h1>
     <p
       class="max-w-[42rem] leading-normal text-lg md:text-2xl font-parraf text-muted-foreground sm:text-xl sm:leading-8 text-balance pb-[1.5rem]"
     >
-    Nuestro propósito es impulsar los 
-    principios de la descentralización para 
-    construir un ecosistema científico 
-    colaborativo y accesible para todos 
-    en américa latina.
+
+    {
+      t({
+        es: "Nuestro propósito es impulsar los principios de la descentralización para construir un ecosistema científico colaborativo y accesible para todos en américa latina",
+        en: "Our purpose is to promote the principles of decentralization to build a collaborative and accessible scientific ecosystem for everyone in Latin America.",
+        pt: "Nosso propósito é impulsionar os princípios da descentralização para construir um ecossistema científico colaborativo e acessível para todos na América Latina.",
+      })
+    }
+
+   
     </p>
     <div class="flex">
       <!--   <a
@@ -71,22 +97,25 @@ export const getStaticPaths = () =>
       </a>
 </div>
   </div>
-<img src="/images/home/mariposa.png" ></img>
+  <Image src={Mariposa} alt="DeSci LATAM" />
   </div>
 </section>
 
-<h1 class="text-3xl font-bold underline">
-  Hello world!
-</h1>
-
-<p class="text-3xl font-bold underline">
-  Hello world!
-</p>
 
 <section class="space-y-6 py-12 flex ">
   <div class="container flex justify-center text-ghost border rounded-[50px] p-8 hover:cursor-pointer hover:text-primary">
     <a>
-      <p>¿Interesado en convertirte en nuestro patrocinador? Obtén más detalles aquí.
+      <p>
+        
+        {
+          t({
+            es: "¿Te gustaría apoyarnos o hablar con nosotros? ¡Hacé clic aquí para ponerte en contacto!",
+            pt: "Gostaria de nos apoiar ou falar conosco? Clique aqui para entrar em contato!",
+            en: "Would you like to support us or talk to us? Click here to get in touch!",
+          })
+        }
+    
+      
       </p>
     </a>
 </div>
@@ -95,18 +124,32 @@ export const getStaticPaths = () =>
 <section class="space-y-6 pb-12 pt-16 lg:py-28 ">
   <div class="container flex flex-auto flex-wrap justify-between pr-4 p-16 ">
     <div>
-      <img src="/images/home/astronauta.png"  ></img>
+      <Image src={Astronauta} alt="Ciencia Descentralizada" />
         </div>
     <div class="max-w-[60rem]">
     <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
     >
-    ¿Qué es la ciencia 
-descentralizada?
+
+    {
+      t({
+        es: "¿Qué es la ciencia descentralizada?",
+        en: "What is decentralized science?",
+        pt: "O que é a ciência descentralizada?",
+      })
+    }
+
     </h2>
     <p    class=" leading-normal text-lg md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
-      La ciencia descentralizada es más que una tendencia; es un cambio de paradigma. Se trata de 
-      democratizar el conocimiento científico, poniéndolo al alcance de todos. En este movimiento, la colaboración global es clave, permitiendo que investigadores de todas partes contribuyan al avance del conocimiento. </div>
- 
+
+
+      {
+        t({
+          es: "La ciencia descentralizada es más que una tendencia; es un cambio de paradigma. Se trata de democratizar el conocimiento científico, poniéndolo al alcance de todos. En este movimiento, la colaboración global es clave, permitiendo que investigadores de todas partes contribuyan al avance del conocimiento.",
+          en: "Decentralized science is more than a trend; it is a paradigm shift. It’s about democratizing scientific knowledge, making it accessible to everyone. In this movement, global collaboration is key, allowing researchers from all over the world to contribute to the advancement of knowledge.",
+          pt: "A ciência descentralizada é mais do que uma tendência; é uma mudança de paradigma. Trata-se de democratizar o conhecimento científico, tornando-o acessível a todos. Neste movimento, a colaboração global é fundamental, permitindo que pesquisadores de todas as partes contribuam para o avanço do conhecimento.",
+        })
+      }
+
 </div>
   </section>
 
@@ -115,17 +158,31 @@ descentralizada?
     <div class="w-[60rem]">
     <h2   class="font-heading text-primary text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
     >
-    Tecnología al servicio 
+
+    {
+      t({
+        es: "Tecnología al servicio",
+        en: "Technology at your service",
+        pt: "Tecnologia a serviço",
+      })
+    }
+
     </h2>
     <p    class=" text-white leading-normal md:text-2xl text-lg  sm:text-xl sm:leading-8 text-balance pb-6">
     
 
-      Nos apoyamos en tecnologías innovadoras como blockchain y redes distribuidas para impulsar la 
-      transparencia en todas las etapas del proceso científico. Desde la recopilación de datos hasta la 
-      publicación de resultados, buscamos asegurar la reproducibilidad de los experimentos y hallazgos 
-      científicos, sentando así las bases para un avance más sólido y confiable en la ciencia.   </div>
+      {
+        t({
+          es: "Nos apoyamos en tecnologías innovadoras como blockchain y redes distribuidas para impulsar la transparencia en todas las etapas del proceso científico. Desde la recopilación de datos hasta la publicación de resultados, buscamos asegurar la reproducibilidad de los experimentos y hallazgos científicos, sentando así las bases para un avance más sólido y confiable en la ciencia.",
+          en: "We rely on innovative technologies such as blockchain and distributed networks to promote transparency at all stages of the scientific process. From data collection to the publication of results, we aim to ensure the reproducibility of experiments and scientific findings, thus laying the foundations for a more solid and reliable advancement in science.",
+          pt: "Nos apoiamos em tecnologias inovadoras como blockchain e redes distribuídas para promover a transparência em todas as etapas do processo científico. Desde a coleta de dados até a publicação de resultados, buscamos garantir a reprodutibilidade dos experimentos e descobertas científicas, estabelecendo assim as bases para um avanço mais sólido e confiável na ciência.",
+        })
+      }
+
+        </div>
   <div>
-    <img src="/images/home/pes.png"  ></img>
+    <Image src={Pes} alt="Naturaleza" />
+
       </div>
 </div>
   </section>
@@ -134,17 +191,30 @@ descentralizada?
   <section class="space-y-6 pb-12 pt-16 lg:py-28 ">
     <div class="container flex flex-auto flex-wrap justify-between pr-4 p-16 ">
       <div>
-        <img src="/images/home/cientifica.png"  ></img>
+        <Image src={Ciencia} alt="Ciencia" />
           </div>
       <div class="max-w-[60rem]">
       <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
       >
-      Únete a nosotros en
-      esta misión
+
+      {
+        t({
+          es: "Únete a nosotros en esta misión",
+          en: "Join us in this mission",
+          pt: "Junte-se a nós nesta missão",
+        })
+      }
+
       </h2>
       <p    class=" leading-normal md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
-        Te invitamos a ser parte de esta revolución científica. En DesciLatam, fortalecemos a todas las comunidades, fomentando una participación activa en la investigación para beneficio de la humanidad. Juntos, podemos cambiar el mundo, un experimento a la vez.</p>   </div>
-      </div>
+        {
+          t({
+            es: "Te invitamos a ser parte de esta revolución científica. En DesciLatam, fortalecemos a todas las comunidades, fomentando una participación activa en la investigación para beneficio de la humanidad. Juntos, podemos cambiar el mundo, un experimento a la vez.",
+            en: "We invite you to be part of this scientific revolution. At DesciLatam, we empower all communities, fostering active participation in research for the benefit of humanity. Together, we can change the world, one experiment at a time.",
+            pt: "Convidamos você a fazer parte desta revolução científica. Na DesciLatam, fortalecemos todas as comunidades, promovendo uma participação ativa na pesquisa para o benefício da humanidade. Juntos, podemos mudar o mundo, um experimento de cada vez.",
+          })
+        }
+     </div>
     </section>
 
     <section class="space-y-6 pb-12 pt-16 lg:py-28 p-4">
@@ -152,169 +222,29 @@ descentralizada?
         <div class="w-[60rem]">
         <h2   class=" font-heading text-primary text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
         >
-        Un enfoque desde la 
-        teoría del caos</h2>
+
+        {
+          t({
+            es: "Un enfoque desde la teoría del caos",
+            en: "An approach from chaos theory",
+            pt: "Uma abordagem a partir da teoria do caos",
+          })
+        }
+
+  </h2>
         <p    class=" text-white leading-normal md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
-        
+          {
+            t({
+              es: "En DesciLatam, abrazamos la teoría del caos y comprendemos el poder de las pequeñas acciones en sistemas complejos. Creemos en el impacto transformador de las contribuciones individuales en el avance de la ciencia. Al igual que el aleteo de una mariposa puede desencadenar una serie de eventos que provoquen un cambio gigante en otro lugar, estamos convencidos de que cada aporte cuenta en la construcción de un futuro científico más brillante para la humanidad.",
+              en: "At DesciLatam, we embrace chaos theory and understand the power of small actions in complex systems. We believe in the transformative impact of individual contributions on the advancement of science. Just as the flapping of a butterfly's wings can trigger a series of events leading to a massive change elsewhere, we are convinced that every contribution counts in building a brighter scientific future for humanity.",
+              pt: "Na DesciLatam, abraçamos a teoria do caos e compreendemos o poder das pequenas ações em sistemas complexos. Acreditamos no impacto transformador das contribuições individuais no avanço da ciência. Assim como o bater de asas de uma borboleta pode desencadear uma série de eventos que provocam uma grande mudança em outro lugar, estamos convencidos de que cada contribuição conta na construção de um futuro científico mais brilhante para a humanidade.",
+            })
+          }
   
-          En DesciLatam, abrazamos la teoría del  caos y comprendemos el poder de las pequeñas acciones en sistemas complejos. Creemos en el impacto transformador de las contribuciones individuales en el avance de la ciencia. Al igual que el aleteo de una mariposa puede desencadenar una serie de eventos que provoquen un cambio gigante en otro lugar, estamos convencidos de que cada aporte cuenta en la construcción de un futuro científico más brillante para la humanidad. </p>
-        </div>
+       </div>
       <div>
-        <img src="/images/home/mariposa-2.png"  ></img>
+        <Image src={Caos} alt="Teoría del caos" />
           </div>
     </div>
       </section>
-
-
-
-
-
-  <h1>
-    {
-      t({
-        es: "Ciencia descentralizada2 ",
-        en: "i18n Starter is a simple Astro theme for creating multilingual websites. It supports i18n feature from Astro v4.0.",
-        "pt":
-          "i18n Starter é um tema simples do Astro para criar sites multilíngues. Suporta o recurso i18n do Astro v4.0.",
-      })
-    }
-  </h1>
-
-    <p>
-      {
-        t({
-          es: "i18n Starter es un tema sencillo de Astro para crear sitios web multilingües. Soporta la funcionalidad i18n de Astro v4.0.",
-          en: "i18n Starter is a simple Astro theme for creating multilingual websites. It supports i18n feature from Astro v4.0.",
-          "pt":
-            "i18n Starter é um tema simples do Astro para criar sites multilíngues. Suporta o recurso i18n do Astro v4.0.",
-        })
-      }
-    </p>
-
-    <p>
-      <a
-        href={`https://docs.astro.build/${locale}/guides/internationalization/`}
-        target="_blank"
-      >
-        Internationalization (i18n) Routing | Astro Docs
-        <span class="material-icons-sharp">open_in_new</span>
-      </a>
-    </p>
-
-    <p>
-      {
-        t({
-          es: "Básicamente, solo se admite el esquema de URL de subdirectorios. Se gestiona mediante la URL de la siguiente manera para cada idioma. La URL raíz se redirige al idioma predeterminado especificado.",
-          en: "Basically, only the subdirectory URL scheme is supported. It is managed by the URL as follows for each language. The root URL is redirected to the specified default language.",
-          "pt":
-            "Basicamente, apenas o esquema de URL de subdiretório é suportado. Ele é gerenciado pela URL da seguinte forma para cada idioma. A URL raiz é redirecionada para o idioma padrão especificado.",
-        })
-      }
-    </p>
-
-    <ul>
-      <li>example.com/en/</li>
-      <li>example.com/ja/</li>
-    </ul>
-
-    <h2>
-      {
-        t({
-          es: "Funcionalidad",
-          en: "Feature",
-          "pt": "Recurso",
-        })
-      }
-    </h2>
-
-    <ul>
-      <li>
-        {
-          t({
-            es: "Soporte para la funcionalidad i18n oficial de Astro",
-            en: "support for Astro's official i18n feature",
-            "pt": "Suporte para o recurso i18n oficial do Astro",
-          })
-        }
-      </li>
-      <li>
-        {
-          t({
-            es: "Diversos métodos de gestión para páginas multilingües",
-            en: "Various management methods for multilingual pages",
-            "pt": "Vários métodos de gerenciamento para páginas multilíngues",
-          })
-        }
-      </li>
-      <li>Pure CSS</li>
-      <li>
-        {
-          t({
-            es: "Amigable para SEO",
-            en: "SEO friendly",
-            "pt": "Amigável para SEO",
-          })
-        }
-      </li>
-    </ul>
-
-    <h2>
-      {
-        t({
-          en: "Getting Started",
-          es: "Empezando",
-          "pt": "Começando",
-        })
-      }
-    </h2>
-
-    <p>
-      {
-        t({
-          es: "¡Vamos a empezar!",
-          en: "Let's get started!",
-          "pt": "Vamos começar!",
-        })
-      }
-    </p>
-
-    <p>
-      <a href={getRelativeLocaleUrl(locale, "setup")}>
-        {t({ es: "Configuración", en: "Setup", "pt": "Configuração" })}
-      </a>
-    </p>
 </Layout>
-
-
-<style>
-  /* body {
-    &::before {
-      content: "translate";
-      font-family: "Material Icons Sharp";
-      position: fixed;
-      inset: -2vw -2vw auto auto;
-      font-size: 20vw;
-      line-height: 1;
-      pointer-events: none;
-      color: var(--color-accent);
-      z-index: -1;
-      opacity: 0.2;
-      filter: blur(1px);
-    }
-    @media (width < 800px) {
-      &::before {
-        display: none;
-      }
-    }
-  } */
-  ul {
-    margin-block-start: var(--sp-s);
-    list-style: disc;
-    padding-inline-start: 1em;
-  }
-
-  h2 {
-    color: var(--color-theme);
-    margin-block-start: var(--sp-l);
-  }
-</style>

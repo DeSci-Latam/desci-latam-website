@@ -1,10 +1,13 @@
+/* @import "reset"; */
+@import "layout";
+@import "base";
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "layout";
-@import "base";
-@import "reset";
 
 
  
