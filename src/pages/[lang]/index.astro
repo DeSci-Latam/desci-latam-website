@@ -1,0 +1,179 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import Layout from "@/layouts/Base.astro";
+const t = useTranslations(Astro.currentLocale as Lang);
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import heroImageEs from "@/assets/es/hero.svg";
+import heroImageEn from "@/assets/en/hero.svg";
+import heroImageptBR from "@/assets/pt/hero.svg";
+import { Image } from "astro:assets";
+
+const locale = Astro.currentLocale as Lang;
+
+export const getStaticPaths = () =>
+  Object.keys(LOCALES).map((lang) => ({
+    params: { lang },
+  }));
+---
+
+<Layout>
+  {
+    locale === "es" ? (
+      <Image src={heroImageEs} alt="こんにちは" />
+    ) : locale === "pt" ? (
+      <Image src={heroImageptBR} alt="你好" />
+    )   : (
+      <Image src={heroImageEn} alt="Hello" />
+    )
+  }
+
+  <h1>
+    {
+      t({
+        es: "Ciencia descentralizada2 ",
+        en: "i18n Starter is a simple Astro theme for creating multilingual websites. It supports i18n feature from Astro v4.0.",
+        "pt":
+          "i18n Starter é um tema simples do Astro para criar sites multilíngues. Suporta o recurso i18n do Astro v4.0.",
+      })
+    }
+  </h1>
+
+    <p>
+      {
+        t({
+          es: "i18n Starter es un tema sencillo de Astro para crear sitios web multilingües. Soporta la funcionalidad i18n de Astro v4.0.",
+          en: "i18n Starter is a simple Astro theme for creating multilingual websites. It supports i18n feature from Astro v4.0.",
+          "pt":
+            "i18n Starter é um tema simples do Astro para criar sites multilíngues. Suporta o recurso i18n do Astro v4.0.",
+        })
+      }
+    </p>
+
+    <p>
+      <a
+        href={`https://docs.astro.build/${locale}/guides/internationalization/`}
+        target="_blank"
+      >
+        Internationalization (i18n) Routing | Astro Docs
+        <span class="material-icons-sharp">open_in_new</span>
+      </a>
+    </p>
+
+    <p>
+      {
+        t({
+          es: "Básicamente, solo se admite el esquema de URL de subdirectorios. Se gestiona mediante la URL de la siguiente manera para cada idioma. La URL raíz se redirige al idioma predeterminado especificado.",
+          en: "Basically, only the subdirectory URL scheme is supported. It is managed by the URL as follows for each language. The root URL is redirected to the specified default language.",
+          "pt":
+            "Basicamente, apenas o esquema de URL de subdiretório é suportado. Ele é gerenciado pela URL da seguinte forma para cada idioma. A URL raiz é redirecionada para o idioma padrão especificado.",
+        })
+      }
+    </p>
+
+    <ul>
+      <li>example.com/en/</li>
+      <li>example.com/ja/</li>
+    </ul>
+
+    <h2>
+      {
+        t({
+          es: "Funcionalidad",
+          en: "Feature",
+          "pt": "Recurso",
+        })
+      }
+    </h2>
+
+    <ul>
+      <li>
+        {
+          t({
+            es: "Soporte para la funcionalidad i18n oficial de Astro",
+            en: "support for Astro's official i18n feature",
+            "pt": "Suporte para o recurso i18n oficial do Astro",
+          })
+        }
+      </li>
+      <li>
+        {
+          t({
+            es: "Diversos métodos de gestión para páginas multilingües",
+            en: "Various management methods for multilingual pages",
+            "pt": "Vários métodos de gerenciamento para páginas multilíngues",
+          })
+        }
+      </li>
+      <li>Pure CSS</li>
+      <li>
+        {
+          t({
+            es: "Amigable para SEO",
+            en: "SEO friendly",
+            "pt": "Amigável para SEO",
+          })
+        }
+      </li>
+    </ul>
+
+    <h2>
+      {
+        t({
+          en: "Getting Started",
+          es: "Empezando",
+          "pt": "Começando",
+        })
+      }
+    </h2>
+
+    <p>
+      {
+        t({
+          es: "¡Vamos a empezar!",
+          en: "Let's get started!",
+          "pt": "Vamos começar!",
+        })
+      }
+    </p>
+
+    <p>
+      <a href={getRelativeLocaleUrl(locale, "setup")}>
+        {t({ es: "Configuración", en: "Setup", "pt": "Configuração" })}
+      </a>
+    </p>
+</Layout>
+
+
+<style>
+  /* body {
+    &::before {
+      content: "translate";
+      font-family: "Material Icons Sharp";
+      position: fixed;
+      inset: -2vw -2vw auto auto;
+      font-size: 20vw;
+      line-height: 1;
+      pointer-events: none;
+      color: var(--color-accent);
+      z-index: -1;
+      opacity: 0.2;
+      filter: blur(1px);
+    }
+    @media (width < 800px) {
+      &::before {
+        display: none;
+      }
+    }
+  } */
+  ul {
+    margin-block-start: var(--sp-s);
+    list-style: disc;
+    padding-inline-start: 1em;
+  }
+
+  h2 {
+    color: var(--color-theme);
+    margin-block-start: var(--sp-l);
+  }
+</style>

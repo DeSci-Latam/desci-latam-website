@@ -1,0 +1,143 @@
+---
+import { LOCALES, localeParams, useTranslations, type Lang } from "@/i18n";
+import Layout from "@/layouts/Base.astro";
+const t = useTranslations(Astro.currentLocale as Lang);
+
+
+const title = t({
+  es: "Página no encontrada",
+  en: "Page Not Found",
+  "pt": "Página não encontrada",
+}); 
+
+export const getStaticPaths = () => localeParams;
+---
+
+<Layout {title}>
+  <section class="container">
+    <h1>
+      <b>404</b>
+      {title}
+    </h1>
+
+    <p>
+      {
+        t({
+          es: "La página que estás buscando no se pudo encontrar. Por favor, volvé al inicio o intentá con otro idioma.",
+          en: "The page you are looking for could not be found. Please return to the top or try another language.",
+          "pt": "A página que você está procurando não pôde ser encontrada. Por favor, volte para o topo ou tente outro idioma.",
+        })
+      }
+    </p>
+
+    <a href="/" class="gotop">
+      {
+        t({
+          es: "Página Principal",
+          en: "Top Page",
+          "pt": "Página Inicial",
+        })
+      }
+    </a>
+
+    <section class="langList">
+      <h2>
+        {
+          t({
+            es: "Ver en otros idiomas",
+            en: "View in other languages",
+            "pt": "Ver em outros idiomas",
+          })
+        }
+      </h2>
+
+      <ul>
+        {
+          Object.entries(LOCALES).map(([lang, { label }]) => (
+            <li>
+              <a
+                href={`/${lang}/`}
+                data-lang-path={lang}
+                onclick={`setLang("${lang}")`}
+                dir={LOCALES[lang].dir || null}
+              >
+                {label} asda
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </section>
+</Layout>
+
+<script is:inline>
+  // todo comment
+  if (localStorage.userAccessPath) {
+    history.replaceState("", "", localStorage.userAccessPath);
+
+    document.querySelectorAll("a[data-lang-path]").forEach((a) => {
+      const pathnames = localStorage.userAccessPath.split("/");
+      const lang = a.getAttribute("data-lang-path");
+      pathnames[1] = lang;
+      a.href = pathnames.join("/");
+    });
+
+    localStorage.removeItem("userAccessPath");
+  }
+
+  function setLang(lang) {
+    localStorage.selectedLang = lang;
+  }
+</script>
+
+<style>
+  .container {
+    text-align: center;
+    border: 4px dotted color-mix(in srgb, var(--color-caution) 40%, transparent);
+    padding: var(--sp-l);
+    border-radius: 16px;
+  }
+
+  .container > h1 {
+    color: var(--color-caution);
+    font-size: 2rem;
+    b {
+      display: block;
+      font-size: 4em;
+      font-weight: 900;
+      letter-spacing: -0.1em;
+      opacity: 0.6;
+    }
+  }
+
+  .container > p {
+    margin-block-start: var(--sp-s);
+  }
+
+  .gotop {
+    display: inline-block;
+    margin-inline: auto;
+    margin-block-start: var(--sp-s);
+    padding: 0.5em 1.5em;
+    border-radius: 999px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: var(--color-theme);
+    color: var(--color-base);
+  }
+
+  .langList {
+    margin-top: var(--sp-l);
+    ul {
+      margin-top: var(--sp-s);
+      display: flex;
+      gap: var(--sp-s);
+      justify-content: center;
+    }
+    a {
+      color: var(--color-theme);
+      text-decoration: underline;
+    }
+  }
+</style>
