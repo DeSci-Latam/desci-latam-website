@@ -4,10 +4,14 @@ import Layout from "@/layouts/Base.astro";
 const t = useTranslations(Astro.currentLocale as Lang);
 import { getRelativeLocaleUrl } from "astro:i18n";
 
-import heroImageEs from "@/assets/es/hero.svg";
+import heroImageEs from "@/assets/images/home/mariposa.png";
 import heroImageEn from "@/assets/en/hero.svg";
-import heroImageptBR from "@/assets/pt/hero.svg";
+import heroImageptBR from "@/assets/images/home/mariposa.png";
 import { Image } from "astro:assets";
+/* 
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { Icon } from "astro-icon/components"; */
 
 const locale = Astro.currentLocale as Lang;
 
@@ -18,15 +22,152 @@ export const getStaticPaths = () =>
 ---
 
 <Layout>
+
+  
   {
     locale === "es" ? (
       <Image src={heroImageEs} alt="こんにちは" />
     ) : locale === "pt" ? (
       <Image src={heroImageptBR} alt="你好" />
-    )   : (
+    )   :  (
       <Image src={heroImageEn} alt="Hello" />
     )
   }
+
+
+<section class="space-y-6 pt-8 lg:py-28 flex  ">
+  <div
+    class="container  flex flex-wrap-reverse justify-center lg:flex-nowrap  gap-5 "
+  >
+  <div class="pl-8 pt-8">
+  <h1
+      class="font-heading text-4xl text-6xl font-red pb-[1.5rem] sm:text-5xl md:text-6xl lg:text-7xl !leading-[1.1] text-balance"
+    >
+    En el corazón de la evolución cientifica
+    </h1>
+    <p
+      class="max-w-[42rem] leading-normal text-lg md:text-2xl font-parraf text-muted-foreground sm:text-xl sm:leading-8 text-balance pb-[1.5rem]"
+    >
+    Nuestro propósito es impulsar los 
+    principios de la descentralización para 
+    construir un ecosistema científico 
+    colaborativo y accesible para todos 
+    en américa latina.
+    </p>
+    <div class="flex">
+      <!--   <a
+        href="https://www.youtube.com/@descilatam/"
+        class={cn(buttonVariants({ variant: "default", size: "lg" }))}
+        target="_blank"
+      >
+        Miranos en <Icon name="youtube" class="ml-2 size-4" />
+      </a>
+        <a
+        href="https://x.com/descilatam"
+        class={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+        target="_blank"
+      > -->
+     <!--    Seguinos en <Icon name="twitter" class="ml-2 size-4" /> -->
+      </a>
+</div>
+  </div>
+<img src="/images/home/mariposa.png" ></img>
+  </div>
+</section>
+
+<h1 class="text-3xl font-bold underline">
+  Hello world!
+</h1>
+
+<p class="text-3xl font-bold underline">
+  Hello world!
+</p>
+
+<section class="space-y-6 py-12 flex ">
+  <div class="container flex justify-center text-ghost border rounded-[50px] p-8 hover:cursor-pointer hover:text-primary">
+    <a>
+      <p>¿Interesado en convertirte en nuestro patrocinador? Obtén más detalles aquí.
+      </p>
+    </a>
+</div>
+</section>
+
+<section class="space-y-6 pb-12 pt-16 lg:py-28 ">
+  <div class="container flex flex-auto flex-wrap justify-between pr-4 p-16 ">
+    <div>
+      <img src="/images/home/astronauta.png"  ></img>
+        </div>
+    <div class="max-w-[60rem]">
+    <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+    >
+    ¿Qué es la ciencia 
+descentralizada?
+    </h2>
+    <p    class=" leading-normal text-lg md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
+      La ciencia descentralizada es más que una tendencia; es un cambio de paradigma. Se trata de 
+      democratizar el conocimiento científico, poniéndolo al alcance de todos. En este movimiento, la colaboración global es clave, permitiendo que investigadores de todas partes contribuyan al avance del conocimiento. </div>
+ 
+</div>
+  </section>
+
+<section class="space-y-6 pb-12 pt-16 lg:py-28 justify-center p-4 ">
+  <div class=" container bg-[#212739] p-10 md:p-16  rounded-[50px] flex flex-auto justify-between flex-wrap  gap-5 ">
+    <div class="w-[60rem]">
+    <h2   class="font-heading text-primary text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+    >
+    Tecnología al servicio 
+    </h2>
+    <p    class=" text-white leading-normal md:text-2xl text-lg  sm:text-xl sm:leading-8 text-balance pb-6">
+    
+
+      Nos apoyamos en tecnologías innovadoras como blockchain y redes distribuidas para impulsar la 
+      transparencia en todas las etapas del proceso científico. Desde la recopilación de datos hasta la 
+      publicación de resultados, buscamos asegurar la reproducibilidad de los experimentos y hallazgos 
+      científicos, sentando así las bases para un avance más sólido y confiable en la ciencia.   </div>
+  <div>
+    <img src="/images/home/pes.png"  ></img>
+      </div>
+</div>
+  </section>
+
+
+  <section class="space-y-6 pb-12 pt-16 lg:py-28 ">
+    <div class="container flex flex-auto flex-wrap justify-between pr-4 p-16 ">
+      <div>
+        <img src="/images/home/cientifica.png"  ></img>
+          </div>
+      <div class="max-w-[60rem]">
+      <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+      >
+      Únete a nosotros en
+      esta misión
+      </h2>
+      <p    class=" leading-normal md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
+        Te invitamos a ser parte de esta revolución científica. En DesciLatam, fortalecemos a todas las comunidades, fomentando una participación activa en la investigación para beneficio de la humanidad. Juntos, podemos cambiar el mundo, un experimento a la vez.</p>   </div>
+      </div>
+    </section>
+
+    <section class="space-y-6 pb-12 pt-16 lg:py-28 p-4">
+      <div class=" container bg-[#212739] p-8 md:p-16  rounded-[50px] flex flex-auto justify-between flex-wrap  gap-5 ">
+        <div class="w-[60rem]">
+        <h2   class=" font-heading text-primary text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+        >
+        Un enfoque desde la 
+        teoría del caos</h2>
+        <p    class=" text-white leading-normal md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
+        
+  
+          En DesciLatam, abrazamos la teoría del  caos y comprendemos el poder de las pequeñas acciones en sistemas complejos. Creemos en el impacto transformador de las contribuciones individuales en el avance de la ciencia. Al igual que el aleteo de una mariposa puede desencadenar una serie de eventos que provoquen un cambio gigante en otro lugar, estamos convencidos de que cada aporte cuenta en la construcción de un futuro científico más brillante para la humanidad. </p>
+        </div>
+      <div>
+        <img src="/images/home/mariposa-2.png"  ></img>
+          </div>
+    </div>
+      </section>
+
+
+
+
 
   <h1>
     {
