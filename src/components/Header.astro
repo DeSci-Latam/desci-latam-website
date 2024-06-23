@@ -7,7 +7,7 @@ import { useTranslations, type Lang } from "@/i18n";
 import { getRelativeLocaleUrl } from "astro:i18n";
 const t = useTranslations(Astro.currentLocale as Lang);
 
-import AstroImage from "@/assets/desci-arg-logo.svg";
+import AstroImage from "@/assets/logo/logo.svg";
 
 const locale = Astro.currentLocale as Lang;
 
@@ -21,6 +21,7 @@ const isActive = (path: string) =>
   <h1 dir="ltr">
     <a href={getRelativeLocaleUrl(locale, "/")}>
       <Image src={AstroImage} alt="DeSci LATAM Logo" />
+      DeSci LATAM
     </a>
   </h1>
   <LocaleSelect />
@@ -115,19 +116,15 @@ const isActive = (path: string) =>
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-inline-size: 800px;
-    margin-top: 50px;
+    max-inline-size: 1280px;
+    margin-top: 25px;
     margin-bottom: 25px;
   padding-inline: var(--sp-m);
   margin-inline: auto;
 }
   }
 
- /*  header {
-    display: grid;
-    place-items: center;
-    gap: var(--sp-s);
-  } */
+ 
 
   h1 {
     margin-block-start: var(--sp-l);
