@@ -1,0 +1,82 @@
+---
+import { getCategories } from "@/lib/fetchers";
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import { cn } from "@/lib/utils";
+import Layout from "@/layouts/Base.astro";
+const t = useTranslations(Astro.currentLocale as Lang);
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const { title, type } = Astro.props;
+const categories = await getCategories(type);
+
+type Props = {
+  title: string;
+  type?: string;
+};
+
+const { category } = Astro.params;
+
+const locale = Astro.currentLocale as Lang;
+
+export const getStaticPaths = () =>
+  Object.keys(LOCALES).map((lang) => ({
+    params: { lang },
+  }));
+---
+
+
+<h1 class="inline-block font-heading text-4xl">{title}</h1>
+
+<div class="flex items-start justify-between my-6 max-md:gap-4">
+ <!--  <div
+    class="flex items-center lg:w-full max-w-xs h-10 rounded-md px-2 lg:px-3 border text-muted-foreground"
+  >
+    <Icon name="ri:search-line" class="size-5" />
+    <span class="text-sm ml-2 hidden lg:flex">Search (coming soon)</span> 
+     -->
+     <div flex items-center lg:w-full max-w-xs h-10 rounded-md px-2 lg:px-3 border text-muted-foreground>
+  </div>
+
+  {console.log(categories)}
+
+
+  {
+    categories?.length ? (
+      <ul class="flex snap-x snap-mandatory overflow-auto items-center space-x-2 lg:space-x-2.5 pb-2">
+        <li class="flex-shrink-0 snap-start">
+          <a
+            href={`/${locale}/${type ?? "blog"}`}
+            class={cn(
+              !category ? "select-none" : "",
+             ({
+                variant: !category ? "default" : "outline",
+              })
+            )}
+          >
+            All posts
+          </a>
+        </li>
+        {categories.map((item) => (
+          <li class="flex-shrink-0 snap-start">
+            <a
+              href={`/${locale}/${type ?? "blog"}/category/${item}`}
+              class={cn(
+                "capitalize",
+                item === category ? "select-none" : "",
+              ({
+                  variant: item === category ? "default" : "outline",
+                })
+              )}
+            >
+              {item}
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div />
+    )
+  }
+</div>
+
+<hr class="mb-7" />

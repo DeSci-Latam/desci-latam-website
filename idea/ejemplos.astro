@@ -1,4 +1,14 @@
+
 <p>
+  <a
+    href={`https://docs.astro.build/${Astro.currentLocale}/guides/content-collections/`}
+    target="_blank"
+  >
+    Content Collection | Astro Docs
+    <span class="material-icons-sharp"> open_in_new </span>
+  </a>
+</p>
+
     <a
       href={`https://docs.astro.build/${locale}/guides/internationalization/`}
       target="_blank"
@@ -6,7 +16,7 @@
       Internationalization (i18n) Routing | Astro Docs
       <span class="material-icons-sharp">open_in_new</span>
     </a>
-  </p>
+ 
 
 
   <p>
@@ -14,3 +24,24 @@
       {t({ es: "Configuración", en: "Setup", "pt": "Configuração" })}
     </a>
   </p>
+
+  <a
+    href="https://github.com/psephopaiktes/astro-i18n-starter"
+    target="_blank"
+    class="github"
+  >
+    GitHub
+    <span class="material-icons-sharp">open_in_new</span>
+  </a>
+
+  <ul>
+    <LocalesHomeList />
+  </ul>
+
+
+---
+title: 'First post ES'
+description: 'Lorem ipsum dolor sit amet'
+date: 2024-04-02
+cover: "./cover.png"
+---

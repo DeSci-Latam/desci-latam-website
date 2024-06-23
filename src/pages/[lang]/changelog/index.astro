@@ -1,22 +1,22 @@
 ---
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
-import ListCategories from "@/components/ListCategories";
 import Layout from "@/layouts/Base";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import PageHeadline from "@/components/PageHeadline";
+import BlogHeader from "@/components/ui/blog-header";
 
 const locale = Astro.currentLocale as Lang;
 const t = useTranslations(locale);
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection("changelog"))
   .filter((post) => post.slug.split("/")[0] === locale)
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
 const title = t({
   es: "Blog",
   en: "Blog",
-  pt: "Blog",
+  "pt": "Blog",
 });
 
 export const getStaticPaths = () =>
@@ -27,9 +27,27 @@ export const getStaticPaths = () =>
 
 <Layout {title}>
   <PageHeadline {title} />
+  <BlogHeader title="Blog" />
+  <p>
+    {
+      t({
+        ja: "ブログやニュースコンテンツを管理したい場合のサンプルです。Astroのコンテンツコレクションを利用しています。",
+        en: "A sample for managing blog or news content. It uses Astro's content collection.",
+        "zh-cn": "用于管理博客或新闻内容的示例。它使用了Astro的内容集合。",
+        ar: "عينة لإدارة محتوى المدونة أو الأخبار. يستخدم مجموعة محتويات Astro.",
+      })
+    }
+  </p>
 
-  <ListCategories />
-
+  <p>
+    <a
+      href={`https://docs.astro.build/${Astro.currentLocale}/guides/content-collections/`}
+      target="_blank"
+    >
+      Content Collection | Astro Docs
+      <span class="material-icons-sharp"> open_in_new </span>
+    </a>
+  </p>
 
   <ul>
     {
