@@ -21,13 +21,40 @@
    	"pagefind": "^1.0.3",
 
     
+     "@tailwindcss/typography": "0.5.10",
+
+     "@typescript-eslint/parser": "^6.16.0",
+     
+     "eslint": "^8.56.0",
+     "eslint-plugin-astro": "^0.31.0",
+     "eslint-plugin-jsx-a11y": "^6.8.0",
+     "husky": "^8.0.3",
+     "lint-staged": "^15.2.0",
+     "mdast-util-to-string": "^4.0.0",
+ 
+     "prettier": "^3.0.3",
+     "prettier-config-standard": "^7.0.0",
+     "prettier-plugin-astro": "^0.12.0",
+
+
+
+
     "slugify": "^1.6.6",
     "clsx": "2.0.0",
     "motion": "^10.16.4",
 
 
+
     "tailwindcss": "^3.4.4",
 		"tailwind-merge": "2.0.0",
     "typescript": "^5.5.2"
-  }
+
+    
+  },
+	
+	"lint-staged": {
+		"*.{astro,js,jsx,ts,tsx,md,mdx,json}": [
+			"prettier --write --plugin-search-dir=."
+		]
+	}
 }
