@@ -6,7 +6,7 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dev-descilatam.vercel.app',
+ /*  site: 'https://dev-descilatam.vercel.app', */
   
   integrations: [mdx({
     syntaxHighlight: 'shiki',
