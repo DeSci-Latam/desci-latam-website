@@ -12,7 +12,6 @@ const localeDescription = description || t(SITE_DESCRIPTION);
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Header2 from "@/components/Header2";
 import LocaleSuggest from "@/components/i18n/LocaleSuggest";
 
 import ProviderTheme from '@/components/ProviderTheme'
@@ -36,9 +35,7 @@ import ProviderAnimations from '@/components/ProviderAnimations'
 			class='px-5 sm:mx-auto sm:max-w-2xl sm:px-8 lg:px-0 antialiased md:max-w-6xl grid gap-12 mt-4 overflow-hidden md:overflow-visible'
 		>
   <LocaleSuggest />
-    <Header2 />
     <Header />
-
     <!-- <main class="l-main l-content"> -->
       <slot />
     <Footer />
