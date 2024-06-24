@@ -1,13 +1,22 @@
 ---
 // Footer UI displayed on each page.
-import LocalesHomeList from "@/components/i18n/LocalesHomeList.astro";
+/* import LocalesHomeList from "@/components/i18n/LocalesHomeList"; */
 import { useTranslations, type Lang } from "@/i18n";
 const t = useTranslations(Astro.currentLocale as Lang);
 ---
 
 <footer class="l-footer">
-  <a class="copy" href="https://x.com/crypton_nahue" target="_blank">
-    Creado en comunidad.
+  <a class="copy" href="https://x.com/descilatam" target="_blank">
+    
+
+    {
+      t({
+        es: "Creado en comunidad.",
+        en: "Created in community.",
+        pt: "Criado em comunidade.",
+      })
+    }
+
   </a>
 </footer>
 

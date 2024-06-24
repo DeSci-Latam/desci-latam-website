@@ -1,6 +1,6 @@
 ---
 import { LOCALES, localeParams, useTranslations, type Lang } from "@/i18n";
-import Layout from "@/layouts/Base.astro";
+import Layout from "@/layouts/Base";
 const t = useTranslations(Astro.currentLocale as Lang);
 
 
@@ -61,7 +61,7 @@ export const getStaticPaths = () => localeParams;
                 onclick={`setLang("${lang}")`}
                 dir={LOCALES[lang].dir || null}
               >
-                {label} asda
+                {label} 
               </a>
             </li>
           ))
@@ -86,9 +86,11 @@ export const getStaticPaths = () => localeParams;
     localStorage.removeItem("userAccessPath");
   }
 
-  function setLang(lang) {
+/*   function setLang(lang) {
     localStorage.selectedLang = lang;
-  }
+  } */
+
+
 </script>
 
 <style>

@@ -1,8 +1,8 @@
 ---
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
-import Layout from "@/layouts/Base.astro";
+import Layout from "@/layouts/Base";
 const t = useTranslations(Astro.currentLocale as Lang);
-import { getRelativeLocaleUrl } from "astro:i18n";
+
 
 /* import heroImageEs from "@/assets/images/home/mariposa.png";
 import heroImageEn from "@/assets/en/hero.svg";
@@ -24,7 +24,9 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Icon } from "astro-icon/components"; */
 
-const locale = Astro.currentLocale as Lang;
+
+/* import { getRelativeLocaleUrl } from "astro:i18n"; */
+/* const locale = Astro.currentLocale as Lang; */
 
 export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({

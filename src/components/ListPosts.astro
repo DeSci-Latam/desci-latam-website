@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { getCollection } from "astro:content";
-import { LOCALES, useTranslations, type Lang } from "@/i18n";
+/* import { LOCALES, useTranslations, type Lang } from "@/i18n"; */
+import { type Lang } from "@/i18n";
 import PostCard from '@/components/PostCard'
 import { cn } from '@/utils'
 
@@ -13,9 +14,8 @@ type Props = {
 const { FirstBig = false } = Astro.props
 
 
-
 const locale = Astro.currentLocale as Lang;
-const t = useTranslations(locale);
+/* const t = useTranslations(locale); */
 
 const posts = (await getCollection("blog"))
   .filter((post) => post.slug.split("/")[0] === locale)

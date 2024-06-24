@@ -29,9 +29,14 @@ const changelog= defineCollection({
       title: z.string(),
       description: z.string(),
       versionNumber: z.string(),
-      image: z.object({
+      /* cover: z.object({
         src: image(),
         alt: z.string(),
+      }), */
+
+      cover: image()
+      .refine((img) => img.width >= 600, {
+        message: "cover must be at least 600px wide",
       }),
       // Transform string to Date object
       date: z.coerce.date(),
