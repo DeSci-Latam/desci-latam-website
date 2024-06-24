@@ -9,13 +9,21 @@
     "preview": "astro preview",
     "astro": "astro"
   },
+
+
+
   "dependencies": {
+		"@astrojs/rss": "^4.0.6",
+    "astro": "^4.11.0",
+		"astro-font": "^0.0.72"
+	},
+
+  "devDependencies": {
     "@astrojs/check": "^0.7.0",
     "@astrojs/mdx": "^3.1.0",
-    "@astrojs/rss": "^4.0.6",
     "@astrojs/sitemap": "^3.1.5",
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.11.0",
+    "@tailwindcss/typography": "0.5.10",
     "clsx": "2.0.0",
     "motion": "^10.16.4",
     "sharp": "^0.33.4",
@@ -24,7 +32,22 @@
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.2",
     "@pagefind/default-ui": "^1.0.4",
-    "pagefind": "^1.0.3"
+    "pagefind": "^1.0.3",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
+		"eslint-plugin-astro": "^0.31.0",
+		"eslint-plugin-jsx-a11y": "^6.8.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^15.2.0",
+		"mdast-util-to-string": "^4.0.0",
+    "prettier": "^3.0.3",
+		"prettier-config-standard": "^7.0.0",
+		"prettier-plugin-astro": "^0.12.0"
 
-  }
+  },
+  "lint-staged": {
+		"*.{astro,js,jsx,ts,tsx,md,mdx,json}": [
+			"prettier --write --plugin-search-dir=."
+		]
+	}
 }

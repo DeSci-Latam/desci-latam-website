@@ -10,7 +10,7 @@ interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
 	author: 'CryptoNahue', // Site author
-	title: 'Astro Theme OpenBlog', // Site title.
+	title: 'DeSci LATAM Config', // Site title.
 	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', // Description to display in the meta tags
 /* 	lang: 'es', */
 /* 	ogLocale: 'es', */
