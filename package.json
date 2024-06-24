@@ -7,6 +7,9 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "postbuild": "pagefind --site dist",
+		"format:check": "prettier --plugin-search-dir=. --check .",
+		"format": "prettier --plugin-search-dir=. --write .",
     "astro": "astro"
   },
 
