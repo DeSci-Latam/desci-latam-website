@@ -1,9 +1,11 @@
+import db from "@astrojs/db";
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from "@astrojs/react";
 import icon from "astro-icon";
+import vercel from "@astrojs/vercel/serverless";
 import simpleStackForm from "simple-stack-form";
 
 // https://astro.build/config
@@ -22,9 +24,17 @@ export default defineConfig({
     },
     drafts: true,
     gfm: true,
-  }), 
+  }),
+
+  /* mdx({
+    syntaxHighlight: "shiki",
+    shikiConfig: {
+      theme: "github-dark-dimmed",
+    },
+    gfm: true,
+  }), */
   icon(),
-  sitemap(), 
+  sitemap(),
   react(),
   simpleStackForm(),
   tailwind({applyBaseStyles: false,})],
@@ -37,7 +47,9 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
-  output: "hybrid",
+  output: "hybrid",  adapter: vercel({
+    analytics: true,
+  }),
   markdown: {
     drafts: true,
     shikiConfig: {

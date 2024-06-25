@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import Callout from "@/components/callout.astro";
-import MdxCard from "@/components/content/mdx-card.astro";
+import Callout from "@/components/callout";
+import MdxCard from "@/components/content/mdx-card";
 import { cn } from "@/lib/utils";
 import { Image } from "astro:assets";
 

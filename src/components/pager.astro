@@ -29,6 +29,7 @@ export function getPagerForDoc(slug: string) {
 
 // @ts-ignore
 export function flatten(links: { items? }[]) {
+  // @ts-ignore
   return links.reduce((flat, link) => {
     return flat.concat(link.items ? flatten(link.items) : link);
   }, []);
