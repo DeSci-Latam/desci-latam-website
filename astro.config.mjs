@@ -1,4 +1,4 @@
-import db from "@astrojs/db";
+/* import db from "@astrojs/db"; */
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
@@ -35,6 +35,7 @@ export default defineConfig({
   }), */
   icon(),
   sitemap(),
+ /*  db(), */
   react(),
   simpleStackForm(),
   tailwind({applyBaseStyles: false,})],
