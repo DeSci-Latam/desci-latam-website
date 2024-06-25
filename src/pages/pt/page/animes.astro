@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import { AnimesTabs } from "@/components/animes-tabs";
-import MainLayout from "@/layouts/main-layout.astro";
+import MainLayout from "@/layouts/main-layout";
 import { getPlanningAnimes } from "@/lib/graphql";
 
 const data = await getPlanningAnimes();

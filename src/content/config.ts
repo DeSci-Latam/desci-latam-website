@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { CATEGORIES } from '@/data/categories'
 
-/* const blog = defineCollection({
+ const blog2 = defineCollection({
   type: 'content',
   schema: ({ image }) =>
     z.object({
@@ -17,10 +17,10 @@ import { CATEGORIES } from '@/data/categories'
         })
         .optional(),
     }),
-}); */
+}); 
 
 
-/* const changelog= defineCollection({
+ const changelog= defineCollection({
 
   schema: ({ image }) =>
     z.object({
@@ -36,7 +36,7 @@ import { CATEGORIES } from '@/data/categories'
     }),
 });
 
- */
+
 
 const blog = defineCollection({
   // Type-check frontmatter using a schema
@@ -98,7 +98,7 @@ const releases = defineCollection({
     }),
 });
 
-export const collections = { blog, docs, guides, releases };
+export const collections = { blog, blog2, changelog, docs, guides, releases };
 
 
 /* export const collections = { blog , changelog };

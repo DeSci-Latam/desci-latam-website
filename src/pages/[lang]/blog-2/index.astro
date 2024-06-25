@@ -9,7 +9,7 @@ import PageHeadline from "@/components/PageHeadline";
 const locale = Astro.currentLocale as Lang;
 const t = useTranslations(locale);
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection("blog2"))
   .filter((post) => post.slug.split("/")[0] === locale)
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
