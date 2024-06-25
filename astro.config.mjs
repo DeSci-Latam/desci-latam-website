@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from "@astrojs/react";
 import icon from "astro-icon";
-import vercel from "@astrojs/vercel/serverless";
+/* import vercel from "@astrojs/vercel/serverless"; */
 import simpleStackForm from "simple-stack-form";
 
 // https://astro.build/config
@@ -48,9 +48,9 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
-  output: "hybrid",  adapter: vercel({
+ /*  output: "hybrid", */  /* adapter: vercel({
     analytics: true,
-  }),
+  }), */
   markdown: {
     drafts: true,
     shikiConfig: {
