@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css'
+import '../styles/globals.css'
 import { siteConfig } from '@/site-config'
 import { ViewTransitions } from 'astro:transitions'
 
@@ -127,6 +127,13 @@ import { AstroFont } from 'astro-font'
 
 <!-- RSS auto-discovery -->
 <link rel='alternate' type='application/rss+xml' title={siteConfig.title} href='/rss.xml' />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+  rel="stylesheet"
+/>
 
 <AstroFont
 	config={[

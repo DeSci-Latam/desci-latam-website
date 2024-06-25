@@ -2,7 +2,9 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-
+import react from "@astrojs/react";
+import icon from "astro-icon";
+import simpleStackForm from "simple-stack-form";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,11 +20,13 @@ export default defineConfig({
         },
       wrap: true
     },
-    drafts: true
+    drafts: true,
+    gfm: true,
   }), 
-  
+  icon(),
   sitemap(), 
-  
+  react(),
+  simpleStackForm(),
   tailwind({applyBaseStyles: false,})],
  
   i18n: {
@@ -33,7 +37,7 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
- 
+  output: "hybrid",
   markdown: {
     drafts: true,
     shikiConfig: {
