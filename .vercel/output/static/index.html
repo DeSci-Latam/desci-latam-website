@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><title>redirect...</title><noscript><meta http-equiv="refresh" content="0;url=https://desci-latam-website-git-header-descilatam.vercel.app/es/"></noscript><script>(function(){const langs = ["es","en","pt"];
+const baseUrl = "https://desci-latam-website-git-header-descilatam.vercel.app/";
+
+      if (localStorage.selectedLang) {
+        location.href = `${baseUrl + localStorage.selectedLang}/`;
+      } else {
+        const userLang = navigator.language.toLowerCase();
+
+        if (langs.includes(userLang)) {
+          location.href = `${baseUrl + userLang}/`;
+        } else if (langs.includes(userLang.split("-")[0])) {
+          location.href = `${baseUrl + userLang.split("-")[0]}/`;
+        } else {
+          location.href = `${baseUrl + DEFAULT_LOCALE}/`;
+        }
+      }
+    })();</script></head> <body> <h1>redirect...</h1> </body></html>
