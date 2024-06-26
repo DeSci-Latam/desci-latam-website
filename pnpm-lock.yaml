@@ -7557,14 +7557,6 @@ snapshots:
     dependencies:
       has-bigints: 1.0.2
 
-  is-async-function@2.0.0:
-    dependencies:
-      has-tostringtag: 1.0.2
-
-  is-bigint@1.0.4:
-    dependencies:
-      has-bigints: 1.0.2
-
   is-binary-path@2.1.0:
     dependencies:
       binary-extensions: 2.3.0
