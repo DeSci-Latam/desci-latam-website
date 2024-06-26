@@ -8,11 +8,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@/components/*": ["src/components/*.astro"],
+      "@/components/*": ["src/components/*.astro", "src/components/*.tsx" ],
 			"@/layouts/*": ["src/layouts/*.astro"],
 			"@/utils": ["src/utils/index.ts"],
 			"@/data/*": ["src/data/*"],
 			"@/site-config": ["src/data/site.config.ts"],
+      "@/config": ["src/config/*"],
 			"@/styles": ["src/styles/"]
     }
   }

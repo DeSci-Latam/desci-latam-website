@@ -1,6 +1,6 @@
 # VS Code Settings
 .vscode/settings.json
-
+.vercel/
 # build output
 dist/
 # generated types

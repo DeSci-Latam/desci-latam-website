@@ -7,14 +7,14 @@ export const getCategories = async () => {
 }
 
 export const getPosts = async (max?: number) => {
-	return (await getCollection('blog'))
+	return (await getCollection('blog2'))
 		.filter((post) => !post.data.draft)
 		.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 		.slice(0, max)
 }
 
 export const getTags = async () => {
-	const posts = await getCollection('blog')
+	const posts = await getCollection('blog2')
 	const tags = new Set()
 	posts.forEach((post) => {
 		post.data.tags.forEach((tag) => {

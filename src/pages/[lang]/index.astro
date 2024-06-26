@@ -1,8 +1,8 @@
 ---
+import Layout from "@/layouts/Base";
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
-import Layout from "@/layouts/Base.astro";
 const t = useTranslations(Astro.currentLocale as Lang);
-import { getRelativeLocaleUrl } from "astro:i18n";
+
 
 /* import heroImageEs from "@/assets/images/home/mariposa.png";
 import heroImageEn from "@/assets/en/hero.svg";
@@ -24,7 +24,9 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Icon } from "astro-icon/components"; */
 
-const locale = Astro.currentLocale as Lang;
+
+/* import { getRelativeLocaleUrl } from "astro:i18n"; */
+/* const locale = Astro.currentLocale as Lang; */
 
 export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
@@ -248,3 +250,21 @@ export const getStaticPaths = () =>
     </div>
       </section>
 </Layout>
+
+<script>
+	import { animate } from 'motion'
+	const showAnimations = localStorage.getItem('animations') === 'true'
+
+	if (showAnimations) {
+		animate(
+			'.title',
+			{ y: [80, 0], opacity: [0, 1] },
+			{
+				duration: 2.5,
+				opacity: { duration: 3 },
+
+				offset: [0, 0.55, 0.75]
+			}
+		)
+	}
+</script>

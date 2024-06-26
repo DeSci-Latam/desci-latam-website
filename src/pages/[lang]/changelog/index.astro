@@ -4,7 +4,7 @@ import Layout from "@/layouts/Base";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import PageHeadline from "@/components/PageHeadline";
-import BlogHeader from "@/components/ui/blog-header";
+
 
 const locale = Astro.currentLocale as Lang;
 const t = useTranslations(locale);
@@ -27,7 +27,6 @@ export const getStaticPaths = () =>
 
 <Layout {title}>
   <PageHeadline {title} />
-  <BlogHeader title="Blog" />
   <p>
     {
       t({
