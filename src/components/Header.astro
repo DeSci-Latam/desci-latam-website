@@ -6,11 +6,15 @@ import MenuIcon from './icons/MenuIcon.astro'
 import Search from '@/components/Search'
 import TagIcon from './icons/TagIcon.astro'
 import ToggleTheme from './ToggleTheme.astro'
-
+import { ThemeToggle } from "@/components/theme-toggle";
+import { cn } from "@/lib/utils";
 import LocaleSelect from "@/components/i18n/LocaleSelect";
 import { Image } from "astro:assets";
 import { useTranslations, type Lang } from "@/i18n";
 import { getRelativeLocaleUrl } from "astro:i18n";
+
+
+
 const t = useTranslations(Astro.currentLocale as Lang);
 
 import AstroImage from "@/assets/images/logo/logo.svg";
@@ -19,6 +23,9 @@ const locale = Astro.currentLocale as Lang;
 
 const isActive = (path: string) =>
   getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
+
+console.log("Current language:", locale);
+
 
 // ADD YOUR SOCIAL NETWORKS HERE
 const SOCIALNETWORKS = [
@@ -34,17 +41,30 @@ const SOCIALNETWORKS = [
 		icon: TwitterIcon
 	}
 ]
+
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
 ---
 
-<header class='relative flex items-center h-12 font-semibold'>
-	<!-- <a class='text-lg mr-auto' href='/'>Home</a> -->
+<!-- <Header2  > -->
+<!-- sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 -->
+<header class={cn(
+	"flex items-center z-50 sticky top-0 bg-background",
+	className
+  )}/>
 
-	<a class='text-lg mr-auto flex gap-2 items-center' href={getRelativeLocaleUrl(locale, "/")}>
-		<Image src={AstroImage} alt="DeSci LATAM Logo" />
+  <div class="container flex items-center justify-between w-full">
+	<!-- <a class='text-lg mr-auto' href='/'>Home</a> -->
+<div class="flex items-center">
+	<a class='mr-6 flex items-center space-x-2 gap-2 font-bold' href={getRelativeLocaleUrl(locale, "/")}>
+		<Image src={AstroImage} alt="DeSci LATAM Logo" class="h-6 w-6" />
 		DeSci LATAM
 	  </a>
 
-
+<nav class="flex items-center gap-4 text-sm lg:gap-6">
 	  <ul class="flex gap-2">
 		<li>
 		  <a
@@ -103,9 +123,9 @@ const SOCIALNETWORKS = [
 		  </a>
 		</li>
    -->
-		<li>
+		<li class="">
 		  <a
-			href={getRelativeLocaleUrl(locale, "/blog")}
+			href={getRelativeLocaleUrl(locale, "/blog2")}
 			class={isActive("/blog") ? "active" : null}
 		  >
 			{t({ es: "Blog", en: "Blog", "pt": "Blog"})}
@@ -122,24 +142,29 @@ const SOCIALNETWORKS = [
 		  </a>
 		</li> -->
 	  </ul>
-	  <LocaleSelect />
+	</nav>
+
+	</div>
+	
 	<div
 		id='astro-header-drawer'
-		class='shadow rounded-l-lg md:bg-transparent dark:md:bg-transparent bg-white dark:bg-[#0a0910] md:shadow-none md:rounded-none md:border-none md:h-auto md:static absolute transition-transform duration-300 ease-in translate-x-96 md:translate-x-0 top-12 -right-5 pl-4 pt-6 pb-4 md:p-0 h-[200px] w-[200px] z-50'
+		class=' flex items-center shadow rounded-l-lg md:bg-transparent dark:md:bg-transparent bg-white dark:bg-[#0a0910] md:shadow-none md:rounded-none md:border-none md:h-auto md:static absolute transition-transform duration-300 ease-in translate-x-96 md:translate-x-0 top-12 -right-5 pl-4 pt-6 pb-4 md:p-0 h-[200px] w-[200px] z-50'
 	>
+	
+
+<div>
+	
+</div>
+			</div>
+		</nav>
+	</div>
+
+	<div class='flex items-center gap-3 md:pl-3' transition:persist='navbar'>
+		<Search />
+		<LocaleSelect />
 		<nav
 			class='flex h-full flex-col justify-between gap-12 text-left md:flex-row md:w-full md:gap-5'
 		>
-
-
-		
-			<div
-				class='flex flex-col gap-4 md:flex-row md:border-r-2 border-black pr-4 dark:border-white'
-			>
-				<HeaderLink href='/tags' class='flex items-center gap-1 text-2xl md:text-base'>
-					<TagIcon /> Tags
-				</HeaderLink>
-			</div>
 
 			<div class='flex justify-center items-center md:justify-end gap-3 md:p-0'>
 				{
@@ -149,20 +174,14 @@ const SOCIALNETWORKS = [
 						</HeaderLink>
 					))
 				}
-			</div>
-		</nav>
-	</div>
-
-	<div class='flex items-center gap-3 md:pl-3' transition:persist='navbar'>
-		<div>
-			<Search />
-		</div>
-		<ToggleTheme />
+		<ThemeToggle client:load />
+	<!-- 	<ToggleTheme /> -->
 		<button id='astro-header-drawer-button' type='button' class='md:ml-6 md:hidden'>
 			<MenuIcon />
 			<span class='sr-only'>Show Menu</span>
 		</button>
 	</div>
+</div>
 </header>
 <!-- 
 
@@ -237,7 +256,8 @@ const SOCIALNETWORKS = [
 		letter-spacing: 0.05em;
 		padding-block: 0.2em;
 		padding-inline: 0.4em;
-		color: var(--color-theme);
+	/* 	color: var(--color-theme); */
+		color: red;
 		border-radius: 4px;
 		&:hover,
 		&:active {
@@ -251,6 +271,7 @@ const SOCIALNETWORKS = [
 			position: absolute;
 			inset: 100% 0.4em 0;
 			height: 0.2em;
+			color: blue !important;
 			background: var(--color-theme);
 			border-radius: 0.1em;
 		  }
@@ -263,7 +284,7 @@ const SOCIALNETWORKS = [
 	  }
 	}
   </style>
-   -->
+ -->
 
 
 <script>
