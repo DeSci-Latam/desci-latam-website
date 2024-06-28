@@ -5,17 +5,43 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
 
 import { useTranslations, LOCALES, getLocalePaths, type Lang } from "@/i18n";
 const t = useTranslations(Astro.currentLocale as Lang);
-const { title, description, image, articleDate } = Astro.props
+
+const { title, description, image, articleDate, mainClass } = Astro.props
+
 const locale = Astro.currentLocale as Lang;
 const localeTitle = title ? `${title} - ${t(SITE_TITLE)}` : t(SITE_TITLE);
 const localeDescription = description || t(SITE_DESCRIPTION);
 
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+/* import Header from "@/components/Header"; */
 import LocaleSuggest from "@/components/i18n/LocaleSuggest";
 
 import ProviderTheme from '@/components/ProviderTheme'
 import ProviderAnimations from '@/components/ProviderAnimations'
+import TailwindIndicator from "@/components/tailwind-indicator";
+
+// Shadcn
+import Header from "@/components/layout/header";
+import { MainNavigationMenu } from "@/components/main-navigation-menu-mio";
+import { Toaster } from "sonner";
+import { cn } from "@/lib/utils";
+import { SheetMobileNav } from "@/components/layout/sheet-mobile-nav";
+import { navMenuConfig } from "@/config/nav-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { siteConfig } from "@/config/site";
+import { Icon } from "astro-icon/components";
+
+
+type Props = {
+  title?: string;
+  image?: string;
+  description?: string;
+  articleDate?: string;
+  mainClass?: string;
+};
+
+
+
 
 
 ---
@@ -31,20 +57,69 @@ import ProviderAnimations from '@/components/ProviderAnimations'
 <body class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white'>
     
   
-  <main
-			class='px-5 sm:mx-auto sm:max-w-2xl sm:px-8 lg:px-0 antialiased md:max-w-6xl grid gap-12 mt-4 overflow-hidden md:overflow-visible'
-		>
+  <main>
   <LocaleSuggest />
-    <Header />
+   
     <!-- <main class="l-main l-content"> -->
-      <slot />
+    <!--   <Header  class={cn(
+        "flex items-center h-16 md:h-18 z-50 sticky top-0 bg-background",
+        className
+      )}/> -->
+      <Header className="border-b">
+
+       
+        <!-- if using only normals links  -->
+        <!-- <MainNav items={marketingConfig.mainNav} slot="left-header" />
+        <SheetMobileNav
+          mainNavItems={marketingConfig.mainNav}
+          slot="mobile-nav-header"
+          client:load
+        /> -->
+    
+        <!-- if use Navigation Menu on desktop -->
+       <!--  <MainNavigationMenu slot="left-header" client:load />
+        
+        <SheetMobileNav
+          mainNavItems={[...navMenuConfig.links]}
+          sidebarNavItems={[
+            ...navMenuConfig.pagesNav,
+            ...navMenuConfig.examplesNav,
+          ]}
+          slot="mobile-nav-header"
+          client:load
+        /> -->
+    
+      <!--   <div class="flex items-center gap-x-4" slot="right-header">
+          <a
+            href={siteConfig.links.github}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="github"
+          >
+            <Icon name="github" class="size-[22px]" />
+          </a>
+          <ThemeToggle client:load />
+        </div> -->
+      </Header>
+     
+
+      <main class={cn(mainClass)}>
+        <slot />
+      </main>
+    
+      <Footer />
+    </BaseLayout>
+
+
     <Footer />
   </main>
-  <style>
+  <TailwindIndicator />
+  <Toaster richColors client:only="react" />
+ <!--  <style>
     body {
-      margin-left: calc(100vw - 100%); /* prevent layout shift */
+      margin-left: calc(100vw - 100%); 
     }
-  </style>
-    { import.meta.env.DEV && <style>:root { scroll-behavior: auto }</style> }
+  </style> 
+    { import.meta.env.DEV && <style>:root { scroll-behavior: auto }</style> }-->
   </body>
 </html>
