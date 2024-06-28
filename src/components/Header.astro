@@ -68,23 +68,23 @@ const { className } = Astro.props;
 	  <ul class="flex gap-2">
 		<li>
 		  <a
-			href={getRelativeLocaleUrl(locale, "/setup")}
-			class={isActive("/setup") ? "active" : null}
+			href={getRelativeLocaleUrl(locale, "/asd")}
+			class={isActive("/asd") ? "active" : null}
 		  >
-			{t({ es: "Inicio", en: "Setup", "pt": "Setup" })}
+			{t({ es: "404", en: "404", "pt": "404" })}
 		  </a>
 		</li>
   
 		<li>
 		  <a
-			href={getRelativeLocaleUrl(locale, "/page")}
-			class={isActive("/page") ? "active" : null}
+			href={getRelativeLocaleUrl(locale, "/blog")}
+			class={isActive("/blog") ? "active" : null}
 		  >
 			{
 			  t({
-				es: "Acerca de crecimiento",
-				en: "Add Page",
-				"pt": "Add Page"
+				es: "Blog",
+				en: "Blog",
+				pt: "Blog"
 			  })
 			}
 		  </a>
@@ -92,14 +92,14 @@ const { className } = Astro.props;
   
 		<li>
 		  <a
-			href={getRelativeLocaleUrl(locale, "/feature")}
-			class={isActive("/feature") ? "active" : null}
+			href={getRelativeLocaleUrl(locale, "/blog/category/design")}
+			class={isActive("/blog/category/design") ? "active" : null}
 		  >
 			{
 			  t({
-				es: "Nosotros",
-				en: "Features",
-				"pt": "Features",
+				es: "Ejemplo Categoria",
+				en: "Ejemplo Categoria",
+				pt: "Ejemplo Categoria"
 			  })
 			}
 		  </a>
@@ -125,22 +125,85 @@ const { className } = Astro.props;
    -->
 		<li class="">
 		  <a
-			href={getRelativeLocaleUrl(locale, "/blog2")}
-			class={isActive("/blog") ? "active" : null}
+			href={getRelativeLocaleUrl(locale, "/category/design/1")}
+			class={isActive("/category/design/1") ? "active" : null}
 		  >
-			{t({ es: "Blog", en: "Blog", "pt": "Blog"})}
+		  {
+			t({
+			  es: "Otras Categorias",
+			  en: "Otras Categorias",
+			  pt: "Otras Categorias"
+			})
+		  }
+			
 		  </a>
 		</li>
+
+		<li class="">
+			<a
+			  href={getRelativeLocaleUrl(locale, "/setup")}
+			  class={isActive("/setup") ? "active" : null}
+			>
+			{
+				t({
+				  es: "Pagina .mdx",
+				  en: "Pagina .mdx",
+				  pt: "Pagina .mdx"
+				})
+			  }
+				
+			</a>
+		  </li>
+
+		  <li class="">
+			<a
+			  href={getRelativeLocaleUrl(locale, "/docs/getting-started/")}
+			  class={isActive("/docs/getting-started/") ? "active" : null}
+			>
+			{
+				t({
+				  es: "Docs",
+				  en: "Docs",
+				  pt: "Docs"
+				})
+			  }
+				
+			</a>
+		  </li>
   
-	   <!--  <li>
-		  <a
-			href="https://github.com/psephopaiktes/astro-i18n-starter"
-			target="_blank"
-		  >
-			GitHub
-			<span class="material-icons-sharp">open_in_new</span>
-		  </a>
-		</li> -->
+
+		  <li class="">
+			<a
+			  href={getRelativeLocaleUrl(locale, "/guides")}
+			  class={isActive("/guides") ? "active" : null}
+			>
+			{
+				t({
+				  es: "Guias",
+				  en: "Guias",
+				  pt: "Guias"
+				})
+			  }
+				
+			</a>
+		  </li>
+
+		  <li class="">
+			<a
+			  href={getRelativeLocaleUrl(locale, "/releases")}
+			  class={isActive("/releases") ? "active" : null}
+			>
+			{
+				t({
+				  es: "Releases",
+				  en: "Releases",
+				  pt: "Releases"
+				})
+			  }
+				
+			</a>
+		  </li>
+	 
 	  </ul>
 	</nav>
 
