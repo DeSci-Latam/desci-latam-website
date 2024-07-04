@@ -11,8 +11,8 @@ const { title, description, image, articleDate, mainClass } = Astro.props
 const locale = Astro.currentLocale as Lang;
 const localeTitle = title ? `${title} - ${t(SITE_TITLE)}` : t(SITE_TITLE);
 const localeDescription = description || t(SITE_DESCRIPTION);
-
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/footer";
+/* import Footer from "@/components/Footer"; */
 /* import Header from "@/components/Header"; */
 import LocaleSuggest from "@/components/i18n/LocaleSuggest";
 
@@ -39,9 +39,6 @@ type Props = {
   articleDate?: string;
   mainClass?: string;
 };
-
-
-
 
 
 ---
@@ -109,9 +106,6 @@ type Props = {
     
       <Footer />
     </BaseLayout>
-
-
-    <Footer />
   </main>
   <TailwindIndicator />
   <Toaster richColors client:only="react" />
