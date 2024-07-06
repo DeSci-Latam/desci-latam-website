@@ -3,13 +3,92 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import { getCollection } from "astro:content";
+
+const locale = Astro.currentLocale as Lang;
 
 type Props = CollectionEntry<"blog">;
 
+const posts = (await getCollection("blog"))
+  .filter((post) => post.slug.split("/")[0] === locale)
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+
 const post = Astro.props;
+
 ---
 
+
+{
+  posts.map((post) => {
+    const [, ...slug] = post.slug.split("/");
+    return (
+
 <article class="group space-y-4">
+  <a
+    href={`/${locale}/blog/${post.slug}/`}
+    class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
+  >
+    <Image
+      loading="eager"
+      class="w-full h-full object-cover rounded-xl overflow-hidden"
+      width={720}
+      height={360}
+      src={post.data.cover}
+      alt="descriptive text"
+      transition:name={`img-${post.slug}`}
+    />
+  </a>
+
+  <div class="flex items-center justify-between">
+    <a
+      href={`/${locale}/blog/category/${post.data.category}`}
+      transition:name={"badge-cat-" + post.slug}
+    >
+      <Badge radius="md" className="capitalize">
+        {post.data.category}
+      </Badge>
+    </a>
+    <span
+      class="font-medium text-muted-foreground"
+      transition:name={"pubDate-" + post.slug}
+    >
+      {formatDate(post.data.pubDate)}
+    </span>
+  </div>
+
+  <div>
+    <a href={`/${locale}/blog/${post.slug}/`} class="group-hover:underline">
+      <h2
+        class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
+        transition:name={"title-" + post.slug}
+      >
+        {post.data.title}
+      </h2>
+    </a>
+  </div>
+</article>
+
+
+  /*     <li>
+        <a href={`/${locale}/blog/${slug.join("/")}/`}>
+          {post.data.cover && (
+            <Image src={post.data.cover} alt={post.data.title} />
+          )}
+          <h2>{post.data.title}</h2>
+        </a>
+      </li>
+ */
+
+
+
+    );
+  })
+}
+
+
+
+<!-- <article class="group space-y-4">
   <a
     href={`/blog/${post.slug}/`}
     class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
@@ -52,4 +131,4 @@ const post = Astro.props;
       </h2>
     </a>
   </div>
-</article>
+</article> -->

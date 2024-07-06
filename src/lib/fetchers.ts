@@ -9,13 +9,22 @@ export async function getCategories() {
   return categories;
 }
 
-export async function getPosts() {
+/* export async function getPosts() {
   const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   );
 
   return posts;
+} */
+
+export async function getPosts(locale: string) {
+  const posts = (await getCollection("blog"))
+    .filter((post) => post.slug.startsWith(locale))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  return posts;
 }
+
 
 export async function getPostsByCategory(category: string) {
   const posts = (await getCollection("blog"))
@@ -32,3 +41,5 @@ export async function getGuides() {
 
   return guides;
 }
+
+
