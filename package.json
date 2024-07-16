@@ -83,7 +83,9 @@
     "prettier-plugin-astro": "^0.12.0",
     "mdast-util-toc": "^7.1.0",
     "remark": "^15.0.1",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "postcss": "^8.4.38",
+    "sass": "^1.77.4"
   },
   "lint-staged": {
     "*.{astro,js,jsx,ts,tsx,md,mdx,json}": [

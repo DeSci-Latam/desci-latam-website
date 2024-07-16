@@ -83,6 +83,7 @@ const blog = defineCollection({
       description: z.string(),
       cover: z.string(),
       category: z.string(),
+      locale: z.enum(['es', 'pt' , 'en']),
       // Transform string to Date object
       pubDate: z
         .string()
