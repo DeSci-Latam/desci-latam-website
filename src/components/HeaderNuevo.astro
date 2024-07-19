@@ -66,26 +66,32 @@ type Props = {
 
 const { className } = Astro.props;
 import { motion, AnimatePresence } from "framer-motion";
+
+import { TailcastLogo } from "../assets/logos/TailcastLogo";
+
 ---
 
 <!-- <header class="header pt-6"> -->
 
-  <header  class="w-full h-20 flex flex-col justify-center items-center fixed bg-bgDark1 lg:bg-bgDarkTransparent z-40 lg:backdrop-blur-xl"
+  <header  class="w-full flex flex-col  items-center fixed bg-bgDark1 bg-bgDarkTransparent z-40 backdrop-blur-xl"
   aria-label="Main navigation">
-  <nav class="navbar container">
+  <nav class="navbar container  ">
+
     <!-- logo -->
     <div class="order-0">
-      <a class='mr-6 flex items-center space-x-2 gap-2 font-bold' href={getRelativeLocaleUrl(locale, "/")}>
-        <Image src={AstroImage} alt="DeSci LATAM Logo" class="h-6 w-6" />
-        DeSci LATAM
+      <a class='mr-6 flex items-center space-x-2 gap-2  font-bold' href={getRelativeLocaleUrl(locale, "/")}>
+      <!--   <Image src={AstroImage}  class="h-6 w-6 logo-descilatam" /> -->
+      <TailcastLogo  /> 
+      DeSci LATAM
         </a>
+      
     </div>
     <!-- navbar toggler -->
     <input id="nav-toggle" type="checkbox" class="hidden" />
     <label
       id="show-button"
       for="nav-toggle"
-      class="order-2 flex cursor-pointer items-center text-black md:order-1 md:hidden"
+      class="order-2 flex cursor-pointer items-center text-current fill-current md:order-1 md:hidden"
     >
       <svg class="h-6 fill-current" viewBox="0 0 20 20">
         <title>Menu Open</title>
@@ -95,7 +101,7 @@ import { motion, AnimatePresence } from "framer-motion";
     <label
       id="hide-button"
       for="nav-toggle"
-      class="order-2 hidden cursor-pointer items-center text-black md:order-1"
+      class="order-2 hidden cursor-pointer items-center text-current md:order-1"
     >
       <svg class="h-6 fill-current" viewBox="0 0 20 20">
         <title>Menu Close</title>
@@ -108,32 +114,41 @@ import { motion, AnimatePresence } from "framer-motion";
 
     <ul
       id="nav-menu"
-      class="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto"
+      class="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto "
     >
 
-    <li>
-		  <a
+          <li class="nav-item nav-dropdown group relative cursor-pointer">
+            <span class="nav-link inline-flex items-center">
+              {t({ es: "Comunidad", en: "Community", "pt": "Communidade"})}
+              <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </span>
+            <ul class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100 dark:bg-black">
+    
+                <li class="nav-dropdown-item">
+                  <a
 			href={getRelativeLocaleUrl(locale, "/changelog")}
-			class={isActive("/changelog") ? "active" : null}
-		  >
-			{
-			  t({
-				es: "Changelog",
-				en: "Changelog",
-				"pt": "Changelog"
-			  })
-			}
+      class="nav-dropdown-link active" >
+			{t({ es: "Changelog", en: "Changelog", "pt": "Changelog"})}
 		  </a>
-		</li> 
+                </li>
+              
+            </ul>
+          </li>
+       
+          <li class="nav-item">
 
-    <li class="">
-		  <a
+<a
 			href={getRelativeLocaleUrl(locale, "/blog")}
-			class={isActive("/blog") ? "active" : null}
+      class={isActive("/blog") ? " font-medium nav-link block  " : "nav-link block"}
 		  >
 			{t({ es: "Blog", en: "Blog", "pt": "Blog"})}
 		  </a>
-		</li>
+
+           
+          </li>
+ 
 
 
     <!--   {
@@ -187,3 +202,9 @@ import { motion, AnimatePresence } from "framer-motion";
     </div>
   </nav>
 </header>
+
+<style>
+.logo-descilatam {
+  color: currentColor;
+}
+</style>
