@@ -14,9 +14,9 @@ const posts = (await getCollection("changelog"))
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
 const title = t({
-  es: "Blog",
-  en: "Blog",
-  "pt": "Blog",
+  es: "Changelog",
+  en: "Changelog",
+  "pt": "Changelog",
 });
 
 export const getStaticPaths = () =>
@@ -54,7 +54,7 @@ export const getStaticPaths = () =>
         const [, ...slug] = post.slug.split("/");
         return (
           <li>
-            <a href={`/${locale}/blog/${slug.join("/")}/`}>
+            <a href={`/${locale}/changelog/${slug.join("/")}/`}>
               {post.data.cover && (
                 <Image src={post.data.cover} alt={post.data.title} />
               )}

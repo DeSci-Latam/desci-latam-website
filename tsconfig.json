@@ -4,17 +4,24 @@
     "strictNullChecks": true,
     "verbatimModuleSyntax": true,
     "jsx": "react-jsx",
+    "allowJs": true,
     "jsxImportSource": "react",
+    "isolatedModules": true,
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "@/components/*": ["src/components/*.astro", "src/components/*.tsx", "src/components/*.ts"  ],
 			"@/layouts/*": ["src/layouts/*.astro"],
 			"@/utils": ["src/utils/index.ts"],
+      "@/partials/*": ["./src/layouts/partials/*"],
 			"@/data/*": ["src/data/*"],
 			"@/site-config": ["src/data/site.config.ts"],
       "@/config": ["src/config/*"],
 			"@/styles": ["src/styles/"]
     }
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.astro"],
+  "exclude": ["node_modules"]
 }

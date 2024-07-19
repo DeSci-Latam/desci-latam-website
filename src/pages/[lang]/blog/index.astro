@@ -1,0 +1,166 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import ListCategories from "@/components/ListCategories";
+import Layout from "@/layouts/Base";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import PageHeadline from "@/components/PageHeadline";
+import { Badge } from "@/components/ui/badge";
+import { getPosts } from "@/lib/fetchers";
+/* import { formatDate } from "@/lib/utils"; */
+
+const locale = Astro.currentLocale as Lang;
+const t = useTranslations(locale);
+
+const posts = (await getCollection("blog2"))
+  .filter((post) => post.slug.split("/")[0] === locale)
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+const title = t({
+  es: "Blog",
+  en: "Blog",
+  pt: "Blog",
+});
+
+export const getStaticPaths = () =>
+  Object.keys(LOCALES).map((lang) => ({
+    params: { lang },
+  }));
+
+---
+
+
+
+<Layout title="Static Blog">
+  <section class="container py-10">
+<!--     <BlogHeader title="Blog" /> -->
+
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8"
+    ><!-- 
+      {posts.map((post) => <BlogCard {...post} />)}
+ -->
+    
+
+ {
+  posts.map((post) => {
+    const [, ...slug] = post.slug.split("/");
+    return (
+
+<article class="group space-y-4">
+  <a
+    href={`/${locale}/blog/${slug}/`}
+    class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
+  >
+    <Image
+      loading="eager"
+      class="w-full h-full object-cover rounded-xl overflow-hidden"
+      width={720}
+      height={360}
+      src={post.data.cover}
+      alt="descriptive text"
+      transition:name={`img-${post.slug}`}
+    />
+  </a>
+
+  <div class="flex items-center justify-between">
+{/*     <a
+      href={`/${locale}/blog/category/${post.data.category}`}
+      transition:name={"badge-cat-" + post.slug}
+    >
+      <Badge radius="md" className="capitalize">
+        {post.data.category}
+      </Badge>
+    </a> */}
+    <span
+      class="font-medium text-muted-foreground"
+      transition:name={"pubDate-" + post.slug}
+    >
+    {/*   {formatDate(post.data.pubDate)} */}
+    </span>
+  </div>
+
+  <div>
+    <a href={`/${locale}/blog/${post.slug}/`} class="group-hover:underline">
+      <h2
+        class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
+        transition:name={"title-" + post.slug}
+      >
+        {post.data.title}
+      </h2>
+    </a>
+  </div>
+</article>
+
+
+  /*     <li>
+        <a href={`/${locale}/blog/${slug.join("/")}/`}>
+          {post.data.cover && (
+            <Image src={post.data.cover} alt={post.data.title} />
+          )}
+          <h2>{post.data.title}</h2>
+        </a>
+      </li>
+ */
+
+
+
+    );
+  })
+}
+
+
+
+
+
+
+
+
+    </div>
+  </section>
+</Layout><!-- 
+
+<Layout {title}>
+  <PageHeadline {title} />
+
+  <ListCategories />
+
+
+  <ul>
+    {
+      posts.map((post) => {
+        const [, ...slug] = post.slug.split("/");
+        return (
+          <li>
+            <a href={`/${locale}/blog/${slug.join("/")}/`}>
+              {post.data.cover && (
+                <Image src={post.data.cover} alt={post.data.title} />
+              )}
+              <h2>{post.data.title}</h2>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Layout>
+
+<style>
+  p {
+    margin-top: var(--sp-s);
+  }
+  ul {
+    margin-block-start: var(--sp-m);
+    display: grid;
+    gap: var(--sp-s);
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+
+  li {
+    margin-bottom: 1rem;
+    img {
+      border-radius: 6px;
+    }
+  }
+</style>
+ -->
