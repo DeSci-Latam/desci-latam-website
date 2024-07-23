@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+const t = useTranslations(Astro.currentLocale as Lang);
+---
+
+<section>
+  <div class="py-32">
+    <div class="container max-w-6xl">
+      <h1 class="text-4xl font-bold mb-6">
+        {
+          t({
+            es: "DeSci DAY",
+            en: "August 12th and 13th",
+            pt: "12 e 13 de agosto",
+          })
+        }
+      </h1>
+      <div class="relative">
+        <div class="relative z-10 grid grid-cols-6 gap-3">
+          <div
+            class="relative col-span-full overflow-hidden rounded-3xl border bg-slate-50 text-black p-8"
+          >
+            <div class="flex justify-between gap-5">
+              <div class="w-1/2 border border-red-500">  <p>
+
+                {
+                  t({
+                      es: `Es un evento de dos días que se llevará
+                  a cabo los días 12 y 13 de agosto, dedicado a promover el avance
+                  de la ciencia descentralizada (DeSci) en América Latina.`,
+                    en: `August 12th and 13th`,
+                    pt: `12 e 13 de agosto`,
+                  })
+                }
+                
+              </p></div>
+            
+              <div class="w-1/2 border border-red-500">
+                <h4>Venue</h4>
+                <p>asdasdasdsa</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6570.03893207053!2d-58.43916399999999!3d-34.578374!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb594bca7d6c3%3A0x6e6baf7477a9dbcb!2sDorrego%202141%2C%20C1414CLD%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1721549627252!5m2!1ses-419!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

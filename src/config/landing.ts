@@ -90,6 +90,130 @@ export const features = [
   },
 ];
 
+export const sponsors1 = [
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "https://google.com",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+ 
+];
+
+
+
+export const sponsors2 = [
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
+  },
+ 
+];
+
+
+export const sponsors3 = [
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    link: "/",
+  },
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    link: "/",
+  }
+];
+
 export const testimonials = [
   {
     name: "John Doe",

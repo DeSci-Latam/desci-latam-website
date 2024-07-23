@@ -41,7 +41,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-link {
-  @apply block min-w-[150px] py-1 text-[17px] font-semibold  transition hover:text-primary;
+  @apply block min-w-[150px] py-1 text-[17px] font-semibold text-black transition hover:text-primary;
 }
 
 // search style

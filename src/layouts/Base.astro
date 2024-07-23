@@ -45,9 +45,6 @@ type Props = {
 };
 
 
-
-
-
 ---
 <html class='scroll-smooth' lang={LOCALES[locale].lang || locale} dir={LOCALES[locale].dir || null}>
  
@@ -58,7 +55,7 @@ type Props = {
 
 </head>
 
-<body class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white'>
+<body class='bg-[#0a0910] text-white dark:bg-[#0a0910] dark:text-white'>
     
   
   <main>
@@ -71,8 +68,7 @@ type Props = {
       )}/> -->
       <!-- <Navbar client:load /> -->
       <Header className="border-b" /> 
-        
-
+      
        
         <!-- if using only normals links  -->
         <!-- <MainNav items={marketingConfig.mainNav} slot="left-header" />
@@ -111,8 +107,6 @@ type Props = {
       <main class={cn(mainClass)}>
         <slot />
       </main>
-    
-      <Footer />
     </BaseLayout>
 
 
