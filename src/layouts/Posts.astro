@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import config from "@/config/config.json";
-import { getSinglePage } from "@/lib/contentParser.astro";
+/* import { getSinglePage } from "@/lib/contentParser.astro"; */
 import dateFormat from "@/lib/utils/dateFormat";
 import { humanize, plainify, slugify } from "@/lib/utils/textConverter";
-const authors = await getSinglePage("authors");
+/* const authors = await getSinglePage("authors"); */
 const { summary_length } = config.settings;
 const { className, posts, fluid } = Astro.props;
 ---
@@ -31,7 +31,7 @@ const { className, posts, fluid } = Astro.props;
         )}
         <ul class="mt-6 mb-4 flex flex-wrap items-center text-text">
           <li class="mr-5">
-            {authors
+           {/*  {authors
               .filter((author) =>
                 post.data.authors
                   .map((author: string) => slugify(author))
@@ -53,7 +53,7 @@ const { className, posts, fluid } = Astro.props;
                   )}
                   <span>{author.data.title}</span>
                 </a>
-              ))}
+              ))} */}
           </li>
           <li class="mr-5 flex items-center flex-wrap font-medium">
             <span class="mr-1 h-5 w-5 text-gray-600" />
