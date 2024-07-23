@@ -36,7 +36,7 @@ export const FAQ = () => (
       <div className="relative z-10 container px-2 sm:px-8 lg:px-4 mx-auto w-11/12 sm:w-full">
         <div className="md:max-w-4xl mx-auto">
           <p className="mb-7 block-subtitle text-center">Have any questions?</p>
-          <h2 className="mb-16 block-big-title text-center">
+          <h2 className="mb-16 block-big-title text-center text-3xl">
             Frequently Asked Questions
           </h2>
           <div className="mb-11 flex flex-wrap -m-1">

@@ -22,7 +22,13 @@ import TailwindIndicator from "@/components/tailwind-indicator";
 
 
 import { Navbar } from '../components/Navbar.tsx'
-import Header from "@/components/HeaderNuevo";
+
+import HeaderES from "@/components/HeaderES";
+import HeaderEN from "@/components/HeaderEN";
+import HeaderPT from "@/components/HeaderPT";
+
+
+
 
 // Shadcn
 import Header55 from "@/components/layout/header";
@@ -34,6 +40,15 @@ import { navMenuConfig } from "@/config/nav-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/config/site";
 import { Icon } from "astro-icon/components";
+
+let HeaderComponent;
+if (locale === 'es') {
+  HeaderComponent = HeaderES;
+} else if (locale === 'en') {
+  HeaderComponent = HeaderEN;
+} else if (locale === 'pt') {
+  HeaderComponent = HeaderPT;
+}
 
 
 type Props = {
@@ -67,7 +82,7 @@ type Props = {
         className
       )}/> -->
       <!-- <Navbar client:load /> -->
-      <Header className="border-b" /> 
+      <HeaderComponent className="border-b" /> 
       
        
         <!-- if using only normals links  -->
