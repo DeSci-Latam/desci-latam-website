@@ -13,7 +13,7 @@ const postsCollection = defineCollection({
     authors: z.array(z.string()).default(["admin"]),
     categories: z.array(z.string()).default(["others"]),
     tags: z.array(z.string()).default(["others"]),
-    draft: z.boolean().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 
@@ -51,7 +51,8 @@ const authorsCollection = defineCollection({
       .transform((val) => new Date(val)),
       category: z.enum(CATEGORIES),
       tags: z.array(z.string()),
-      draft: z.boolean().default(false),
+     /*  draft: z.boolean().default(false), */
+     draft: z.boolean().optional(),
    /*    cover: z.string(), */
      cover: image()
         .refine((img) => img.width >= 600, {
