@@ -11,7 +11,7 @@ import simpleStackForm from "simple-stack-form";
 // https://astro.build/config
 export default defineConfig({
  /*  site: 'https://dev-descilatam.vercel.app', */
- site: 'https://desci-latam-website.vercel.app',
+ site: 'https://desci-day.vercel.app',
   
   integrations: [mdx({
     syntaxHighlight: 'shiki',
