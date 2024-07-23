@@ -45,14 +45,19 @@ const authorsCollection = defineCollection({
       title: z.string(),
       description: z.string(),
       date: z.coerce.date(),
+      pubDate: z
+      .string()
+      .or(z.date())
+      .transform((val) => new Date(val)),
       category: z.enum(CATEGORIES),
       tags: z.array(z.string()),
       draft: z.boolean().default(false),
-      cover: image()
+   /*    cover: z.string(), */
+     cover: image()
         .refine((img) => img.width >= 600, {
           message: "cover must be at least 600px wide",
         })
-        .optional(),
+        .optional(), 
     }),
 }); 
 

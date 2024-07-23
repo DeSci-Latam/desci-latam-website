@@ -23,7 +23,16 @@ const title = post.data.title;
 <Layout {title}>
   {
     post.data.cover && (
-      <Image src={post.data.cover} alt={post.data.title} class="cover" />
+      <Image
+        loading="eager"
+        width={720}
+        height={360}
+        src={post.data.cover}
+        alt={post.data.title}
+        /* alt="descriptive text" */
+       /*  class="cover" */
+        class="w-full h-full object-cover rounded-xl overflow-hidden"
+      />
     )
   }
 

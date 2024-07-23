@@ -37,7 +37,9 @@ export const getStaticPaths = () =>
 
     <div
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8"
-    ><!-- 
+    >
+    
+<!-- 
       {posts.map((post) => <BlogCard {...post} />)}
  -->
     
@@ -52,15 +54,18 @@ export const getStaticPaths = () =>
     href={`/${locale}/blog/${slug}/`}
     class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
   >
+    {
+    post.data.cover && (
     <Image
       loading="eager"
       class="w-full h-full object-cover rounded-xl overflow-hidden"
-      width={720}
-      height={360}
+       width={200}
+      height={360} 
       src={post.data.cover}
       alt="descriptive text"
       transition:name={`img-${post.slug}`}
-    />
+    /> )
+  }
   </a>
 
   <div class="flex items-center justify-between">

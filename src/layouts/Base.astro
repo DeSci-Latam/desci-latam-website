@@ -29,7 +29,6 @@ import HeaderPT from "@/components/HeaderPT";
 
 
 
-
 // Shadcn
 import Header55 from "@/components/layout/header";
 import { MainNavigationMenu } from "@/components/main-navigation-menu-mio";
@@ -49,6 +48,7 @@ if (locale === 'es') {
 } else if (locale === 'pt') {
   HeaderComponent = HeaderPT;
 }
+
 
 
 type Props = {
@@ -82,7 +82,7 @@ type Props = {
         className
       )}/> -->
       <!-- <Navbar client:load /> -->
-      <HeaderComponent className="border-b" /> 
+      {HeaderComponent && <HeaderComponent className="border-b" />}
       
        
         <!-- if using only normals links  -->
