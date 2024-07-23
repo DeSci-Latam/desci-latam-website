@@ -198,7 +198,7 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
 
                             <li class="nav-dropdown-item">
                               <a
-                  href={getRelativeLocaleUrl(locale, "#Speakers")}
+                  href="/es/agenda/"
                   class="nav-dropdown-link active" >
                   {t({ es: "Voluntario ", en: "Changelog", "pt": "Changelog"})}
                   </a>
@@ -212,7 +212,8 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
 
             
                         <a
-                              href={getRelativeLocaleUrl(locale, "#Speakers")}
+                              
+                              href={getRelativeLocaleUrl(locale, '/#agenda')}
                               class={isActive("#Speakers") ? " font-medium nav-link block  " : "nav-link block"}
                               >
                               {t({ es: "Agenda", en: "Event", "pt": "Event"})}
@@ -220,8 +221,6 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
                         
                                    
                                   </li>
-
-
 
           <li class="nav-item">
 

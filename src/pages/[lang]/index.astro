@@ -5,7 +5,10 @@ const t = useTranslations(Astro.currentLocale as Lang);
 import About from "@/components/sections/bento-desci"
 import Sponsors from "@/components/sections/sponsors"
 import Agenda from "@/components/sections/agenda-desci"
+import { FAQ } from '@/components/FAQ'
 /* import Feature from "@/components/sections/test" */
+import Speakers from "@/components/sections/speakers"
+import FaqSection from "@/components/faq-section";
 
 // Images
 
@@ -27,6 +30,7 @@ export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },
   }));
+
 ---
 
 <Layout>
@@ -113,12 +117,15 @@ export const getStaticPaths = () =>
 
  <!--  End Hero -->
 
-
-
    <Sponsors />
    
    <About />
+ 
    <Agenda />
+  
+  <!--  <Speakers /> -->
+  <Speakers />
+  <FAQ client:load /> 
 
     </div>
 </Layout>
