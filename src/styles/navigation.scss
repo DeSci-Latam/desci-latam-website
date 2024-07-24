@@ -4,7 +4,7 @@ input#nav-toggle:checked ~ label#show-button {
 }
 
 input#nav-toggle:checked ~ label#hide-button {
-  @apply flex md:hidden;
+  @apply flex lg:hidden;
 }
 
 input#nav-toggle:checked ~ #nav-menu {
@@ -41,7 +41,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-link {
-  @apply block min-w-[150px] py-1 text-[17px] font-semibold text-black transition hover:text-primary;
+  @apply block min-w-[150px] py-1 text-[17px] font-semibold text-white transition hover:text-primary;
 }
 
 // search style

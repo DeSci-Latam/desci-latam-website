@@ -10,8 +10,8 @@ interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
 	author: 'CryptoNahue', // Site author
-	title: 'DeSci LATAM Config', // Site title.
-	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', // Description to display in the meta tags
+	title: 'DeSci Argentina', // Site title.
+	description: 'Comunidad Argentina de Ciencia Descentralizada 🧬🔬', // Description to display in the meta tags
 /* 	lang: 'es', */
 /* 	ogLocale: 'es', */
 	shareMessage: 'Share this post', // Message to share a post on social media
