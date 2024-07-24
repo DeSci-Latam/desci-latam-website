@@ -8,7 +8,7 @@ input#nav-toggle:checked ~ label#hide-button {
 }
 
 input#nav-toggle:checked ~ #nav-menu {
-  @apply block md:flex;
+  @apply block lg:flex h-[100vh];
 }
 
 // navbar items

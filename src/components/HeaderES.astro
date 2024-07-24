@@ -48,7 +48,6 @@ const SOCIALNETWORKS = [
     url: "https://github.com/danielcgilibert/blog-template",
     icon: GithubIcon,
   },
-
   {
     name: "Twitter",
     url: "https://github.com/danielcgilibert/blog-template",
@@ -81,7 +80,7 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
         <Image
           src={AstroImage}
           alt="22"
-          class="h-20 w-48 px-10 logo-descilatam"
+          class="h-20 w-40 sm:w-48 px-10 logo-descilatam"
         />
         <!-- <TailcastLogo  />  -->
       </a>
@@ -107,7 +106,8 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
         <title>Menu Close</title>
         <polygon
           points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-          transform="rotate(45 10 10)"></polygon>
+          transform="rotate(45 10 10)"
+        ></polygon>
       </svg>
     </label>
     <!-- /navbar toggler -->
@@ -115,6 +115,7 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
     <ul
       id="nav-menu"
       class="navbar-nav order-3 hidden w-full h-[100vh] md:h-auto lg:order-1 lg:flex lg:w-auto"
+      onclick="document.getElementById('nav-toggle').checked = false"
     >
       <li class="nav-item">
         <li class="nav-item nav-dropdown group relative cursor-pointer">
@@ -241,67 +242,24 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
             ? " font-medium nav-link block  "
             : "nav-link block"}
         >
-          {t({ es: "Contacto", en: "Event", pt: "Event" })}
+          {t({ es: "Aliados", en: "Event", pt: "Event" })}
         </a>
       </li>
-
-      <!--   {
-        main.map((menu) => (
-          <>
-            {menu.hasChildren ? (
-              <li class="nav-item nav-dropdown group relative cursor-pointer">
-                <span class="nav-link inline-flex items-center">
-                  {menu.name}
-                  <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </span>
-                <ul class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100">
-                  {menu.children?.map((child) => (
-                    <li class="nav-dropdown-item">
-                      <a href={child.url} class="nav-dropdown-link">
-                        {child.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ) : (
-              <li class="nav-item">
-                <a href={menu.url} class="nav-link block">
-                  {menu.name}
-                </a>
-              </li>
-            )}
-          </>
-        ))
-      } -->
+      <li class="nav-item">
+        <a
+          href={getRelativeLocaleUrl(locale, "#Speakers")}
+          class={isActive("#Speakers")
+            ? " font-medium nav-link block  "
+            : "nav-link block"}
+        >
+          {t({ es: "Sponsors", en: "Event", pt: "Event" })}
+        </a>
+      </li>
     </ul>
-    <div class="order-1 ml-auto flex gap-2 items-center lg:order-2 lg:ml-0">
-      <!--   <Search />
-      <ThemeToggle client:load /> -->
-      <a
-        class="gap-2 rounded-3xl px-4 py-1 bg-[#F1B749] text-black hover:text-white cursor-pointer hidden xl:flex "
-        >Become Sponsor</a
-      >
+    <!-- flex wrapper -->
+    <div class="order-1 ml-auto flex items-center lg:order-2">
+      <ThemeToggle />
       <LocaleSelect />
-
-      <!--    <a
-        class="mr-4 inline-block cursor-pointer p-2 text-xl text-dark transition hover:text-primary md:mr-0"
-        href="/search"
-        title="seach"
-        aria-label="seach"
-      >
-
-   
-         <IoSearch />
-      </a> -->
     </div>
   </nav>
 </header>
-
-<style>
-  .logo-descilatam {
-    color: currentColor;
-  }
-</style>
