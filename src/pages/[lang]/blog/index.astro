@@ -12,7 +12,7 @@ import { getPosts } from "@/lib/fetchers";
 const locale = Astro.currentLocale as Lang;
 const t = useTranslations(locale);
 
-const posts = (await getCollection("blog2"))
+const posts = (await getCollection("desci-day"))
   .filter((post) => post.slug.split("/")[0] === locale)
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
