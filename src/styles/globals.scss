@@ -4,41 +4,46 @@
 
 @import "main";
 
+body {
+  font-family: 'Inter Variable', sans-serif;
+}
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --background-200: 0 0% 98%;
+    --background: 0 0% 4%;
+    --background-200: 0 170% 0%;
 
-    --foreground: 0 0% 9%;
+    --foreground: 0 0% 93%;
 
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 80%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --accent: 0, 0%, 100%, .09;
+    --accent-foreground: 0 0% 93%;
 
-    --border: 0 0% 92%;
-    --input: 0 0% 92%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 93%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 93%;
 
-    --secondary: 0 0% 92%;
-    --secondary-foreground: 0 0% 9%;
+    --primary: 39, 86%, 62%, 1;
+   /*  --primary-foreground: 222.2 47.4% 1.2%; */
+    --primary-foreground: 241% 183% 73%;
 
-    --accent: 0, 0%, 0%, 0.06;
-    --accent-foreground: 0 0% 9%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 93%;
 
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 93%;
 
-    --ring: 215 20.2% 65.1%;
+    --ring: 0 0% 12%;
 
     --radius: 0.5rem;
-    --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, .08);
+    --ds-shadow-border: 0 0 0 1px hsla(0, 0%, 100%, .145);
   }
 
   .dark {
@@ -62,8 +67,9 @@
     --card: 0 0% 4%;
     --card-foreground: 0 0% 93%;
 
-    --primary: 0 0% 93%;
-    --primary-foreground: 222.2 47.4% 1.2%;
+    --primary: 39, 86%, 62%, 1;
+   /*  --primary-foreground: 222.2 47.4% 1.2%; */
+    --primary-foreground: 241% 183% 73%;
 
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 93%;

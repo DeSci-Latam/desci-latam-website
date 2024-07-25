@@ -1,0 +1,133 @@
+---
+import { Button } from "@/components/ui/button";
+import { sponsors1, sponsors2, sponsors3 } from "@/config/landing";
+import { Icon } from "astro-icon/components";
+import HeaderSection from "./header-section.astro";
+import { Image } from "astro:assets";
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+const t = useTranslations(Astro.currentLocale as Lang);
+---
+
+<section>
+  <div class="pb-6 pt-28" id="agenda"  >
+    <span id="/es/#agenda/"></span> <span id="es/agenda"></span> <span id="es/agenda"></span>
+    <div class="container max-w-6xl">
+      <!--    <HeaderSection
+        label="MADE POSSIBLE BY"
+        title="Organizado por "
+        subtitle="Harum quae dolore inventore repudiandae? orrupti aut temporibus ariatur."
+      />  -->
+      <h2
+        id="#Speakers"
+        class="mt-12 font-heading text-3xl md:text-4xl lg:text-[40px]"
+      >
+        {
+          t({
+            es: "Agenda",
+            en: "August 12th and 13th",
+            pt: "12 e 13 de agosto",
+          })
+        }
+      </h2>
+
+      <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
+        <div>
+          <h3 class="text-3xl">
+            {
+              t({
+                es: "Día 1",
+                en: "August 12th and 13th",
+                pt: "12 e 13 de agosto",
+              })
+            }
+          </h3>
+          <h3>
+            {
+              t({
+                es: "12 de Agosto",
+                en: "August 12th and 13th",
+                pt: "12 e 13 de agosto",
+              })
+            }
+          </h3>
+          {
+
+
+
+            sponsors1.map((sponsors1) => (
+              <a href={sponsors1.link} target="_blank" class=" z-30">
+                <div class="group relative overflow-hidden  border-[#1F1F1F] bg-[#100F14] rounded-2xl border border-transparent hover:border  hover:border-white cursor-pointer flex p-5 my-5 md:p-8 ">
+                  <div class="grid grid-cols-2 justify-items-center">
+                    <div class=" gap-2">
+                      <p class=""> 08:00 - 09:00</p>
+                    </div>
+
+                    <div class=" gap-2">
+                      <div>
+                        <p>IPNFT</p>
+                      </div>
+                      <div class="flex justify-items-center gap-2">
+                        <>
+                          <p>Paul Logan</p>
+                          <p>-</p>
+                          <p>Molecule</p>
+                        </>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+
+        <div>
+          <h3 class="text-3xl">
+            {
+              t({
+                es: "Día 2",
+                en: "August 12th and 13th",
+                pt: "12 e 13 de agosto",
+              })
+            }
+          </h3>
+          <h3>
+            {
+              t({
+                es: "13 de Agosto",
+                en: "August 12th and 13th",
+                pt: "12 e 13 de agosto",
+              })
+            }
+          </h3>
+          {
+            sponsors1.map((sponsors1) => (
+              <a href={sponsors1.link} target="_blank">
+                <div class="group relative overflow-hidden  border-[#1F1F1F] bg-[#100F14]  rounded-2xl border border-transparent hover:border hover:border-white cursor-pointer my-5  flex p-5 md:p-8">
+                  <div class="grid grid-cols-2 justify-items-center">
+                    <div class=" gap-2">
+                      <p class=""> 08:00 - 09:00</p>
+                    </div>
+
+                    <div class=" gap-2">
+                      <div>
+                        <p>IPNFT</p>
+                      </div>
+                      <div class="flex justify-items-center gap-2">
+                        <>
+                          <p>Paul Logan</p>
+                          <p>-</p>
+                          <p>Molecule</p>
+                        </>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -2,6 +2,7 @@
 import '../styles/globals.scss'
 import { siteConfig } from '@/site-config'
 import { ViewTransitions } from 'astro:transitions'
+import '@fontsource-variable/inter';
 
 
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
@@ -147,30 +148,27 @@ import { AstroFont } from 'astro-font'
 <!-- Dark mode with prevent flickering flash between navigations -->
 <script is:inline>
 	const setDarkMode = () => {
-	  const theme = (() => {
-		if (
-		  typeof localStorage !== "undefined" &&
-		  localStorage.getItem("theme")
-		) {
-		  return localStorage.getItem("theme");
+		const theme = (() => {
+			if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+				return localStorage.getItem("theme");
+			}
+			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				return "dark";
+			}
+			return "light";
+		})();
+		
+		if (theme === "dark") {
+			document.documentElement.classList.add("dark");
+		} else {
+			document.documentElement.classList.remove("dark");
 		}
-		if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-		  return "dark";
-		}
-		return "light";
-	  })();
-	
-	  if (theme === "light") {
-		document.documentElement.classList.remove("dark");
-	  } else {
-		document.documentElement.classList.add("dark");
-	  }
-	  window.localStorage.setItem("theme", theme);
+		window.localStorage.setItem("theme", theme);
 	};
 	
 	setDarkMode();
 	document.addEventListener("astro:after-swap", setDarkMode);
-	</script>
+</script>
 
 <AstroFont
 	config={[

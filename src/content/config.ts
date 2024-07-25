@@ -13,7 +13,7 @@ const postsCollection = defineCollection({
     authors: z.array(z.string()).default(["admin"]),
     categories: z.array(z.string()).default(["others"]),
     tags: z.array(z.string()).default(["others"]),
-    draft: z.boolean().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 
@@ -45,14 +45,20 @@ const authorsCollection = defineCollection({
       title: z.string(),
       description: z.string(),
       date: z.coerce.date(),
+      pubDate: z
+      .string()
+      .or(z.date())
+      .transform((val) => new Date(val)),
       category: z.enum(CATEGORIES),
       tags: z.array(z.string()),
-      draft: z.boolean().default(false),
-      cover: image()
+     /*  draft: z.boolean().default(false), */
+     draft: z.boolean().optional(),
+   /*    cover: z.string(), */
+     cover: image()
         .refine((img) => img.width >= 600, {
           message: "cover must be at least 600px wide",
         })
-        .optional(),
+        .optional(), 
     }),
 }); 
 
@@ -95,9 +101,6 @@ const blog = defineCollection({
         .transform((str) => (str ? new Date(str) : undefined)),
     }),
 });
-
-
-
 
 
 const docs = defineCollection({

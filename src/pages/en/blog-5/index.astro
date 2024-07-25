@@ -33,7 +33,7 @@ const posts = await getPosts(locale);
     href={`/${locale}/blog/${post.slug}/`}
     class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
   >
-    <Image
+  {/*   <Image
       loading="eager"
       class="w-full h-full object-cover rounded-xl overflow-hidden"
       width={720}
@@ -41,7 +41,7 @@ const posts = await getPosts(locale);
       src={post.data.cover}
       alt="descriptive text"
       transition:name={`img-${post.slug}`}
-    />
+    /> */}
   </a>
 
   <div class="flex items-center justify-between">
@@ -57,7 +57,7 @@ const posts = await getPosts(locale);
       class="font-medium text-muted-foreground"
       transition:name={"pubDate-" + post.slug}
     >
-      {formatDate(post.data.pubDate)}
+   {/*    {formatDate(post.data.pubDate)} */}
     </span>
   </div>
 

@@ -22,7 +22,12 @@ import TailwindIndicator from "@/components/tailwind-indicator";
 
 
 import { Navbar } from '../components/Navbar.tsx'
-import Header from "@/components/HeaderNuevo";
+
+import HeaderES from "@/components/HeaderES";
+import HeaderEN from "@/components/HeaderEN";
+import HeaderPT from "@/components/HeaderPT";
+
+
 
 // Shadcn
 import Header55 from "@/components/layout/header";
@@ -35,6 +40,16 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/config/site";
 import { Icon } from "astro-icon/components";
 
+let HeaderComponent;
+if (locale === 'es') {
+  HeaderComponent = HeaderES;
+} else if (locale === 'en') {
+  HeaderComponent = HeaderEN;
+} else if (locale === 'pt') {
+  HeaderComponent = HeaderPT;
+}
+
+
 
 type Props = {
   title?: string;
@@ -43,9 +58,6 @@ type Props = {
   articleDate?: string;
   mainClass?: string;
 };
-
-
-
 
 
 ---
@@ -58,7 +70,7 @@ type Props = {
 
 </head>
 
-<body class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white'>
+<body class='bg-[#0a0910] text-white dark:bg-[#0a0910] dark:text-white'>
     
   
   <main>
@@ -70,9 +82,8 @@ type Props = {
         className
       )}/> -->
       <!-- <Navbar client:load /> -->
-      <Header className="border-b" /> 
-        
-
+      {HeaderComponent && <HeaderComponent className="border-b" />}
+      
        
         <!-- if using only normals links  -->
         <!-- <MainNav items={marketingConfig.mainNav} slot="left-header" />
@@ -111,8 +122,6 @@ type Props = {
       <main class={cn(mainClass)}>
         <slot />
       </main>
-    
-      <Footer />
     </BaseLayout>
 
 

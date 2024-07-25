@@ -4,11 +4,11 @@ input#nav-toggle:checked ~ label#show-button {
 }
 
 input#nav-toggle:checked ~ label#hide-button {
-  @apply flex md:hidden;
+  @apply flex lg:hidden;
 }
 
 input#nav-toggle:checked ~ #nav-menu {
-  @apply block md:flex;
+  @apply block lg:flex h-[100vh];
 }
 
 // navbar items
@@ -41,7 +41,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-link {
-  @apply block min-w-[150px] py-1 text-[17px] font-semibold  transition hover:text-primary;
+  @apply block min-w-[150px] py-1 text-[17px] font-semibold text-white transition hover:text-primary;
 }
 
 // search style

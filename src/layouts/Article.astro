@@ -10,13 +10,14 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 
 
-
+/* 
 interface Props {
   title?: string;
   description?: string;
   frontmatter?: undefined;
-}
-const slug = Astro.props.slug;
+} */
+/* const slug = Astro.props.slug; */
+/* const {  title, description, pubDate, updatedDate, cover } = Astro.props.frontmatter || Astro.props; */
 const {  title, description, pubDate, updatedDate, cover } = Astro.props.frontmatter || Astro.props;
 ---
   <BaseHead   />
@@ -54,10 +55,10 @@ const {  title, description, pubDate, updatedDate, cover } = Astro.props.frontma
         transition:name={`img-${slug}`}
       /> -->
       <div class="flex items-center justify-between">
-        <span
+      <!--   <span
           class="font-medium text-muted-foreground"
           transition:name={`date-${slug}`}
-        >
+        > -->
        <!--    {formatDate(pubDate)}
           {
             updatedDate && (
@@ -66,8 +67,8 @@ const {  title, description, pubDate, updatedDate, cover } = Astro.props.frontma
           } -->
         </span>
       </div>
-      <h1 class="font-heading text-4xl my-4" transition:name={`title-${slug}`}>
-        {title}
+     <!--  <h1 class="font-heading text-4xl my-4" transition:name={`title-${slug}`}>
+        --> {title}
       </h1>
       <p>{description}</p>
       <hr class="my-6" />
