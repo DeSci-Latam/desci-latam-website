@@ -9,7 +9,7 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	author: 'CryptoNahue', // Site author
+	author: 'DeSci DAY', // Site author
 	title: 'DeSci Argentina', // Site title.
 	description: 'Comunidad Argentina de Ciencia Descentralizada 🧬🔬', // Description to display in the meta tags
 /* 	lang: 'es', */
