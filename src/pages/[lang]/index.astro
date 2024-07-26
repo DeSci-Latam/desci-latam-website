@@ -5,8 +5,12 @@ const t = useTranslations(Astro.currentLocale as Lang);
 import About from "@/components/sections/bento-desci"
 import Sponsors from "@/components/sections/sponsors"
 import Agenda from "@/components/sections/agenda-desci"
-import { FAQ } from '@/components/FAQ'
+
 import Speakers from "@/components/sections/speakers"
+
+import { FAQES } from "@/components/faq-desciday-es";
+import { FAQEN } from "@/components/faq-desciday-en";
+import { FAQPT } from "@/components/faq-desciday-pt";
 
 // Images
 
@@ -24,10 +28,16 @@ import { Icon } from "astro-icon/components"; */
 /* import { getRelativeLocaleUrl } from "astro:i18n"; */
 /* const locale = Astro.currentLocale as Lang; */
 
+
+
+
+
 export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },
   }));
+  
+
 
 ---
 
@@ -115,15 +125,17 @@ export const getStaticPaths = () =>
 
  <!--  End Hero -->
 
-   <Sponsors />
+ <!--   <Sponsors /> -->
    
    <About />
  
-   <Agenda />
-  
-  <!--  <Speakers /> -->
-  <Speakers />
-  <FAQ client:load /> 
+<!--    <Agenda /> -->
+<!--   
+  <Speakers /> -->
+
+  {Astro.currentLocale === "es" && <FAQES client:load />}
+  {Astro.currentLocale === "en" && <FAQEN client:load />}
+  {Astro.currentLocale === "pt" && <FAQPT client:load />}
 
     </div>
 </Layout>
