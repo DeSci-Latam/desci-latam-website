@@ -2,20 +2,21 @@
 import Layout from "@/layouts/Base";
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
 const t = useTranslations(Astro.currentLocale as Lang);
-import About from "@/components/sections/bento-desci"
-import Sponsors from "@/components/sections/sponsors"
-import Agenda from "@/components/sections/agenda-desci"
-
-import Speakers from "@/components/sections/speakers"
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import About from "@/components/sections/bento-desci";
+import Sponsors from "@/components/sections/sponsors";
+import Agenda from "@/components/sections/agenda-desci";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Speakers from "@/components/sections/speakers";
 
 import { FAQES } from "@/components/faq-desciday-es";
 import { FAQEN } from "@/components/faq-desciday-en";
 import { FAQPT } from "@/components/faq-desciday-pt";
 
 // Images
-
+const locale = Astro.currentLocale as Lang;
 import Hero from "@/assets/images/home/hero.svg";
-
 
 import { Image } from "astro:assets";
 /* import Feature from "../pt/feature.astro"; */
@@ -24,27 +25,17 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Icon } from "astro-icon/components"; */
 
-
 /* import { getRelativeLocaleUrl } from "astro:i18n"; */
 /* const locale = Astro.currentLocale as Lang; */
-
-
-
-
 
 export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },
   }));
-  
-
-
 ---
 
 <Layout>
-
-  
-<!--   {
+  <!--   {
     locale === "es" ? (
       <Image src={heroImageEs} alt="こんにちは" />
     ) : locale === "pt" ? (
@@ -54,14 +45,13 @@ export const getStaticPaths = () =>
     )
   } -->
 
-
- <!--  Start Hero -->
-<div class="max-w[1260px]">
-<section class="space-y-6 pt-16 lg:py-28 flex">
-  <div
-    class="container min-h-[80svb] flex flex-wrap-reverse justify-center items-center lg:flex-nowrap  gap-5 "
-  >
-<!--   <div class="pl-8 pt-8">
+  <!--  Start Hero -->
+  <div class="max-w[1260px]">
+    <section class="space-y-6 pt-16 lg:py-28 flex">
+      <div
+        class="container min-h-[80svb] flex flex-wrap-reverse justify-center items-center lg:flex-nowrap gap-5"
+      >
+        <!--   <div class="pl-8 pt-8">
   <h1
       class="font-heading text-4xl font-red pb-[1.5rem] sm:text-5xl md:text-6xl lg:text-7xl !leading-[1.1] text-balance"
     >
@@ -95,65 +85,131 @@ export const getStaticPaths = () =>
   
       </a>
 </div> -->
-<!--   </div> -->
-<div>
-<div>
-  <Image src={Hero} alt="DeSci LATAM" />
-</div>
-<div class="flex justify-center font-bold text-xl">
+        <!--   </div> -->
+        <div class="">
+          <div class="max-w-[80vw] flex m-auto">
+            <div class="">
+              <Image src={Hero} alt="DeSci LATAM" />
+            </div>
+          </div>
+          <div class="flex justify-center font-bold text-xl">
+            <p class="text-white">
+              {
+                t({
+                  es: "12-13 de Agosto",
+                  en: "August 12th and 13th",
+                  pt: "12 e 13 de agosto",
+                })
+              }
+            </p>
+          </div>
 
-  <p class="text-white"> {
-    t({
-      es: "12 y 13 de Agosto",
-      en: "August 12th and 13th",
-      pt: "12 e 13 de agosto",
-    })
-  } </p></div>
+          <div
+            class="flex flex-wrap max-w-[720px] justify-center gap-10 pt-16 cursor-pointer"
+          >
+            <li class="hover:text-[#43A1D5] hover:font-bold animate-shake">
+              <a>
+                {
+                  t({
+                    es: "Conferencias",
+                    en: "At the heart of scientific evolution",
+                    pt: "No coração da evolução científica",
+                  })
+                }
+              </a>
+            </li>
+            <li class="hover:text-[#43A1D5] hover:font-bold animate-shake">
+              {
+                t({
+                  es: "Workshops",
+                  en: "Workshops",
+                  pt: "Workshops",
+                })
+              }
+            </li>
+            <li class="hover:text-[#43A1D5] hover:font-bold animate-shake">
+              {
+                t({
+                  es: "Batalla de ciencia",
+                  en: "At the heart of scientific evolution",
+                  pt: "No coração da evolução científica",
+                })
+              }
+            </li>
+          </div>
+          <div class="flex max-w-[720px] flex-wrap justify-center gap-10 pt-16">
+            <!--     <div><a class="gap-2 rounded-3xl px-4 py-2 bg-[#F1B749] text-black hover:text-white cursor-pointer ">Become Sponsor</a></div> -->
+            <div>
+              <a   href={getRelativeLocaleUrl(locale, "batalla-de-ciencia")}
+                class={cn(
+                  buttonVariants({ size: "lg", rounded: "full" }),
+                  "gap-2 text-black hover:border-white border hover:text-white cursor-pointer transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300"
+                 
+                )}
+              >
+                {
+                  t({
+                    es: "Participar en la Batalla de Ciencia",
+                    en: "At the heart of scientific evolution",
+                    pt: "No coração da evolução científica",
+                  })
+                }</a>
+            </div>
+            <div>
+              <a
+              href="https://airtable.com/appF0EVscFaeDO8WP/shrnLT2V4XOzOGd0l"
+              target="_blank"
+                class={cn(
+                  buttonVariants({ size: "lg", rounded: "full" }),
+                  "gap-2 text-black hover:border-white border hover:text-white bg-[#90C0DD] cursor-pointer transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300"
+                )}
+              >
+                {
+                  t({
+                    es: "Postularte como Speaker",
+                    en: "At the heart of scientific evolution",
+                    pt: "No coração da evolução científica",
+                  })
+                }
+              </a>
+            </div>
 
-  <div class=" flex max-w-[720px] justify-center gap-10 pt-16 cursor-pointer">
-    <li class="hover:text-[#43A1D5] hover:font-bold"><a >Conferencia</a></li>
-    <li class="hover:text-[#43A1D5] hover:font-bold">Workshops</li>
-      <li class="hover:text-[#43A1D5] hover:font-bold">Batalla de Pitch</li>
-  </div>
-  <div class=" flex max-w-[720px] justify-center gap-5 pt-16">
-    <div><a class="gap-2 rounded-3xl px-4 py-2 bg-[#F1B749] text-black hover:text-white cursor-pointer">Become Sponsor</a></div>
-    <div><a class="gap-2 rounded-3xl px-4 py-2 bg-[#43A1D5] text-black hover:text-white cursor-pointer">Get Ticket</a></div>
-  </div>
-  </div>
-  </div>
-</section>
+            <!--     <div><a class="gap-2 rounded-3xl px-4 py-2 bg-[#43A1D5] text-black hover:text-white cursor-pointer">Get Ticket</a></div> -->
+          </div>
+        </div>
+      </div>
+    </section>
 
- <!--  End Hero -->
+    <!--  End Hero -->
 
- <!--   <Sponsors /> -->
-   
-   <About />
- 
-<!--    <Agenda /> -->
-<!--   
+    <!--   <Sponsors /> -->
+
+  <!--   <About /> -->
+
+    <!--    <Agenda /> -->
+    <!--   
   <Speakers /> -->
 
-  {Astro.currentLocale === "es" && <FAQES client:load />}
-  {Astro.currentLocale === "en" && <FAQEN client:load />}
-  {Astro.currentLocale === "pt" && <FAQPT client:load />}
-
-    </div>
+    {Astro.currentLocale === "es" && <FAQES client:load />}
+    {Astro.currentLocale === "en" && <FAQEN client:load />}
+    {Astro.currentLocale === "pt" && <FAQPT client:load />}
+  </div>
 </Layout>
 
 <script>
-	import { animate } from 'motion'
-	const showAnimations = localStorage.getItem('animations') === 'true'
+  import { animate } from "motion";
+  const showAnimations = localStorage.getItem("animations") === "true";
 
-	if (showAnimations) {
-		animate(
-			'.title',
-			{ y: [80, 0], opacity: [0, 1] },
-			{
-				duration: 2.5,
-				opacity: { duration: 3 },
+  if (showAnimations) {
+    animate(
+      ".title",
+      { y: [80, 0], opacity: [0, 1] },
+      {
+        duration: 2.5,
+        opacity: { duration: 3 },
 
-				offset: [0, 0.55, 0.75]
-			}
-		)
-	}
+        offset: [0, 0.55, 0.75],
+      }
+    );
+  }
 </script>

@@ -44,7 +44,7 @@ const FAQData = [
 ];
 
 
-export const FAQES = () => (
+export const FAQBatallaPT = () => (
   <section className="relative -mt-8 sm:mt-0 pt-12 sm:pt-16 pb-16 bg-blueGray-50 overflow-hidden">
     <div className="absolute -top-10" id="FAQ" />
     <motion.div

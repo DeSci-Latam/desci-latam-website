@@ -1,0 +1,40 @@
+---
+import Layout from "@/layouts/Base";
+import Hero from "@/assets/images/home/hero.svg";
+import { Image } from "astro:assets";
+
+import { FAQBatallaES } from "@/components/faq-batalla-de-ciencia-es";
+import { FAQBatallaEN } from "@/components/faq-batalla-de-ciencia-en";
+import { FAQBatallaPT } from "@/components/faq-batalla-de-ciencia-pt";
+---
+<Layout >
+  <div class="max-w-[80vw] flex m-auto">
+    <div class="">
+      <Image src={Hero} alt="DeSci LATAM" />
+    </div>
+  </div>
+    <section class="space-y-6 pt-8 lg:py-28 flex">
+        <div
+          class="container  flex flex-wrap-reverse justify-center lg:flex-nowrap  gap-5 "
+        >
+        <div class="min-w-[720px]">
+<iframe data-tally-src="https://tally.so/embed/woOzDO?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1318" frameborder="0" marginheight="0" marginwidth="0" title="Reader Feedback"></iframe>
+</div>
+{Astro.currentLocale === "es" && <FAQBatallaES client:load />}
+{Astro.currentLocale === "en" && <FAQBatallaEN client:load />}
+{Astro.currentLocale === "pt" && <FAQBatallaPT client:load />}
+ 
+ <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdOr9VOdSJ1if4PSKwwS7GaSxGMZdTeJdBtP4_Y5wdAawdvOA/viewform?embedded=true" width="800" height="800" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+ -->
+</div>
+
+
+
+    </section>
+
+</Layout>
+
+<script async src="https://tally.so/widgets/embed.js"></script>
+<!--     <div class="flex center items-center">
+</div>
+</Layout> -->
