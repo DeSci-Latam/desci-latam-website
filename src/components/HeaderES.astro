@@ -106,8 +106,7 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
         <title>Menu Close</title>
         <polygon
           points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-          transform="rotate(45 10 10)"
-        ></polygon>
+          transform="rotate(45 10 10)"></polygon>
       </svg>
     </label>
     <!-- /navbar toggler -->
@@ -117,10 +116,10 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
       class="navbar-nav order-3 hidden w-full h-[100vh] md:h-auto lg:order-1 lg:flex lg:w-auto"
       onclick="document.getElementById('nav-toggle').checked = false"
     >
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <li class="nav-item nav-dropdown group relative cursor-pointer">
           <span class="nav-link inline-flex items-center">
-            {t({ es: "Sobre", en: "About", pt: "Sobre" })}
+            {t({ es: "Acerca de", en: "About", pt: "Sobre" })}
             <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
               <path
                 d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
@@ -153,20 +152,7 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
                 {t({ es: "DeSci DAY", en: "Changelog", pt: "Changelog" })}
               </a>
             </li>
-            <li class="nav-dropdown-item">
-              <a
-                href={getRelativeLocaleUrl(locale, "#Speakers")}
-                class="nav-dropdown-link active"
-              >
-                {
-                  t({
-                    es: "Batalla de Pitch",
-                    en: "Changelog",
-                    pt: "Changelog",
-                  })
-                }
-              </a>
-            </li>
+          
             <li class="nav-dropdown-item">
               <a
                 href={getRelativeLocaleUrl(locale, "#Speakers")}
@@ -184,81 +170,30 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo"; */
             </a>
           </ul>
         </li>
-      </li>
+      </li> -->
 
-      <li class="nav-item nav-dropdown group relative cursor-pointer">
-        <span class="nav-link inline-flex items-center">
-          {t({ es: "Sé Parte", en: "Se parte", pt: "Se parte" })}
-          <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
-            <path
-              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-            ></path>
-          </svg>
-        </span>
-        <ul
-          class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100 dark:bg-black"
-        >
-          <li class="nav-dropdown-item">
-            <a
-              href={getRelativeLocaleUrl(locale, "#Speakers")}
-              class="nav-dropdown-link active"
-            >
-              {t({ es: "Sponsor", en: "Changelog", pt: "Changelog" })}
-            </a>
-          </li>
-
-          <li class="nav-dropdown-item">
-            <a
-              href={getRelativeLocaleUrl(locale, "#Speakers")}
-              class="nav-dropdown-link active"
-            >
-              {t({ es: "Speaker ", en: "Changelog", pt: "Changelog" })}
-            </a>
-          </li>
-
-          <li class="nav-dropdown-item">
-            <a href="/es/agenda/" class="nav-dropdown-link active">
-              {t({ es: "Voluntario ", en: "Changelog", pt: "Changelog" })}
-            </a>
-          </li>
-        </ul>
-      </li>
+  
 
       <li class="nav-item">
         <a
-          href="#agenda"
+          href={getRelativeLocaleUrl(locale, "batalla-de-ciencia")}
           class={isActive("#Speakers")
             ? " font-medium nav-link block  "
             : "nav-link block"}
         >
-          {t({ es: "AgendaES", en: "Event", pt: "Event" })}
+          {t({ es: "Batalla de ciencia", en: "Event", pt: "Event" })}
         </a>
       </li>
-
-      <li class="nav-item">
-        <a
-          href={getRelativeLocaleUrl(locale, "#Speakers")}
-          class={isActive("#Speakers")
-            ? " font-medium nav-link block  "
-            : "nav-link block"}
-        >
-          {t({ es: "Aliados", en: "Event", pt: "Event" })}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          href={getRelativeLocaleUrl(locale, "#Speakers")}
-          class={isActive("#Speakers")
-            ? " font-medium nav-link block  "
-            : "nav-link block"}
-        >
-          {t({ es: "Sponsors", en: "Event", pt: "Event" })}
-        </a>
-      </li>
+    
+      
     </ul>
     <!-- flex wrapper -->
     <div class="order-1 ml-auto flex items-center lg:order-2">
-      <a class="gap-2 rounded-3xl px-4 py-1 bg-[#F1B749] text-black hover:text-white cursor-pointer hidden xl:flex ">Become Sponsor</a>
+      <a
+        class="gap-2 rounded-3xl text-sm px-4 py-1 border-white border-2 text-white hover:text-[#F1B749] hover:border-[#F1B749] cursor-pointer hidden xl:flex animate-pulse hover:animate-none "
+        href="https://airtable.com/appF0EVscFaeDO8WP/shrdL3Nm0djZvmwYQ" target="_blank"
+        >Conviértete en Sponsor</a
+      >
       <ThemeToggle />
       <LocaleSelect />
     </div>
