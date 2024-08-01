@@ -28,6 +28,9 @@ import { Icon } from "astro-icon/components"; */
 /* import { getRelativeLocaleUrl } from "astro:i18n"; */
 /* const locale = Astro.currentLocale as Lang; */
 
+
+
+
 export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },

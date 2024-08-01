@@ -6,7 +6,7 @@ import { LOCALES, type Lang } from "@/i18n";
 const currentLocale = Astro.currentLocale as Lang;
 ---
 
-<div id="js-languageSuggest">
+<!-- <div id="js-languageSuggest">
   <a id="js-link" href="#">
     <span class="material-icons-sharp">autorenew</span>
     <span id="js-linkText"></span>
@@ -15,7 +15,7 @@ const currentLocale = Astro.currentLocale as Lang;
   <button id="js-close">
     <span class="material-icons-sharp">close</span>
   </button>
-</div>
+</div> -->
 
 <script is:inline define:vars={{ currentLocale, LOCALES }}>
   const userLang = navigator.language.toLowerCase();

@@ -12,7 +12,7 @@ const FAQData = [
   {
     question: "¿Por qué participar?",
     answer:
-      "Participar en la batalla de ciencia ofrece una oportunidad única para que los investigadores presenten sus proyectos a una audiencia diversa de expertos, inversores y otros entusiastas de la ciencia. Al participar, los equipos pueden:\n\n- Ganar premios en dinero y tener la posibilidad de obtener financiamiento adicional.\n- Obtener visibilidad y reconocimiento para sus proyectos.\n- Conectar con posibles colaboradores y financiadores.\n- Aprender sobre tecnologías Web3 y DeSci y cómo pueden aplicarse a sus investigaciones.\n- Conectar con proyectos existentes y explorar oportunidades de colaboración.\n\nEstas oportunidades hacen del PITCH DESCI DAY un evento imperdible para cualquier investigador interesado en potenciar y expandir el alcance de su trabajo.",
+      "Participar en la batalla de ciencia ofrece una oportunidad única para que los investigadores presenten sus proyectos a una audiencia diversa de expertos, inversores y otros entusiastas de la ciencia. </br> Al participar, los equipos pueden:\n\n- Ganar premios en dinero y tener la posibilidad de obtener financiamiento adicional.\n- Obtener visibilidad y reconocimiento para sus proyectos.\n- Conectar con posibles colaboradores y financiadores.\n- Aprender sobre tecnologías Web3 y DeSci y cómo pueden aplicarse a sus investigaciones.\n- Conectar con proyectos existentes y explorar oportunidades de colaboración.\n\nEstas oportunidades hacen del PITCH DESCI DAY un evento imperdible para cualquier investigador interesado en potenciar y expandir el alcance de su trabajo.",
   },
   {
     question: "¿Qué buscamos?",

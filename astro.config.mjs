@@ -45,7 +45,7 @@ export default defineConfig({
     locales: ['en', 'es', 'pt'],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: false,
+      redirectToDefaultLocale: true,
     },
   },
  /*  output: "hybrid", */  /* adapter: vercel({
