@@ -16,7 +16,7 @@ const FAQData = [
   {
     question: "¿Dónde se realiza?",
     answer: 
-      "Lugar del evento: Sitio BA, en Palermo, Buenos Aires. Puedes ver la ubicación en este enlace: https://maps.app.goo.gl/F2gat8XyiYbZNen68",
+      "Lugar del evento: Canal 9 Hangar 8, Conde 51, en Palermo, Buenos Aires. Puedes ver la ubicación en este enlace:  https://maps.app.goo.gl/EgGKbDG5DGVfHQXa6",
   },
   {
     question: "¿Cuál es el objetivo del evento?",
@@ -39,7 +39,7 @@ const FAQData = [
   },
   {
     question: "¿Cuál es el cronograma del evento?",
-    answer: "Puedes ver la agenda de actividades aquí. (insertar link cuando esté cerrada la agenda)",
+    answer: "Puedes ver la agenda de actividades aquí. https://cutt.ly/fecjkRGu "
   }
 ];
 
