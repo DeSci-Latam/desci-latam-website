@@ -16,7 +16,7 @@ const FAQData = [
   {
     question: "¿Dónde se realiza?",
     answer: 
-      "Lugar del evento: Canal 9 Hangar 8, Conde 51, en Palermo, Buenos Aires. Puedes ver la ubicación en este enlace:  https://maps.app.goo.gl/EgGKbDG5DGVfHQXa6",
+      "Lugar del evento: Canal 9 Hangar 8, Conde 11, en Palermo, Buenos Aires. Puedes ver la ubicación en este enlace:  https://maps.app.goo.gl/EgGKbDG5DGVfHQXa6",
   },
   {
     question: "¿Cuál es el objetivo del evento?",
@@ -30,7 +30,7 @@ const FAQData = [
   },
   {
     question: "¿Cómo saco mi entrada para el DeSci Day?",
-    answer: "(insertar form de inscripción)",
+    answer: "https://cutt.ly/fecjkRGu",
   },
   {
     question: "¿Cómo está financiando este evento?",
