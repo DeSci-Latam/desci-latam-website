@@ -16,18 +16,18 @@ const t = useTranslations(Astro.currentLocale as Lang);
         title="Organizado por "
         subtitle="Harum quae dolore inventore repudiandae? orrupti aut temporibus ariatur."
       />  -->
-      <h2
+    <!--   <h2
         id="#Speakers"
-        class="mt-12 font-heading text-3xl md:text-4xl lg:text-[40px]"
+        class=" font-heading text-1xl md:text-1xl lg:text-1xl"
       >
         {
           t({
-            es: "Sponsors",
+            es: "Realizado con el apoyo de",
             en: "August 12th and 13th",
             pt: "12 e 13 de agosto",
           })
         }
-      </h2>
+      </h2> -->
 
       <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {
@@ -36,11 +36,11 @@ const t = useTranslations(Astro.currentLocale as Lang);
               <div class="group relative overflow-hidden  rounded-2xl border border-transparent hover:border hover:border-white cursor-pointer flex justify-center p-5 md:p-8">
                 <div
                   aria-hidden="true"
-                  class="absolute inset-0 aspect-video  -translate-y-1/2 rounded-full  bg-gradient-to-b from-purple-500/80 to-white opacity-25 blur-2xl duration-300 group-hover:-translate-y-1/4 dark:from-white dark:to-white dark:opacity-5 dark:group-hover:opacity-10"
+                  class=" min-h-[50px] max-h-[80px] absolute inset-0 aspect-video  -translate-y-1/2 rounded-full  bg-gradient-to-b from-purple-500/80 to-white opacity-25 blur-2xl duration-300 group-hover:-translate-y-1/4 dark:from-white dark:to-white dark:opacity-5 dark:group-hover:opacity-10"
                 />
 
                 <img
-                  class="max-w-[100px]"
+                  class=""
                   src={sponsors1.image}
                   alt={sponsors1.alt}
                 />
@@ -50,7 +50,7 @@ const t = useTranslations(Astro.currentLocale as Lang);
         }
       </div>
 
-      <h2 class="mt-6 font-heading text-2xl md:text-4xl lg:text-[24px]">
+    <!--   <h2 class="mt-6 font-heading text-2xl md:text-4xl lg:text-[24px]">
         {
           t({
             es: "Hecho posible por",
@@ -79,9 +79,9 @@ const t = useTranslations(Astro.currentLocale as Lang);
             </a>
           ))
         }
-      </div>
+      </div> -->
 
-      <h2 class="mt-6 font-heading text-3xl md:text-4xl lg:text-[24px]">
+     <!--  <h2 class="mt-6 font-heading text-3xl md:text-4xl lg:text-[24px]">
         {
           t({
             es: "Community partners",
@@ -109,7 +109,7 @@ const t = useTranslations(Astro.currentLocale as Lang);
             </a>
           ))
         }
-      </div>
+      </div> -->
     </div>
   </div>
 </section>

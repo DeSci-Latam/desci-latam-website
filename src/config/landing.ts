@@ -97,7 +97,54 @@ export const sponsors1 = [
     alt:"AuraSci",
     description:
       "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "https://google.com",
+    link: "https://aurasci.xyz/",
+  },
+  {
+    title: "Aleph Crecimiento",
+    image: "/images/sponsors/logo-aleph.png",
+    alt:"Alpeh Crecimiento",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "https://www.aleph.crecimiento.build/",
+  },
+  {
+    title: "DeSci World",
+    image: "/images/sponsors/logo-desciworld.png",
+    alt:"DeSci World",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "https://desci.world/",
+  },
+  {
+    title: "DeSci LATAM",
+    image: "/images/sponsors/logo-descilatam.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "https://descilatam.org/",
+  },
+
+  {
+    title: "Beaker DAO",
+    image: "/images/sponsors/logo-beakerdao.png",
+    alt:"Beaker DAO",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "https://beakerdao.xyz/",
+  },
+ 
+];
+
+
+
+/* export const sponsors2 = [
+  {
+    title: "AuraSci",
+    image: "/images/sponsors/logo-aurasci.png",
+    alt:"AuraSci",
+    description:
+      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    link: "/",
   },
   {
     title: "AuraSci",
@@ -132,54 +179,8 @@ export const sponsors1 = [
     link: "/",
   },
  
-];
-
-
-
-export const sponsors2 = [
-  {
-    title: "AuraSci",
-    image: "/images/sponsors/logo-aurasci.png",
-    alt:"AuraSci",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-  },
-  {
-    title: "AuraSci",
-    image: "/images/sponsors/logo-aurasci.png",
-    alt:"AuraSci",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-  },
-  {
-    title: "AuraSci",
-    image: "/images/sponsors/logo-aurasci.png",
-    alt:"AuraSci",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-  },
-  {
-    title: "AuraSci",
-    image: "/images/sponsors/logo-aurasci.png",
-    alt:"AuraSci",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-  },
-  {
-    title: "AuraSci",
-    image: "/images/sponsors/logo-aurasci.png",
-    alt:"AuraSci",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-  },
- 
-];
-
+]; */
+/* 
 
 export const sponsors3 = [
   {
@@ -213,7 +214,7 @@ export const sponsors3 = [
     link: "/",
   }
 ];
-
+ */
 export const testimonials = [
   {
     name: "John Doe",
