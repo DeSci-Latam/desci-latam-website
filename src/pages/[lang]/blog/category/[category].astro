@@ -4,24 +4,33 @@ import Layout from "@/layouts/Base";
 import { Image } from "astro:assets";
 import PageHeadline from "@/components/PageHeadline";
 import { Badge } from "@/components/ui/badge";
-import { getPosts } from "@/utils/post";
 import CategoryFilter from "@/components/filters/CategoryFilter";
+import { getCategories, filterPostsByCategory } from "@/utils/post";
 
-const locale = Astro.currentLocale as Lang;
+export async function getStaticPaths() {
+  const paths = await Promise.all(
+    Object.keys(LOCALES).map(async (lang) => {
+      const categories = await getCategories(lang as Lang);
+      return categories.map((category) => ({
+        params: { lang, category },
+      }));
+    })
+  );
+
+  return paths.flat();
+}
+
+const { lang, category } = Astro.params;
+const locale = lang as Lang;
 const t = useTranslations(locale);
 
-const posts = await getPosts(undefined, locale);
+const posts = await filterPostsByCategory(category as string, locale);
 
 const title = t({
-  es: "Blog",
-  en: "Blog",
-  pt: "Blog",
+  es: `Blog - ${category}`,
+  en: `Blog - ${category}`,
+  pt: `Blog - ${category}`,
 });
-
-export const getStaticPaths = () =>
-  Object.keys(LOCALES).map((lang) => ({
-    params: { lang },
-  }));
 
 ---
 
@@ -29,7 +38,7 @@ export const getStaticPaths = () =>
   <section class="container py-10 pt-28 h-screen">
     <PageHeadline title={title} />
 
-    <CategoryFilter locale={locale} />
+    <CategoryFilter locale={locale} category={category} />
 
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
       {posts.map((post) => {
@@ -52,14 +61,9 @@ export const getStaticPaths = () =>
             </a>
 
             <div class="flex items-center justify-between">
-              <a
-                href={`/${locale}/blog/category/${post.data.category}/`}
-                transition:name={"badge-cat-" + post.slug}
-              >
-                <Badge radius="md" className="capitalize">
-                  {post.data.category}
-                </Badge>
-              </a>
+              <Badge radius="md" className="capitalize">
+                {post.data.category}
+              </Badge>
               <span
                 class="font-medium text-muted-foreground"
                 transition:name={"pubDate-" + post.slug}

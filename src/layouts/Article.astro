@@ -3,6 +3,7 @@
 // Nested in Base layout
 
 import BaseHead from '@/components/BaseHead'
+import Layout from "@/layouts/Base";
 import MainLayout from "./main-layout.astro";
 import { cn, formatDate } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,16 +20,18 @@ interface Props {
 const slug = Astro.props.slug;
 const {  title, description, pubDate, updatedDate, cover } = Astro.props.frontmatter || Astro.props;
 ---
-  <BaseHead   />
+ <!--  <BaseHead   /> -->
+  <!-- <Layout /> -->
 
-<MainLayout title={title} description={description}>
+<Layout title={title} description={description}>
 
   <div class="relative container max-w-screen-md py-10">
+    <div class="mt-12">
     <button
       onclick="history.back()"
       class={cn(
         buttonVariants({ variant: "ghost" }),
-        "absolute left-[-200px] top-10 hidden xl:inline-flex text-muted-foreground"
+        "absolute left-[-200px]  hidden xl:inline-flex text-muted-foreground"
       )}
       transition:animate="slide"
     >
@@ -73,6 +76,7 @@ const {  title, description, pubDate, updatedDate, cover } = Astro.props.frontma
       <hr class="my-6" />
       <slot />
     </article>
+  </div>
   </div>
 </MainLayout>
 

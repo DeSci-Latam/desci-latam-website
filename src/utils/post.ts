@@ -1,23 +1,45 @@
 import { getCollection } from 'astro:content'
+import type { Lang } from '@/i18n'
 
-export const getCategories = async () => {
-	const posts = await getCollection('blog')
-	const categories = new Set(posts.map((post) => post.data.category))
+export const getCategories = async (locale: Lang) => {
+	const posts = await getCollection('blog2')
+	const categories = new Set(
+		posts
+			.filter((post) => post.slug.split('/')[0] === locale)
+			.map((post) => post.data.category)
+	)
 	return Array.from(categories)
 }
 
-export const getPosts = async (max?: number) => {
+export const getFundingCategories = async (locale: Lang) => {
+	const posts = await getCollection('funding')
+	const categories = new Set(
+		posts
+			.filter((post) => post.slug.split('/')[0] === locale)
+			.map((post) => post.data.category)
+	)
+	return Array.from(categories)
+}
+
+export const getPosts = async (max?: number, locale?: Lang) => {
 	return (await getCollection('blog2'))
-		.filter((post) => !post.data.draft)
+		.filter((post) => !post.data.draft && (!locale || post.slug.split('/')[0] === locale))
 		.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 		.slice(0, max)
 }
 
-export const getTags = async () => {
-	const posts = await getCollection('blog2')
+export const getFundingPosts = async (max?: number, locale?: Lang) => {
+	return (await getCollection('funding'))
+		.filter((post) => !post.data.draft && (!locale || post.slug.split('/')[0] === locale))
+		.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+		.slice(0, max)
+}
+
+export const getTags = async (locale: Lang) => {
+	const posts = await getPosts(undefined, locale)
 	const tags = new Set()
 	posts.forEach((post) => {
-		post.data.tags.forEach((tag) => {
+		post.data.tags?.forEach((tag) => {
 			tags.add(tag.toLowerCase())
 		})
 	})
@@ -25,15 +47,20 @@ export const getTags = async () => {
 	return Array.from(tags)
 }
 
-export const getPostByTag = async (tag: string) => {
-	const posts = await getPosts()
+export const getPostByTag = async (tag: string, locale: Lang) => {
+	const posts = await getPosts(undefined, locale)
 	const lowercaseTag = tag.toLowerCase()
 	return posts.filter((post) => {
-		return post.data.tags.some((postTag) => postTag.toLowerCase() === lowercaseTag)
+		return post.data.tags?.some((postTag) => postTag.toLowerCase() === lowercaseTag)
 	})
 }
 
-export const filterPostsByCategory = async (category: string) => {
-	const posts = await getPosts()
-	return posts.filter((post) => post.data.category.toLowerCase() === category)
+export const filterPostsByCategory = async (category: string, locale: Lang) => {
+	const posts = await getPosts(undefined, locale)
+	return posts.filter((post) => post.data.category.toLowerCase() === category.toLowerCase())
+}
+
+export const filterFundingPostsByCategory = async (category: string, locale: Lang) => {
+	const posts = await getPosts(undefined, locale)
+	return posts.filter((post) => post.data.category.toLowerCase() === category.toLowerCase())
 }

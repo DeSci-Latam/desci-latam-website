@@ -32,6 +32,14 @@ export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },
   }));
+
+  const supporters = [
+  { name: "Gitcoin", logo: "/path/to/gitcoin-logo.png" },
+  { name: "Giveth", logo: "/path/to/giveth-logo.png" },
+  { name: "Octant", logo: "/path/to/octant-logo.png" },
+  { name: "AuraSci", logo: "/path/to/aurasci-logo.png" }
+];
+
 ---
 
 <Layout>
@@ -48,11 +56,11 @@ export const getStaticPaths = () =>
   } -->
 
 
-<section class="space-y-6 pt-16 lg:py-28 flex  ">
+<section class="space-y-6 pt-16 lg:py-28 flex   justify-center">
   <div
     class="container  flex flex-wrap-reverse justify-center lg:flex-nowrap  gap-5 "
   >
-  <div class="pl-8 pt-8">
+  <div class=" pt-8">
   <h1
       class="font-heading text-4xl font-red pb-[1.5rem] sm:text-5xl md:text-6xl lg:text-7xl !leading-[1.1] text-balance"
     >
@@ -98,13 +106,32 @@ export const getStaticPaths = () =>
      <!--    Seguinos en <Icon name="twitter" class="ml-2 size-4" /> -->
       </a>
 </div>
-  </div>
-  <Image src={Mariposa} alt="DeSci LATAM" />
+  </div >
+  <Image class="max-w-[75%] max-h-[75%] " src={Mariposa} alt="DeSci LATAM" />
   </div>
 </section>
 
+<section>
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-4">Nuestros Aliados</h2>
+    <p class="text-center mb-8 max-w-2xl text-xl mx-auto">
+      Agradecemos a estas organizaciones visionarias por su apoyo en nuestra misión de impulsar la ciencia descentralizada en Latinoamérica.
+    </p>
+    <div class="flex flex-wrap justify-center items-center gap-8">
+      {supporters.map((supporter) => (
+        <div class="w-40 h-40 flex items-center justify-center">
+          <img 
+            src={supporter.logo} 
+            alt={`Logo de ${supporter.name}`}
+            class="max-w-full max-h-full object-contain"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
-<section class="space-y-6 py-12 flex ">
+<!-- <section class="space-y-6 py-12 flex ">
   <div class="container flex justify-center text-ghost border rounded-[50px] p-8 hover:cursor-pointer hover:text-primary">
     <a>
       <p>
@@ -121,15 +148,15 @@ export const getStaticPaths = () =>
       </p>
     </a>
 </div>
-</section>
+</section> -->
 
 <section class="space-y-6 pb-12 pt-16 lg:py-28 ">
   <div class="container flex flex-auto flex-wrap justify-between pr-4 p-16 ">
     <div>
       <Image src={Astronauta} alt="Ciencia Descentralizada" />
         </div>
-    <div class="max-w-[60rem]">
-    <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+    <div class="max-w-[46rem]">
+    <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-4xl !leading-[1.1] text-balance pb-4"
     >
 
     {
@@ -141,7 +168,7 @@ export const getStaticPaths = () =>
     }
 
     </h2>
-    <p    class=" leading-normal text-lg md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
+    <p    class=" leading-normal text-lg md:text-xl  sm:text-xl sm:leading-8 text-balance pb-6">
 
 
       {
@@ -157,8 +184,8 @@ export const getStaticPaths = () =>
 
 <section class="space-y-6 pb-12 pt-16 lg:py-28 justify-center p-4 ">
   <div class=" container bg-[#212739] p-10 md:p-16  rounded-[50px] flex flex-auto justify-between flex-wrap  gap-5 ">
-    <div class="w-[60rem]">
-    <h2   class="font-heading text-primary text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+    <div class="w-[40rem]">
+    <h2   class="font-heading text-primary text-4xl font-bold sm:text-5xl md:text-4xl lg:text-5xl !leading-[1.1] text-balance pb-4"
     >
 
     {
@@ -170,7 +197,7 @@ export const getStaticPaths = () =>
     }
 
     </h2>
-    <p    class=" text-white leading-normal md:text-2xl text-lg  sm:text-xl sm:leading-8 text-balance pb-6">
+    <p    class=" text-white leading-normal md:text-xl text-lg  sm:text-xl sm:leading-8 text-balance pb-6">
     
 
       {
@@ -195,8 +222,8 @@ export const getStaticPaths = () =>
       <div>
         <Image src={Ciencia} alt="Ciencia" />
           </div>
-      <div class="max-w-[60rem]">
-      <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+      <div class="max-w-[40rem]">
+      <h2   class="font-heading text-4xl font-bold sm:text-5xl md:text-4xl lg:text-5xl !leading-[1.1] text-balance pb-4"
       >
 
       {
@@ -208,7 +235,7 @@ export const getStaticPaths = () =>
       }
 
       </h2>
-      <p    class=" leading-normal md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
+      <p    class=" leading-normal md:text-xl  sm:text-xl sm:leading-8 text-balance pb-6">
         {
           t({
             es: "Te invitamos a ser parte de esta revolución científica. En DesciLatam, fortalecemos a todas las comunidades, fomentando una participación activa en la investigación para beneficio de la humanidad. Juntos, podemos cambiar el mundo, un experimento a la vez.",
@@ -221,8 +248,8 @@ export const getStaticPaths = () =>
 
     <section class="space-y-6 pb-12 pt-16 lg:py-28 p-4">
       <div class=" container bg-[#212739] p-8 md:p-16  rounded-[50px] flex flex-auto justify-between flex-wrap  gap-5 ">
-        <div class="w-[60rem]">
-        <h2   class=" font-heading text-primary text-4xl font-bold sm:text-5xl md:text-6xl lg:text-5xl !leading-[1.1] text-balance pb-4"
+        <div class="w-[40rem]">
+        <h2   class=" font-heading text-primary text-4xl font-bold sm:text-5xl md:text-4xl lg:text-5xl !leading-[1.1] text-balance pb-4"
         >
 
         {
@@ -234,7 +261,7 @@ export const getStaticPaths = () =>
         }
 
   </h2>
-        <p    class=" text-white leading-normal md:text-2xl  sm:text-xl sm:leading-8 text-balance pb-6">
+        <p    class=" text-white leading-normal md:text-xl  sm:text-xl sm:leading-8 text-balance pb-6">
           {
             t({
               es: "En DesciLatam, abrazamos la teoría del caos y comprendemos el poder de las pequeñas acciones en sistemas complejos. Creemos en el impacto transformador de las contribuciones individuales en el avance de la ciencia. Al igual que el aleteo de una mariposa puede desencadenar una serie de eventos que provoquen un cambio gigante en otro lugar, estamos convencidos de que cada aporte cuenta en la construcción de un futuro científico más brillante para la humanidad.",

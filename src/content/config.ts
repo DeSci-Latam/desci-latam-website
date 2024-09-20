@@ -57,11 +57,54 @@ const authorsCollection = defineCollection({
 }); 
 
 
+/* 
+const funding= defineCollection({
+
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      tags: z.string(),
+      description: z.string(),
+      versionNumber: z.string(),
+      cover: image()
+      .refine((img) => img.width >= 600, {
+        message: "cover must be at least 600px wide",
+      }),
+     
+      date: z.coerce.date(),
+    }),
+});
+
+ */
+
+const funding = defineCollection({
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      type: z.string(),
+      tags: z.array(z.string()),
+      description: z.string(),
+      cover: image()
+        .refine((img) => img.width >= 600, {
+          message: "cover must be at least 600px wide",
+        }),
+      amount: z.string(),
+      projectTypes: z.array(z.string()),
+      website: z.string().url(),
+      seo: z.object({
+        title: z.string(),
+        description: z.string(),
+      }).optional(),
+    }),
+});
+
  const changelog= defineCollection({
 
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      tags: z.string(),
       description: z.string(),
       versionNumber: z.string(),
       cover: image()
@@ -136,7 +179,7 @@ const releases = defineCollection({
     }),
 });
 
-export const collections = {  authors: authorsCollection,  posts: postsCollection, blog, blog2, changelog, docs, guides, releases };
+export const collections = {  authors: authorsCollection,  posts: postsCollection, blog, blog2, changelog, docs, guides, releases, funding };
 
 
 /* export const collections = { blog , changelog };

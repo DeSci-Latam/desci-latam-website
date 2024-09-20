@@ -136,6 +136,36 @@ import { TailcastLogo } from "../assets/logos/TailcastLogo";
               
             </ul>
           </li>
+
+
+
+          <li class="nav-item nav-dropdown group relative cursor-pointer">
+            <span class="nav-link inline-flex items-center">
+              {t({ es: "Ecosistema", en: "Ecosystem", "pt": "Ecosistema"})}
+              <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </span>
+            <ul class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100 dark:bg-black">
+    
+                <li class="nav-dropdown-item">
+                 
+                  <a
+			href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")}
+      class="nav-dropdown-link active" >
+			{t({ es: "Plataformas de Financiamiento", en: "Funding", "pt": "Changelog"})}
+		  </a>
+
+      <!-- <h3>Recursos de</h3>
+      <a
+href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")}
+class="nav-dropdown-link active" >
+{t({ es: "Financiamiento", en: "Funding", "pt": "Changelog"})}
+</a> -->
+                </li>
+              
+            </ul>
+          </li>
        
           <li class="nav-item">
 

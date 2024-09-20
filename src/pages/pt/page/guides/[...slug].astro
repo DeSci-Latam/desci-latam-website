@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   return guides.map((guide) => ({
     params: { slug: guide.slug },
     props: guide,
-  }));
+  }));  
 }
 
 type Props = CollectionEntry<"guides">;

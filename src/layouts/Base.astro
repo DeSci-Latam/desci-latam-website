@@ -1,27 +1,26 @@
 ---
-import BaseHead from '@/components/BaseHead'
+import BaseHead from "@/components/BaseHead";
 
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
 
 import { useTranslations, LOCALES, getLocalePaths, type Lang } from "@/i18n";
 const t = useTranslations(Astro.currentLocale as Lang);
 
-const { title, description, image, articleDate, mainClass } = Astro.props
+const { title, description, image, articleDate, mainClass } = Astro.props;
 
 const locale = Astro.currentLocale as Lang;
 const localeTitle = title ? `${title} - ${t(SITE_TITLE)}` : t(SITE_TITLE);
 const localeDescription = description || t(SITE_DESCRIPTION);
 
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/footer";
 /* import Header from "@/components/Header"; */
 import LocaleSuggest from "@/components/i18n/LocaleSuggest";
 
-import ProviderTheme from '@/components/ProviderTheme'
-import ProviderAnimations from '@/components/ProviderAnimations'
+import ProviderTheme from "@/components/ProviderTheme";
+import ProviderAnimations from "@/components/ProviderAnimations";
 import TailwindIndicator from "@/components/tailwind-indicator";
 
-
-import { Navbar } from '../components/Navbar.tsx'
+import { Navbar } from "../components/Navbar.tsx";
 import Header from "@/components/HeaderNuevo";
 
 // Shadcn
@@ -35,7 +34,6 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/config/site";
 import { Icon } from "astro-icon/components";
 
-
 type Props = {
   title?: string;
   image?: string;
@@ -43,88 +41,40 @@ type Props = {
   articleDate?: string;
   mainClass?: string;
 };
-
-
-
-
-
 ---
-<html class='scroll-smooth' lang={LOCALES[locale].lang || locale} dir={LOCALES[locale].dir || null}>
- 
-   <BaseHead title={title} description={description} ogImage={image} articleDate={articleDate} />
 
-<ProviderTheme />
-<ProviderAnimations />
+<html
+  class="scroll-smooth"
+  lang={LOCALES[locale].lang || locale}
+  dir={LOCALES[locale].dir || null}
+>
+  <BaseHead
+    title={title}
+    description={description}
+    ogImage={image}
+    articleDate={articleDate}
+  />
 
-</head>
+  <ProviderTheme />
+  <ProviderAnimations />
 
-<body class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white'>
-    
-  
-  <main>
-  <LocaleSuggest />
-   
-    <!-- <main class="l-main l-content"> -->
-    <!--   <Header  class={cn(
-        "flex items-center h-16 md:h-18 z-50 sticky top-0 bg-background",
-        className
-      )}/> -->
-      <!-- <Navbar client:load /> -->
-      <Header className="border-b" /> 
-        
 
-       
-        <!-- if using only normals links  -->
-        <!-- <MainNav items={marketingConfig.mainNav} slot="left-header" />
-        <SheetMobileNav
-          mainNavItems={marketingConfig.mainNav}
-          slot="mobile-nav-header"
-          client:load
-        /> -->
-    
-        <!-- if use Navigation Menu on desktop -->
-       <!--  <MainNavigationMenu slot="left-header" client:load />
-        
-        <SheetMobileNav
-          mainNavItems={[...navMenuConfig.links]}
-          sidebarNavItems={[
-            ...navMenuConfig.pagesNav,
-            ...navMenuConfig.examplesNav,
-          ]}
-          slot="mobile-nav-header"
-          client:load
-        /> -->
-    
-      <!--   <div class="flex items-center gap-x-4" slot="right-header">
-          <a
-            href={siteConfig.links.github}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="github"
-          >
-            <Icon name="github" class="size-[22px]" />
-          </a>
-          <ThemeToggle client:load />
-        </div> -->
-   
 
+  <body class="bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white">
+    <main class="">
+      <LocaleSuggest />
+
+
+      <Header className="border-b" />
+<div class="max-w-[1280px] m-auto">
       <main class={cn(mainClass)}>
         <slot />
       </main>
-    
+</div>
       <Footer />
-    </BaseLayout>
+    </main>
 
-
-    <Footer />
-  </main>
-  <TailwindIndicator />
-  <Toaster richColors client:only="react" />
- <!--  <style>
-    body {
-      margin-left: calc(100vw - 100%); 
-    }
-  </style> 
-    { import.meta.env.DEV && <style>:root { scroll-behavior: auto }</style> }-->
+    <TailwindIndicator />
+    <Toaster richColors client:only="react" />
   </body>
 </html>

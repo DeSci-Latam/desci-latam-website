@@ -1,0 +1,137 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import PageHeader from "@/components/page-header";
+import { Badge } from "@/components/ui/badge";
+import Base from "@/layouts/Base";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  return Object.keys(LOCALES).map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.currentLocale as Lang;
+const t = useTranslations(locale);
+const platforms = await getCollection("funding", ({ id }) => {
+  return id.startsWith(`${locale}/`);
+});
+
+const title = "Plataformas de Financiamiento para Bienes Públicos y Ciencia";
+
+function ensureTagsArray(tags: string | string[] | undefined): string[] {
+  if (Array.isArray(tags)) return tags;
+  if (typeof tags === 'string') return [tags];
+  return [];
+}
+
+const allTags = [...new Set(platforms.flatMap(platform => ensureTagsArray(platform.data.tags)))];
+const allTypes = [...new Set(platforms.map(platform => platform.data.type))];
+
+function getPlatformSlug(platform) {
+  const parts = platform.slug.split('/');
+  return parts.length > 1 ? parts.slice(1).join('/') : platform.slug;
+}
+---
+
+<Base title={title}>
+  <section class="container max-w-screen-lg space-y-6 pt-12">
+    <PageHeader
+      heading={title}
+      text="Encuentra plataformas de financiamiento para tus proyectos"
+    />
+    
+    <div class="flex justify-between items-center">
+      <input type="text" id="search-input" placeholder="Buscar plataformas..." class="w-1/2 p-2 border rounded" />
+      <select id="type-select" class="p-2 border rounded">
+        <option value="">Todos los tipos</option>
+        {allTypes.map(type => (
+          <option value={type}>{type}</option>
+        ))}
+      </select>
+    </div>
+
+    <div id="tag-filter" class="flex flex-wrap gap-2 mb-4">
+      {allTags.map(tag => (
+        <Badge
+          data-tag={tag}
+          className="cursor-pointer"
+        >
+          {tag}
+        </Badge>
+      ))}
+    </div>
+
+    <ul class="space-y-6" id="platform-list">
+      {platforms.map((platform) => (
+        <li class="border rounded p-4" data-tags={ensureTagsArray(platform.data.tags).join(',')} data-type={platform.data.type}>
+          <a href={`/${locale}/funding/${getPlatformSlug(platform)}`} class="text-xl font-bold hover:underline">{platform.data.title}</a>
+          <p class="text-gray-600">{platform.data.description}</p>
+          <div class="mt-2">
+            <Badge variant="secondary">{platform.data.type}</Badge>
+          </div>
+          <p class="mt-2"><strong>Monto:</strong> {platform.data.amount}</p>
+          <p><strong>Tipos de proyectos:</strong> {platform.data.projectTypes.join(', ')}</p>
+          <a href={platform.data.website} class="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded">Visitar sitio web</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const typeSelect = document.getElementById('type-select') as HTMLSelectElement;
+  const tagFilter = document.getElementById('tag-filter');
+  const platformList = document.getElementById('platform-list');
+  const platforms = platformList?.querySelectorAll('li') || [];
+  
+  let selectedTags = new Set();
+
+  searchInput?.addEventListener('input', filterPlatforms);
+  typeSelect?.addEventListener('change', filterPlatforms);
+
+  tagFilter?.addEventListener('click', (event) => {
+    const clickedTag = (event.target as Element).closest('[data-tag]');
+    if (!clickedTag) return;
+
+    const tag = (clickedTag as HTMLElement).dataset.tag;
+    if (!tag) return;
+    
+    if (selectedTags.has(tag)) {
+      selectedTags.delete(tag);
+      clickedTag.classList.remove('bg-primary', 'text-primary-foreground');
+      clickedTag.classList.add('bg-secondary', 'text-secondary-foreground');
+    } else {
+      selectedTags.add(tag);
+      clickedTag.classList.add('bg-primary', 'text-primary-foreground');
+      clickedTag.classList.remove('bg-secondary', 'text-secondary-foreground');
+    }
+
+    filterPlatforms();
+  });
+
+  function filterPlatforms() {
+    const searchTerm = searchInput?.value.toLowerCase();
+    const selectedType = typeSelect?.value;
+
+    platforms.forEach(platform => {
+      const platformElement = platform as HTMLElement;
+      const title = platformElement.querySelector('a')?.textContent?.toLowerCase() || '';
+      const description = platformElement.querySelector('p')?.textContent?.toLowerCase() || '';
+      const type = platformElement.dataset.type?.toLowerCase() || '';
+      const platformTags = platformElement.dataset.tags?.split(',') || [];
+
+      const matchesSearch = searchTerm ? (title.includes(searchTerm) || description.includes(searchTerm)) : true;
+      const matchesType = selectedType ? type === selectedType.toLowerCase() : true;
+      const matchesTags = selectedTags.size === 0 || platformTags.some(tag => selectedTags.has(tag));
+
+      if (matchesSearch && matchesType && matchesTags) {
+        platformElement.style.display = '';
+      } else {
+        platformElement.style.display = 'none';
+      }
+    });
+  }
+
+  // Initial filter to show all platforms
+  filterPlatforms();
+</script>
