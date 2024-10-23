@@ -5,21 +5,22 @@
 }
 
 :root {
-  @media (prefers-color-scheme: dark) {
-    --color-theme: #31355B;
-    --color-accent: #9FDEF2;
-    --color-base: #F2FDFF;
-    --color-main: #57667C;
+  /*   @media (prefers-color-scheme: dark) {
+    --color-theme: #ACE7FA;
+    --color-fondo: black;
+    --color-accent: #075e79;
+    --color-base: #010101;
+    --color-main: #FCFCFC;
     --color-caution: #FFAA2B;
   }
   
   @media (prefers-color-scheme: light) {
-    --color-theme: #ef4d1a;
-    --color-accent: #ffcc21;
-    --color-base: #31355B;
-    --color-main: #342c28;
-    --color-caution: #A80A00;
-  }
+    --color-theme: #0682f5;
+    --color-accent: #009df8;
+    --color-base: #FCFCFC;
+    --color-main: #0e2ee0;
+    --color-caution: #0011ff;
+  }    */
 
   --sp-l: 64px;
   --sp-m: 32px;
@@ -30,18 +31,17 @@
     --sp-s: 8px;
   }
 
-  --english-font: "Noto Sans", "Robot", "Futura Now Text", "Futura",
+  --english-font: "Ubuntu", "Robot", "Futura Now Text", "Futura",
     "Avenir Next", "Avenir", "Century Gothic", "SF Pro Text", "Helvetica Neue",
     "Helvetica", "Arial", -apple-system, BlinkMacSystemFont, sans-serif;
 
-  accent-color: var(--color-theme);
+ accent-color: var(--color-theme);
   color: var(--color-main);
-  background-color: var(--color-base);
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--color-main) 10%, transparent) 1px,
-    var(--color-base) 1px
-  );
+  background-color: var(--color-fondo); 
   background-size: 16px 16px;
+
+
+ 
 
   line-height: 1.6;
   font-weight: 500;

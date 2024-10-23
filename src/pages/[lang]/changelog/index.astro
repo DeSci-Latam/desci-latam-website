@@ -16,7 +16,7 @@ const posts = await getCollection("changelog", ({ id }) => {
   return id.startsWith(`${locale}/`);
 });
 posts.sort((a, b) => +b.data.date - +a.data.date);
-const title = t("changelog");
+
 
 // Helper function to ensure tags are always an array
 function ensureTagsArray(tags: string | string[] | undefined): string[] {
@@ -30,11 +30,29 @@ const allTags = [...new Set(posts.flatMap(post => ensureTagsArray(post.data.tags
 
 ---
 
-<Base title={title}>
-  <section class="container max-w-screen-lg space-y-6 pt-12">
+<Base title={
+  t({
+    es: "Changelog",
+    en: "At the heart of scientific evolution",
+    pt: "No coração da evolução científica",
+  })
+}>
+  <section class="w-full  ">
     <PageHeader
-      heading={title}
-      text={t("changelog_description")}
+      heading={
+        t({
+          es: "Changelog",
+          en: "At the heart of scientific evolution",
+          pt: "No coração da evolução científica",
+        })
+      }
+      text={
+        t({
+          es: "Changelog description",
+          en: "At the heart of scientific evolution",
+          pt: "No coração da evolução científica",
+        })
+      }
     />
     
     <div id="tag-filter">
@@ -48,7 +66,7 @@ const allTags = [...new Set(posts.flatMap(post => ensureTagsArray(post.data.tags
       ))}
     </div>
 
-    <ul class="pt-6" id="post-list">
+    <ul class="pt-6 max-w-4xl" id="post-list">
       {posts.map(async (post) => {
         const { Content } = await post.render();
         const postTags = ensureTagsArray(post.data.tags);

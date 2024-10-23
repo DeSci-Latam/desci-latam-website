@@ -5,6 +5,19 @@ module.exports = {
   darkMode: ["class"],
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
+    fontWeight: {
+      thin: '100',
+      hairline: '100',
+      extralight: '200',
+      light: '300',
+      normal: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700',
+      extrabold: '800',
+      'extra-bold': '800',
+      black: '900',
+    },
     container: {
       center: true,
       padding: "1rem",
@@ -14,8 +27,8 @@ module.exports = {
     }, 
     extend: {
       fontFamily: {
-        sans: ["Inter", ...fontFamily.sans],
-        heading: ["CalSans Semibold", ...fontFamily.sans],
+        sans: ["Ubuntu", ...fontFamily.sans],
+        heading: ["Ubuntu-Bold", ...fontFamily.sans],
       },
       height: {
         18: "4.5rem",
@@ -29,17 +42,34 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: {
           DEFAULT: "hsl(var(--background))",
-          200: "hsl(var(--background-200))",
+          200: "hsl(var(--background))",
         },
-        foreground: "hsl(var(--foreground))",
+        foreground: "hsl(var(--primary))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        secondary: {
+        secondary: {    
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        lightblue: {
+          DEFAULT: "hsl(var(--lightblue))",
+          foreground: "hsl(var(--lightblue-foreground))",
+        },
+        primaryblue: {
+          DEFAULT: "hsl(var(--primaryblue))",
+        },
+
+        darkblue: {
+          DEFAULT: "hsl(var(--darkblue))",
+          foreground: "hsl(var(--lightblue-foreground))",
+        },
+
+        primarywhite: {
+          DEFAULT: "hsl(var(--primarywhite))",
+        },
+
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -82,5 +112,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), require('daisyui')],
 };

@@ -1,14 +1,14 @@
 import type { SidebarNavItem, SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-  name: "Astronomy",
+  name: "DeSci LATAM",
   description:
-    "An modern example app built using Astro v4 & shadcn/ui. Inspired by shadcn/taxonomy.",
-  url: "https://astro-nomy.vercel.app",
+    "Conectando científicos con blockchain",
+  url: "https://descilatam.org",
   ogImage: "https://astro-nomy.vercel.app/og.jpg",
   links: {
-    twitter: "https://twitter.com/miickasmt",
-    github: "https://github.com/mickasmt/astro-nomy",
+    twitter: "https://twitter.com/crypto_nahue",
+    github: "https://github.com/cryptonahue",
   },
 };
 

@@ -1,240 +1,188 @@
 ---
-import Logo from "@/components/Logo";
-import menu from "@/config/menu.json";
-
-
-export interface ChildNavigationLink {
-  name: string;
-  url: string;
-}
-
-export interface NavigationLink {
-  name: string;
-  url: string;
-  hasChildren?: boolean;
-  children?: ChildNavigationLink[];
-}
-
-const { main }: { main: NavigationLink[] } = menu;
-
-import HeaderLink from '@/components/HeaderLink'
-import TwitterIcon from '@/components/icons/TwitterIcon'
-import GithubIcon from '@/components/icons/GithubIcon'
-import MenuIcon from './icons/MenuIcon.astro'
-import Search from '@/components/Search'
-import TagIcon from './icons/TagIcon.astro'
-import ToggleTheme from './ToggleTheme.astro'
-import { ThemeToggle } from "@/components/theme-toggle";
-import { cn } from "@/lib/utils";
-import LocaleSelect from "@/components/i18n/LocaleSelect";
-import { Image } from "astro:assets";
-import { useTranslations, type Lang } from "@/i18n";
 import { getRelativeLocaleUrl } from "astro:i18n";
-
-
+import { useTranslations, type Lang } from "@/i18n";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Search from "@/components/Search";
+import LocaleSelect from "@/components/i18n/LocaleSelect";
+import { TailcastLogo } from "../assets/logos/TailcastLogo";
 
 const t = useTranslations(Astro.currentLocale as Lang);
-
-import AstroImage from "@/assets/images/logo/logo.svg";
-
 const locale = Astro.currentLocale as Lang;
 
 const isActive = (path: string) =>
   getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
-
-console.log("Current language:", locale);
-
-
-// ADD YOUR SOCIAL NETWORKS HERE
-const SOCIALNETWORKS = [
-	{
-		name: 'Github',
-		url: 'https://github.com/danielcgilibert/blog-template',
-		icon: GithubIcon
-	},
-
-	{
-		name: 'Twitter',
-		url: 'https://github.com/danielcgilibert/blog-template',
-		icon: TwitterIcon
-	}
-]
-
-type Props = {
-  className?: string;
-};
-
-const { className } = Astro.props;
-import { motion, AnimatePresence } from "framer-motion";
-
-import { TailcastLogo } from "../assets/logos/TailcastLogo";
-
 ---
 
-<!-- <header class="header pt-6"> -->
-
-  <header  class="w-full flex flex-col  items-center fixed bg-bgDark1 bg-bgDarkTransparent z-40 backdrop-blur-xl"
-  aria-label="Main navigation">
-  <nav class="navbar container  ">
-
-    <!-- logo -->
-    <div class="order-0">
-      <a class='mr-6 flex items-center space-x-2 gap-2  font-bold' href={getRelativeLocaleUrl(locale, "/")}>
-      <!--   <Image src={AstroImage}  class="h-6 w-6 logo-descilatam" /> -->
-      <TailcastLogo  /> 
-      DeSci LATAM
+<header class="fixed w-full z-40 bg-background border-b border-gray-800">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center h-16">
+      <div class="flex items-center flex-1">
+        <!-- Logo -->
+        <a
+          href={getRelativeLocaleUrl(locale, "/")}
+          class="flex items-center"
+        >
+          <TailcastLogo />
         </a>
-      
-    </div>
-    <!-- navbar toggler -->
-    <input id="nav-toggle" type="checkbox" class="hidden" />
-    <label
-      id="show-button"
-      for="nav-toggle"
-      class="order-2 flex cursor-pointer items-center text-current fill-current md:order-1 md:hidden"
-    >
-      <svg class="h-6 fill-current" viewBox="0 0 20 20">
-        <title>Menu Open</title>
-        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
-      </svg>
-    </label>
-    <label
-      id="hide-button"
-      for="nav-toggle"
-      class="order-2 hidden cursor-pointer items-center text-current md:order-1"
-    >
-      <svg class="h-6 fill-current" viewBox="0 0 20 20">
-        <title>Menu Close</title>
-        <polygon
-          points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-          transform="rotate(45 10 10)"></polygon>
-      </svg>
-    </label>
-    <!-- /navbar toggler -->
 
-    <ul
-      id="nav-menu"
-      class="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto "
-    >
-
-          <li class="nav-item nav-dropdown group relative cursor-pointer">
-            <span class="nav-link inline-flex items-center">
-              {t({ es: "Comunidad", en: "Community", "pt": "Communidade"})}
-              <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+        <!-- Navigation -->
+        <nav class="hidden md:flex items-center ml-8 ">
+          <!-- Comunidad Dropdown -->
+          <div class="dropdown" data-dropdown>
+            <button tabindex={0} class="btn btn-ghost btn-sm normal-case  text-gray-300 hover:text-white flex items-center gap-1">
+              {t({ es: "Comunidad", en: "Community", pt: "Communidade" })}
+              <svg 
+                class="w-4 h-4" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6"/>
               </svg>
-            </span>
-            <ul class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100 dark:bg-black">
-    
-                <li class="nav-dropdown-item">
-                  <a
-			href={getRelativeLocaleUrl(locale, "/changelog")}
-      class="nav-dropdown-link active" >
-			{t({ es: "Changelog", en: "Changelog", "pt": "Changelog"})}
-		  </a>
-                </li>
-              
-            </ul>
-          </li>
-
-
-
-          <li class="nav-item nav-dropdown group relative cursor-pointer">
-            <span class="nav-link inline-flex items-center">
-              {t({ es: "Ecosistema", en: "Ecosystem", "pt": "Ecosistema"})}
-              <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
-            </span>
-            <ul class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100 dark:bg-black">
-    
-                <li class="nav-dropdown-item">
-                 
-                  <a
-			href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")}
-      class="nav-dropdown-link active" >
-			{t({ es: "Plataformas de Financiamiento", en: "Funding", "pt": "Changelog"})}
-		  </a>
-
-      <!-- <h3>Recursos de</h3>
-      <a
-href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")}
-class="nav-dropdown-link active" >
-{t({ es: "Financiamiento", en: "Funding", "pt": "Changelog"})}
-</a> -->
-                </li>
-              
-            </ul>
-          </li>
-       
-          <li class="nav-item">
-
-<a
-			href={getRelativeLocaleUrl(locale, "/blog")}
-      class={isActive("/blog") ? " font-medium nav-link block  " : "nav-link block"}
-		  >
-			{t({ es: "Blog", en: "Blog", "pt": "Blog"})}
-		  </a>
-
-           
-          </li>
- 
-
-
-    <!--   {
-        main.map((menu) => (
-          <>
-            {menu.hasChildren ? (
-              <li class="nav-item nav-dropdown group relative cursor-pointer">
-                <span class="nav-link inline-flex items-center">
-                  {menu.name}
-                  <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </span>
-                <ul class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100">
-                  {menu.children?.map((child) => (
-                    <li class="nav-dropdown-item">
-                      <a href={child.url} class="nav-dropdown-link">
-                        {child.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ) : (
-              <li class="nav-item">
-                <a href={menu.url} class="nav-link block">
-                  {menu.name}
+            </button>
+            
+            <ul class="dropdown-content hidden z-[1] menu p-2  shadow-lg bg-[#1a1f24] border border-gray-800 rounded-md w-52">
+              <h2 class="menu-title">Title</h2>
+              <li>
+                <a href={getRelativeLocaleUrl(locale, "/changelog")} class="text-gray-300 hover:text-white hover:bg-gray-800">
+                  {t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}
                 </a>
               </li>
-            )}
-          </>
-        ))
-      } -->
-      
-    </ul>
-    <div class="order-1 ml-auto flex gap-2 items-center md:order-2 md:ml-0">
-      <Search />
-      <ThemeToggle client:load />
-		<LocaleSelect />
-  
-   <!--    <a
-        class="mr-4 inline-block cursor-pointer p-2 text-xl text-dark transition hover:text-primary md:mr-0"
-        href="/search"
-        title="seach"
-        aria-label="seach"
-      >
+            </ul>
+          </div>
 
-   
-         <IoSearch />
-      </a> -->
+          <!-- Ecosistema Dropdown -->
+          <div class="dropdown" data-dropdown>
+            <button tabindex={0} class="btn btn-ghost btn-sm normal-case text-gray-300 hover:text-white flex items-center gap-1">
+              {t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}
+              <svg 
+                class="w-4 h-4" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <ul class="dropdown-content hidden z-[1] menu p-2 shadow-lg bg-[#1a1f24] border border-gray-800 rounded-md w-52">
+              <li>
+                <a href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")} class="text-gray-300 hover:text-white hover:bg-gray-800">
+                  {t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Blog -->
+          <a
+            href={getRelativeLocaleUrl(locale, "/blog")}
+            class:list={[
+              "btn btn-ghost btn-sm normal-case text-gray-300 hover:text-white",
+              { "text-white": isActive("/blog") }
+            ]}
+          >
+            {t({ es: "Blog", en: "Blog", pt: "Blog" })}
+          </a>
+        </nav>
+      </div>
+
+      <!-- Right Section -->
+      <div class="flex items-center space-x-4">
+        <Search />
+        <ThemeToggle client:load />
+        <LocaleSelect />
+      </div>
     </div>
-  </nav>
+  </div>
 </header>
 
+<script>
+  function setupDropdowns() {
+    const dropdowns = document.querySelectorAll('[data-dropdown]');
+    let timeout: ReturnType<typeof setTimeout>;
+
+    dropdowns.forEach(dropdown => {
+      const content = dropdown.querySelector('.dropdown-content');
+      let isHovered = false;
+
+      // Mostrar dropdown
+      const show = () => {
+        clearTimeout(timeout);
+        content?.classList.remove('hidden');
+        isHovered = true;
+      };
+
+      // Ocultar dropdown con delay
+      const hide = () => {
+        isHovered = false;
+        timeout = setTimeout(() => {
+          if (!isHovered) {
+            content?.classList.add('hidden');
+          }
+        }, 150); // Delay para permitir mover el cursor al contenido
+      };
+
+      // Event listeners para el botón y el contenido
+      dropdown.addEventListener('mouseenter', show);
+      dropdown.addEventListener('mouseleave', hide);
+      
+      // Prevenir cierre cuando se hace click en el contenido
+      content?.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+        isHovered = true;
+      });
+      
+      content?.addEventListener('mouseleave', hide);
+
+      // Mantener abierto al hacer click en el botón
+      const button = dropdown.querySelector('button');
+      button?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (content?.classList.contains('hidden')) {
+          show();
+        }
+      });
+    });
+
+    // Cerrar dropdowns al hacer click fuera
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      dropdowns.forEach(dropdown => {
+        if (!dropdown.contains(target)) {
+          dropdown.querySelector('.dropdown-content')?.classList.add('hidden');
+        }
+      });
+    });
+  }
+
+  // Inicializar dropdowns
+  setupDropdowns();
+
+  // Reinicializar en navegación con View Transitions
+  document.addEventListener('astro:page-load', setupDropdowns);
+</script>
+
 <style>
-.logo-descilatam {
-  color: currentColor;
-}
+  /* Estilos base del dropdown */
+  .dropdown-content {
+    margin-top: 0.5rem;
+    min-width: 8rem;
+  }
+
+  /* Resto de estilos... */
+  .btn-ghost:hover {
+    background-color: transparent !important;
+  }
+
+  .text-white {
+    font-weight: 500;
+  }
+
+  .btn {
+    height: 2.5rem;
+    min-height: 2.5rem;
+    @apply font-normal;
+  }
 </style>

@@ -1,0 +1,84 @@
+---
+import BaseHead from "@/components/BaseHead";
+
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
+
+import { useTranslations, LOCALES, getLocalePaths, type Lang } from "@/i18n";
+const t = useTranslations(Astro.currentLocale as Lang);
+
+const { title, description, image, articleDate, mainClass } = Astro.props;
+
+const locale = Astro.currentLocale as Lang;
+const localeTitle = title ? `${title} - ${t(SITE_TITLE)}` : t(SITE_TITLE);
+const localeDescription = description || t(SITE_DESCRIPTION);
+
+import Footer from "@/components/layout/footer";
+/* import Header from "@/components/Header"; */
+import LocaleSuggest from "@/components/i18n/LocaleSuggest";
+
+import ProviderTheme from "@/components/ProviderTheme";
+import ProviderAnimations from "@/components/ProviderAnimations";
+import TailwindIndicator from "@/components/tailwind-indicator";
+
+import { Navbar } from "../components/Navbar.tsx";
+import Header from "@/components/HeaderNuevo";
+
+// Shadcn
+import Header55 from "@/components/layout/header";
+import { MainNavigationMenu } from "@/components/main-navigation-menu-mio";
+import { Toaster } from "sonner";
+import { cn } from "@/lib/utils";
+import { SheetMobileNav } from "@/components/layout/sheet-mobile-nav";
+import { navMenuConfig } from "@/config/nav-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { siteConfig } from "@/config/site";
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  title?: string;
+  image?: string;
+  description?: string;
+  articleDate?: string;
+  mainClass?: string;
+};
+---
+
+<html
+  class="scroll-smooth"
+  lang={LOCALES[locale].lang || locale}
+  dir={LOCALES[locale].dir || null}
+>
+  <BaseHead
+    title={title}
+    description={description}
+    ogImage={image}
+    articleDate={articleDate}
+  />
+
+  <ProviderTheme />
+  <ProviderAnimations />
+
+
+
+  <body>
+    <div>
+      <LocaleSuggest />
+
+
+      <Header className="border-b"/>
+<div>
+      <main class={cn(mainClass)}>
+        <div class="grid justify-center px-4 ">
+         
+          <slot />
+        
+  </div>      
+      </main>
+</div>
+      <Footer />  
+</div>
+
+    <TailwindIndicator />
+    <Toaster richColors client:only="react" />
+  </body>
+</html>

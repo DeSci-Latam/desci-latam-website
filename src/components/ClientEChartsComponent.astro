@@ -1,0 +1,19 @@
+---
+import { useState } from 'react';
+import {EChartsComponent} from '@/components/EChartsComponent';
+
+interface Props {
+  option?: any;
+  style?: Record<string, string>;
+}
+
+const { option, style } = Astro.props as Props;
+
+console.log('ClientEChartsComponent props:', JSON.stringify({ option, style }, null, 2));
+---
+
+<EChartsComponent client:only="react" option={option} style={style} />
+
+<script>
+  console.log('ClientEChartsComponent rendered on client');
+</script>

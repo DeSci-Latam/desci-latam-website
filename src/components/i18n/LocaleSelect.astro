@@ -1,108 +1,61 @@
 ---
-// Select UI to switch between locales.
-
 import { getLocalePaths, LOCALES } from "@/i18n";
+
+const languageOptions = getLocalePaths(Astro.url);
+const languageLabels = {
+  es: { label: 'Español', flag: '🇦🇷' },
+  en: { label: 'English', flag: '🇺🇸' },
+  pt: { label: 'Português', flag: '🇧🇷 ' }
+};
 ---
 
-<!-- 
-<div class="flex items-center">
-  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> <span class="material-icons-sharp">translate</span></label>
-  <select data-languageSelect class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<div class="dropdown dropdown-end ml-2 " transition:animate="fade">
+  <div tabindex="0" role="button" class="btn btn-ghost btn-sm rounded-full gap-1 normal-case flex items-center px-2 py-2">
+    <span class="material-icons-sharp text-gray-400 items-center">language</span>
+    <span>{languageLabels[Astro.currentLocale as keyof typeof languageLabels].label}</span>
+  </div>
+  <ul tabindex="0" class="dropdown-content z-[1] mt-3 menu gap-2 shadow bg-base-200 rounded-box w-40">
     {
-      getLocalePaths(Astro.url).map(({ path, lang }) => (
-        
-        <option
-        
-          label={LOCALES[lang].label}
-          value={path}
-          data-lang={lang}
-          selected={lang === Astro.currentLocale}
-          dir={LOCALES[lang].dir || null}
-        />
+      languageOptions.map(({ path, lang }) => (
+        <li>
+          <a
+            href={path}
+            class:list={[
+              "flex items-center gap-2",
+              { "active": lang === Astro.currentLocale }
+            ]}
+            data-lang={lang}
+            transition:name={`language-${lang}`}
+          >
+            <span>{languageLabels[lang as keyof typeof languageLabels].flag}</span>
+            <span>{languageLabels[lang as keyof typeof languageLabels].label}</span>
+          </a>
+        </li>
       ))
     }
-  </select>
-</div> 
- -->
-
-
-
-
-<label >
-  <span class="material-icons-sharp">translate</span>
-  <select data-languageSelect >
-    {
-      getLocalePaths(Astro.url).map(({ path, lang }) => (
-        <option
-        
-          label={LOCALES[lang].label}
-          value={path}
-          data-lang={lang}
-          selected={lang === Astro.currentLocale}
-          dir={LOCALES[lang].dir || null}
-        />
-      ))
-    }
-  </select>
-  <span class="material-icons-sharp">expand_more</span>
-</label> 
+  </ul>
+</div>
 
 <script>
-  const selects = document.querySelectorAll("[data-languageSelect]");
+const languageLinks = document.querySelectorAll('[data-lang]');
 
-  selects.forEach((select) => {
-    select.addEventListener("change", (event) => {
-      const target = event.target as HTMLSelectElement;
-      // used for 404 page
-      localStorage.selectedLang = target.selectedOptions[0].dataset.lang;
-      location.href = target.value;
-    });
-  });
+languageLinks.forEach(link => {
+  link.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const target = e.currentTarget as HTMLAnchorElement;
+    const lang = target.dataset.lang;
+    const path = target.href;
 
-</script>
-
-<style>
-
-</style>
-
-
-
-<style>
-
-  label {
-    position: relative;
-    display: flex;
-    width: 65px;
-    text-align-last: left;
-    .material-icons-sharp {
-      pointer-events: none;
-      position: absolute;
-      color: currentColor;
-      &:first-child {
-        font-size: 24px;
-        inset: 8px;
-       /*  opacity: 0.4; */
-      }
-      &:last-child {
-        font-size: 28px;
-        inset: 6px 6px 6px auto;
+    if (lang) {
+      localStorage.setItem('selectedLang', lang);
+      
+      try {
+        const { navigate } = await import('astro:transitions');
+        await navigate(path);
+      } catch (e) {
+        window.location.href = path;
       }
     }
-  }
-  select {
-    width: 40px;
-    height: 40px;
-    padding-inline: 30px;
-    cursor: pointer;
-    appearance: none;
-    border-radius: 6px;
-    font-family: "Noto Sans";
-    color: var(--color-theme);
-    background-color: transparent;
-
-  }
-  select:hover {
-    opacity: 0.5;
-    border: 2px solid var(--color-theme);
-  }
-</style> 
+  });
+});
+</script> 

@@ -13,7 +13,7 @@ input#nav-toggle:checked ~ #nav-menu {
 
 // navbar items
 .navbar {
-  @apply relative flex max-w-[1260px] pt-2 md:pt-0 flex-wrap items-center justify-between;
+  @apply relative flex max-w-[1280px]  md:pt-0 flex-wrap items-center justify-between;
 }
 
 .navbar-brand img {
@@ -29,19 +29,19 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-link {
-  @apply p-3 text-lg font-semibold transition hover:text-primary md:p-4;
+  @apply p-3 text-base font-semibold transition hover:text-[#5C5C5C] text-primary dark:text-muted-foreground dark:hover:text-primary md:p-4;
 }
 
 .nav-dropdown-list {
-  @apply z-10 rounded-lg bg-white px-6 py-3 shadow transition;
+  @apply z-10 text-sm  px-2 py-2 shadow transition ;
 }
 
 .nav-dropdown-item {
-  @apply mb-1;
+  @apply mb-1 hover:bg-[#EDEDED] dark:hover:bg-[#1A1A1A]  py-1 px-2 rounded-sm;
 }
 
 .nav-dropdown-link {
-  @apply block min-w-[150px] py-1 text-[17px] font-semibold  transition hover:text-primary;
+  @apply block min-w-[150px] py-1  text-sm text-[#5C5C5C] dark:text-muted-foreground hover:text-primary transition;
 }
 
 // search style

@@ -1,53 +1,58 @@
----
-import Layout from "@/layouts/Article";
+  ---
+  import Layout from "@/layouts/Article";
+  import { getCollection } from "astro:content";
+  import { Image } from "astro:assets";
 
-import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
 
-export async function getStaticPaths() {
-  const posts = await getCollection("blog2");
 
-  return posts.map((post) => {
-    const [lang, ...slug] = post.slug.split("/");
-    return { params: { lang, slug: slug.join("/") || undefined }, props: post };
-  });
-}
-
-const { lang } = Astro.params;
-const post = Astro.props;
-
-const { Content } = await post.render();
-const title = post.data.title;
----
-
-<Layout {title}>
-  {
-    post.data.cover && (
-      <Image src={post.data.cover} alt={post.data.title} class="cover" />
-    )
+  export async function getStaticPaths() {
+    const posts = await getCollection("blog2");
+    return posts.map((post) => {
+      const [lang, ...slug] = post.slug.split("/");
+      return { params: { lang, slug: slug.join("/") || undefined }, props: post };
+    });
   }
 
-  <header>
-    <h1>{title}</h1>
-    <time datetime={post.data.date.toISOString()}>
-      {post.data.date.toLocaleDateString(lang)}
-    </time>
-  </header>
+  const { lang } = Astro.params;
+  const post = Astro.props;
+  const {   Content } = await post.render();
+  const title = post.data.title;
 
-  <Content class="material-icons" />
-</Layout>
+  const contentProps = {};
+  ---
 
-<style>
-  header {
-    text-align: center;
-    border-block-end: 1px solid var(--color-theme);
-    padding-block-end: var(--sp-m);
+  <Layout {title}>
+   
+  <!--   <header>
+  
+      <h1>{title}</h1>
+       <time datetime={post.data.date.toISOString()}>
+        {post.data.date.toLocaleDateString(lang)}
+      </time> 
+    </header> -->
+    {post.data.cover && (
+      <Image src={post.data.cover} alt={post.data.title} class="cover" />
+    )}
+
+<h1 class="font-heading text-4xl my-4" >
+  {title}
+</h1>
+<!-- <p>{description}</p> -->
+<hr class="my-6" />
+    <Content {...contentProps} />
+  </Layout>
+
+  <style>
+    header {
+      text-align: center;
+      border-block-end: 1px solid var(--color-theme);
+      padding-block-end: var(--sp-m);
+    }
     h1 {
       color: var(--color-theme);
       font-size: 1.8rem;
     }
-  }
-  .cover {
-    border-radius: 16px;
-  }
-</style>
+    .cover {
+      border-radius: 16px;
+    }
+  </style>

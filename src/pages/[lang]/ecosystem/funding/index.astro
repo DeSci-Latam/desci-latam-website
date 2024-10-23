@@ -4,6 +4,7 @@ import PageHeader from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import Base from "@/layouts/Base";
 import { getCollection } from "astro:content";
+import Layout from "@/layouts/Base";
 
 export async function getStaticPaths() {
   return Object.keys(LOCALES).map((lang) => ({ params: { lang } }));
@@ -30,10 +31,10 @@ function getPlatformSlug(platform) {
   const parts = platform.slug.split('/');
   return parts.length > 1 ? parts.slice(1).join('/') : platform.slug;
 }
----
+---         
 
-<Base title={title}>
-  <section class="container max-w-screen-lg space-y-6 pt-12">
+<Layout title={title}>
+  <section class="container space-y-6 ">
     <PageHeader
       heading={title}
       text="Encuentra plataformas de financiamiento para tus proyectos"
@@ -60,7 +61,7 @@ function getPlatformSlug(platform) {
       ))}
     </div>
 
-    <ul class="space-y-6" id="platform-list">
+    <ul class="space-y-6 pb-8" id="platform-list">
       {platforms.map((platform) => (
         <li class="border rounded p-4" data-tags={ensureTagsArray(platform.data.tags).join(',')} data-type={platform.data.type}>
           <a href={`/${locale}/funding/${getPlatformSlug(platform)}`} class="text-xl font-bold hover:underline">{platform.data.title}</a>
@@ -75,7 +76,7 @@ function getPlatformSlug(platform) {
       ))}
     </ul>
   </section>
-</Base>
+</Layout>
 
 <script>
   const searchInput = document.getElementById('search-input') as HTMLInputElement;

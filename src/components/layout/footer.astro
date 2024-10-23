@@ -12,7 +12,7 @@ type Props = {
 const { className } = Astro.props;
 ---
 
-<footer class={cn("border-t  m-auto", className)}>
+<footer class={cn("border-t", className)}>
   <div
     class="container grid grid-cols-1 gap-6 py-14 sm:grid-cols-2 md:grid-cols-5 max-w-[1280px]"
   >
@@ -27,7 +27,7 @@ const { className } = Astro.props;
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-muted-foreground hover:text-primary"
+                  class="text-sm  hover:text-primary"
                 >
                   {link.title}
                 </a>
@@ -48,25 +48,16 @@ const { className } = Astro.props;
       <!-- <span class="text-muted-foreground text-sm">
         Copyright &copy; 2024. All rights reserved.
       </span> -->
-      <p class="text-left text-sm text-muted-foreground">
-        Built by{" "}
+      <p class="text-left text-sm ">
+        {"Desarrollado por"}
         <a
           href={siteConfig.links.twitter}
           target="_blank"
           rel="noreferrer"
           class="font-medium underline underline-offset-4"
         >
-          mickasmt
+          CryptoNahue
         </a>
-        . Hosted on{" "}
-        <a
-          href="https://vercel.com"
-          target="_blank"
-          rel="noreferrer"
-          class="font-medium underline underline-offset-4"
-        >
-          Vercel
-        </a>.
       </p>
 
       <div class="flex items-center gap-3">

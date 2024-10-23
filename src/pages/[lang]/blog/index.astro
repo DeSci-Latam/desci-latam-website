@@ -2,7 +2,8 @@
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
 import Layout from "@/layouts/Base";
 import { Image } from "astro:assets";
-import PageHeadline from "@/components/PageHeadline";
+/* import PageHeadline from "@/components/PageHeadline"; */
+import PageHeader from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { getPosts } from "@/utils/post";
 import CategoryFilter from "@/components/filters/CategoryFilter";
@@ -26,8 +27,23 @@ export const getStaticPaths = () =>
 ---
 
 <Layout title={title}>
-  <section class="container py-10 pt-28 h-screen">
-    <PageHeadline title={title} />
+  <section class="   h-screen">
+    <PageHeader
+    heading={
+      t({
+        es: "Blog",
+        en: "At the heart of scientific evolution",
+        pt: "No coração da evolução científica",
+      })
+    }
+    text={
+      t({
+        es: "Blog description",
+        en: "At the heart of scientific evolution",
+        pt: "No coração da evolução científica",
+      })
+    }
+  />
 
     <CategoryFilter locale={locale} />
 

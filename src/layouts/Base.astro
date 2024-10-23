@@ -58,21 +58,24 @@ type Props = {
   <ProviderTheme />
   <ProviderAnimations />
 
-
-
-  <body class="bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white">
-    <main class="">
+  <body>
+    <div>
       <LocaleSuggest />
 
-
       <Header className="border-b" />
-<div class="max-w-[1280px] m-auto">
-      <main class={cn(mainClass)}>
-        <slot />
-      </main>
-</div>
-      <Footer />
-    </main>
+      <div>
+        <main class={cn(mainClass)}>
+          <div
+            class="w-screen grid justify-center bg-lightblue dark:bg-background px-4 xl:px-0 pt-18 pb-8"
+          > <div
+          class="max-w-screen-xl xl:w-[1280px] w-xl "
+        >
+            <div class="w-full flex justify-center"><slot /></div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <Footer />
 
     <TailwindIndicator />
     <Toaster richColors client:only="react" />
