@@ -12,9 +12,9 @@ import simpleStackForm from "simple-stack-form";
 export default defineConfig({
  /*  site: 'https://dev-descilatam.vercel.app', */
  site: 'https://desci-latam-website.vercel.app',
- experimental: {
+/*  experimental: {
   viewTransitions: true
-},
+}, */
  integrations: [react()],
   integrations: [mdx({
     syntaxHighlight: 'shiki',

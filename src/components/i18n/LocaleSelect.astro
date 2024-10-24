@@ -9,7 +9,7 @@ const languageLabels = {
 };
 ---
 
-<div class="dropdown dropdown-end ml-2 " transition:animate="fade">
+<div class="dropdown dropdown-top md:dropdown-bottom md:dropdown-end   ml-2 " transition:animate="fade">
   <div tabindex="0" role="button" class="btn btn-ghost btn-sm rounded-full gap-1 normal-case flex items-center px-2 py-2">
     <span class="material-icons-sharp text-gray-400 items-center">language</span>
     <span>{languageLabels[Astro.currentLocale as keyof typeof languageLabels].label}</span>

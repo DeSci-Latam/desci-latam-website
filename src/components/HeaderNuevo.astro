@@ -13,176 +13,340 @@ const isActive = (path: string) =>
   getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
 ---
 
-<header class="fixed w-full z-40 bg-background border-b border-gray-800">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="flex items-center h-16">
-      <div class="flex items-center flex-1">
-        <!-- Logo -->
-        <a
-          href={getRelativeLocaleUrl(locale, "/")}
-          class="flex items-center"
-        >
-          <TailcastLogo />
-        </a>
+<!-- Mobile Header con Drawer -->
+<div class="lg:hidden">
+  <div class="drawer drawer-end z-10">
+    <input id="drawer-mobile" type="checkbox" class="drawer-toggle" />
+    
+    <div class="drawer-content">
+      <header class="fixed w-full z-40 bg-background border-b border-gray-800">
+        <div class="max-w-[1304px] mx-auto px-4">
+          <div class="navbar min-h-16 px-0">
+            <div class="flex-1">
+              <a href={getRelativeLocaleUrl(locale, "/")} class="flex items-center">
+                <TailcastLogo />
+              </a>
+            </div>
 
-        <!-- Navigation -->
-        <nav class="hidden md:flex items-center ml-8 ">
-          <!-- Comunidad Dropdown -->
-          <div class="dropdown" data-dropdown>
-            <button tabindex={0} class="btn btn-ghost btn-sm normal-case  text-gray-300 hover:text-white flex items-center gap-1">
-              {t({ es: "Comunidad", en: "Community", pt: "Communidade" })}
-              <svg 
-                class="w-4 h-4" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2"
-              >
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </button>
-            
-            <ul class="dropdown-content hidden z-[1] menu p-2  shadow-lg bg-[#1a1f24] border border-gray-800 rounded-md w-52">
-              <h2 class="menu-title">Title</h2>
-              <li>
-                <a href={getRelativeLocaleUrl(locale, "/changelog")} class="text-gray-300 hover:text-white hover:bg-gray-800">
+            <div class="flex-none gap-2">
+              <div class="flex items-center">
+                <Search />
+                <div class="hidden lg:flex">
+                  <ThemeToggle client:load />
+                  <LocaleSelect />
+                </div>
+              </div>
+
+              <label for="drawer-mobile" class="swap swap-rotate">
+                <svg
+                  class="swap-off fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 512 512"
+                >
+                  <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+                </svg>
+                
+                <svg
+                  class="swap-on fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 512 512"
+                >
+                  <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+                </svg>
+              </label>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="drawer-side">
+      <label for="drawer-mobile" class="drawer-overlay"></label>
+      
+      <div class="menu min-h-full w-[80%] max-w-[380px] bg-[#0F1115] text-gray-100 flex flex-col relative">
+        <!-- Header con botón de cierre -->
+        <div class="absolute top-0 right-0 p-4 z-50">
+          <label for="drawer-mobile" class="btn btn-circle btn-ghost btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" class="fill-current">
+              <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+            </svg>
+          </label>
+        </div>
+
+        <!-- Menu content con scroll -->
+        <div class="flex-1 overflow-y-auto h-full pt-16 pb-20">
+          <div class="p-4">
+            <!-- Comunidad -->
+            <details class="group">
+              <summary class="list-none flex items-center justify-between py-3 cursor-pointer border-b border-gray-800 text-gray-300 hover:text-white">
+                {t({ es: "Comunidad", en: "Community", pt: "Communidade" })}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 transition-transform group-open:rotate-45">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </summary>
+              <div class="pt-2 pl-4">
+                <a 
+                  href={getRelativeLocaleUrl(locale, "/changelog")}
+                  class="block py-2 text-gray-300 hover:text-white"
+                >
                   {t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}
                 </a>
-              </li>
-            </ul>
-          </div>
+              </div>
+            </details>
 
-          <!-- Ecosistema Dropdown -->
-          <div class="dropdown" data-dropdown>
-            <button tabindex={0} class="btn btn-ghost btn-sm normal-case text-gray-300 hover:text-white flex items-center gap-1">
-              {t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}
-              <svg 
-                class="w-4 h-4" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2"
-              >
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </button>
-            <ul class="dropdown-content hidden z-[1] menu p-2 shadow-lg bg-[#1a1f24] border border-gray-800 rounded-md w-52">
-              <li>
-                <a href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")} class="text-gray-300 hover:text-white hover:bg-gray-800">
+            <!-- Ecosistema -->
+            <details class="group">
+              <summary class="list-none flex items-center justify-between py-3 cursor-pointer border-b border-gray-800 text-gray-300 hover:text-white">
+                {t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 transition-transform group-open:rotate-45">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </summary>
+              <div class="pt-2 pl-4">
+                <a 
+                  href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")}
+                  class="block py-2 text-gray-300 hover:text-white"
+                >
                   {t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}
                 </a>
-              </li>
-            </ul>
+              </div>
+            </details>
+
+            <!-- Blog -->
+            <a
+              href={getRelativeLocaleUrl(locale, "/blog")}
+              class="flex items-center py-3 text-gray-300 hover:text-white border-b border-gray-800"
+            >
+              {t({ es: "Blog", en: "Blog", pt: "Blog" })}
+            </a>
           </div>
+        </div>
 
-          <!-- Blog -->
-          <a
-            href={getRelativeLocaleUrl(locale, "/blog")}
-            class:list={[
-              "btn btn-ghost btn-sm normal-case text-gray-300 hover:text-white",
-              { "text-white": isActive("/blog") }
-            ]}
-          >
-            {t({ es: "Blog", en: "Blog", pt: "Blog" })}
-          </a>
-        </nav>
-      </div>
-
-      <!-- Right Section -->
-      <div class="flex items-center space-x-4">
-        <Search />
-        <ThemeToggle client:load />
-        <LocaleSelect />
+        <!-- Footer Items -->
+        <div class="absolute bottom-0 left-0 right-0 border-t border-gray-800 bg-[#0F1115] p-4">
+          <div class="flex items-center justify-between">
+            <LocaleSelect />
+            <ThemeToggle client:load />
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</header>
+</div>
 
-<script>
-  function setupDropdowns() {
-    const dropdowns = document.querySelectorAll('[data-dropdown]');
-    let timeout: ReturnType<typeof setTimeout>;
+<!-- Desktop Header -->
+<div class="hidden lg:block">
+  <header class="fixed w-full z-40 bg-background border-b border-gray-800">
+    <div class="max-w-[1304px] mx-auto px-4">
+      <div class="navbar min-h-16 px-0">
+        <div class="flex-1">
+          <a href={getRelativeLocaleUrl(locale, "/")} class="flex items-center">
+            <TailcastLogo />
+          </a>
 
-    dropdowns.forEach(dropdown => {
-      const content = dropdown.querySelector('.dropdown-content');
-      let isHovered = false;
+          <nav class="flex items-center ml-8 space-x-6">
+            <!-- Comunidad Dropdown -->
+            <div class="dropdown dropdown-hover">
+              <div tabindex={0} role="button" class="menu-button">
+                <span>{t({ es: "Comunidad", en: "Community", pt: "Communidade" })}</span>
+                <svg 
+                  class="dropdown-arrow" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2"
+                >
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+              <ul tabindex={0} class="dropdown-content z-[1] menu p-2 shadow-lg bg-[#0F1115] border border-gray-800 rounded-box w-52">
+                <li>
+                  <a href={getRelativeLocaleUrl(locale, "/changelog")} class="text-gray-300 hover:text-white">
+                    {t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-      // Mostrar dropdown
-      const show = () => {
-        clearTimeout(timeout);
-        content?.classList.remove('hidden');
-        isHovered = true;
-      };
+            <!-- Ecosistema Dropdown -->
+            <div class="dropdown dropdown-hover">
+              <div tabindex={0} role="button" class="menu-button">
+                <span>{t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}</span>
+                <svg 
+                  class="dropdown-arrow" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2"
+                >
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+              <ul tabindex={0} class="dropdown-content z-[1] menu p-2 shadow-lg bg-[#0F1115] border border-gray-800 rounded-box w-52">
+                <li>
+                  <a href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")} class="text-gray-300 hover:text-white">
+                    {t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-      // Ocultar dropdown con delay
-      const hide = () => {
-        isHovered = false;
-        timeout = setTimeout(() => {
-          if (!isHovered) {
-            content?.classList.add('hidden');
-          }
-        }, 150); // Delay para permitir mover el cursor al contenido
-      };
+            <!-- Blog -->
+            <a
+              href={getRelativeLocaleUrl(locale, "/blog")}
+              class:list={[
+                "menu-button",
+                { "text-white": isActive("/blog") }
+              ]}
+            >
+              {t({ es: "Blog", en: "Blog", pt: "Blog" })}
+            </a>
+          </nav>
+        </div>
 
-      // Event listeners para el botón y el contenido
-      dropdown.addEventListener('mouseenter', show);
-      dropdown.addEventListener('mouseleave', hide);
-      
-      // Prevenir cierre cuando se hace click en el contenido
-      content?.addEventListener('mouseenter', () => {
-        clearTimeout(timeout);
-        isHovered = true;
-      });
-      
-      content?.addEventListener('mouseleave', hide);
-
-      // Mantener abierto al hacer click en el botón
-      const button = dropdown.querySelector('button');
-      button?.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (content?.classList.contains('hidden')) {
-          show();
-        }
-      });
-    });
-
-    // Cerrar dropdowns al hacer click fuera
-    document.addEventListener('click', (e) => {
-      const target = e.target as Node;
-      dropdowns.forEach(dropdown => {
-        if (!dropdown.contains(target)) {
-          dropdown.querySelector('.dropdown-content')?.classList.add('hidden');
-        }
-      });
-    });
-  }
-
-  // Inicializar dropdowns
-  setupDropdowns();
-
-  // Reinicializar en navegación con View Transitions
-  document.addEventListener('astro:page-load', setupDropdowns);
-</script>
+        <div class="flex-none gap-2">
+          <Search />
+          <ThemeToggle client:load />
+          <LocaleSelect />
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
 
 <style>
-  /* Estilos base del dropdown */
+  /* Base styles */
+  .drawer-overlay {
+    @apply bg-black/40 backdrop-blur-sm opacity-0 transition-opacity duration-300;
+  }
+
+  .drawer-toggle:checked ~ .drawer-side .drawer-overlay {
+    @apply opacity-100;
+  }
+
+  /* Mobile menu styles */
+  details > summary {
+    list-style: none;
+  }
+
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Menu button styles */
+  .menu-button {
+    @apply btn btn-ghost btn-sm normal-case text-gray-300 hover:text-white flex items-center gap-1 h-8 min-h-0 px-2;
+  }
+
+  .dropdown-arrow {
+    @apply w-4 h-4 inline-flex;
+  }
+
+  /* Drawer mobile styles */
+  .drawer-side .menu {
+    @apply overflow-hidden;
+  }
+
+  .drawer-side .menu > div:nth-child(2) {
+    @apply overflow-y-auto;
+  }
+
+  /* Asegura que el footer permanezca visible y tenga un fondo */
+  .drawer-side .menu > div:last-child {
+    box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  /* Swap button styles */
+  .drawer-toggle:checked ~ .drawer-content .swap {
+    @apply swap-active;
+  }
+  
+  .swap {
+    @apply w-10 h-10;
+    padding: 0;
+  }
+  
+  .swap svg {
+    @apply w-6 h-6;
+  }
+
+  /* Animations */
+  details[open] summary ~ * {
+    animation: slide-in 0.3s ease-in-out;
+  }
+
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Dropdown styles */
   .dropdown-content {
-    margin-top: 0.5rem;
-    min-width: 8rem;
+    @apply mt-2;
   }
 
-  /* Resto de estilos... */
+  /* Other styles */
   .btn-ghost:hover {
-    background-color: transparent !important;
+    @apply bg-transparent;
   }
 
-  .text-white {
-    font-weight: 500;
+  .overflow-y-auto {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.gray.700') transparent;
   }
 
-  .btn {
-    height: 2.5rem;
-    min-height: 2.5rem;
-    @apply font-normal;
+  .overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-full;
   }
 </style>
+
+<script>
+  function setupMobileMenu() {
+    const drawerLinks = document.querySelectorAll('.drawer-side a');
+    const drawerCheckbox = document.getElementById('drawer-mobile') as HTMLInputElement;
+    const swapButton = document.querySelector('.swap') as HTMLElement;
+    
+    if (drawerCheckbox && swapButton) {
+      // Manejar clics en los enlaces
+      drawerLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          drawerCheckbox.checked = false;
+          swapButton.classList.remove('swap-active');
+        });
+      });
+
+      // Sincronizar el estado del swap con el drawer
+      drawerCheckbox.addEventListener('change', () => {
+        if (drawerCheckbox.checked) {
+          swapButton.classList.add('swap-active');
+        } else {
+          swapButton.classList.remove('swap-active');
+        }
+      });
+    }
+  }
+
+  // Setup inicial
+  setupMobileMenu();
+
+  // Setup en navegación
+  document.addEventListener('astro:page-load', setupMobileMenu);
+</script>     
