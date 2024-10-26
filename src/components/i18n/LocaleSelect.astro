@@ -1,6 +1,5 @@
 ---
 import { getLocalePaths, LOCALES } from "@/i18n";
-
 const languageOptions = getLocalePaths(Astro.url);
 const languageLabels = {
   es: { label: 'Español', flag: '🇦🇷' },
@@ -8,54 +7,49 @@ const languageLabels = {
   pt: { label: 'Português', flag: '🇧🇷 ' }
 };
 ---
-
-<div class="dropdown dropdown-top md:dropdown-bottom md:dropdown-end   ml-2 " transition:animate="fade">
+<div class="dropdown dropdown-top lg:dropdown-end lg:dropdown-bottom ml-2" transition:animate="fade">
   <div tabindex="0" role="button" class="btn btn-ghost btn-sm rounded-full gap-1 normal-case flex items-center px-2 py-2">
     <span class="material-icons-sharp text-gray-400 items-center">language</span>
     <span>{languageLabels[Astro.currentLocale as keyof typeof languageLabels].label}</span>
   </div>
   <ul tabindex="0" class="dropdown-content z-[1] mt-3 menu gap-2 shadow bg-base-200 rounded-box w-40">
-    {
-      languageOptions.map(({ path, lang }) => (
-        <li>
-          <a
-            href={path}
-            class:list={[
-              "flex items-center gap-2",
-              { "active": lang === Astro.currentLocale }
-            ]}
-            data-lang={lang}
-            transition:name={`language-${lang}`}
-          >
-            <span>{languageLabels[lang as keyof typeof languageLabels].flag}</span>
-            <span>{languageLabels[lang as keyof typeof languageLabels].label}</span>
-          </a>
-        </li>
-      ))
-    }
+    {languageOptions.map((option) => (
+      <li>
+        <a
+          href={option.path}
+          class:list={[
+            "flex items-center gap-2",
+            { "active": option.lang === Astro.currentLocale }
+          ]}
+          data-lang={option.lang}
+          transition:name={`language-${option.lang}`}
+        >
+          <span>{languageLabels[option.lang as keyof typeof languageLabels].flag}</span>
+          <span>{languageLabels[option.lang as keyof typeof languageLabels].label}</span>
+        </a>
+      </li>
+    ))}
   </ul>
 </div>
 
 <script>
-const languageLinks = document.querySelectorAll('[data-lang]');
+  const languageLinks = document.querySelectorAll('[data-lang]');
+  languageLinks.forEach(link => {
+    link.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const target = e.currentTarget as HTMLAnchorElement;
+      const lang = target.dataset.lang;
+      const path = target.href;
 
-languageLinks.forEach(link => {
-  link.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const target = e.currentTarget as HTMLAnchorElement;
-    const lang = target.dataset.lang;
-    const path = target.href;
-
-    if (lang) {
-      localStorage.setItem('selectedLang', lang);
-      
-      try {
-        const { navigate } = await import('astro:transitions');
-        await navigate(path);
-      } catch (e) {
-        window.location.href = path;
+      if (lang) {
+        localStorage.setItem('selectedLang', lang);
+        try {
+          const astro = await import('astro:transitions/client');
+          await astro.default.navigate(path);
+        } catch (e) {
+          window.location.href = path;
+        }
       }
-    }
+    });
   });
-});
-</script> 
+</script>

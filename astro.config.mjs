@@ -1,48 +1,20 @@
-/* import db from "@astrojs/db"; */
+import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from "@astrojs/react";
 import icon from "astro-icon";
-/* import vercel from "@astrojs/vercel/serverless"; */
 import simpleStackForm from "simple-stack-form";
 
-// https://astro.build/config
-export default defineConfig({
- /*  site: 'https://dev-descilatam.vercel.app', */
- site: 'https://desci-latam-website.vercel.app',
-/*  experimental: {
-  viewTransitions: true
-}, */
- integrations: [react()],
-  integrations: [mdx({
-    syntaxHighlight: 'shiki',
-    shikiConfig: {
-      experimentalThemes: {
-        light: 'vitesse-light',
-        dark: 'material-theme-palenight',
-        },
-      wrap: true
-    },
-    drafts: true,
-    gfm: true,
-  }),
+const PROD_URL = 'http://localhost:4321';
+const DEV_URL = 'http://localhost:4321';
 
-  /* mdx({
-    syntaxHighlight: "shiki",
-    shikiConfig: {
-      theme: "github-dark-dimmed",
-    },
-    gfm: true,
-  }), */
-  icon(),
-  sitemap(),
- /*  db(), */
-  react(),
-  simpleStackForm(),
-  tailwind({applyBaseStyles: false,})],
- 
+// Detecta si estamos en producción
+const isProduction = process.env.NODE_ENV === 'production';
+
+export default defineConfig({
+  site: isProduction ? PROD_URL : DEV_URL,
+
   i18n: {
     defaultLocale: 'es',
     locales: ['en', 'es', 'pt'],
@@ -51,14 +23,34 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
- /*  output: "hybrid", */  /* adapter: vercel({
-    analytics: true,
-  }), */
+
+  integrations: [
+    mdx({
+      syntaxHighlight: 'shiki',
+      shikiConfig: {
+        experimentalThemes: {
+          light: 'vitesse-light',
+          dark: 'material-theme-palenight',
+        },
+        wrap: true
+      },
+      drafts: true,
+      gfm: true,
+    }),
+    icon(),
+    sitemap(),
+    react(),
+    simpleStackForm(),
+    tailwind({
+      applyBaseStyles: false,
+    })
+  ],
+
   markdown: {
     drafts: true,
     shikiConfig: {
       theme: 'material-theme-palenight',
-			wrap: true
+      wrap: true
     },
   },
 });

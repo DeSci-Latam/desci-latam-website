@@ -1,17 +1,18 @@
 ---
-import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import { LOCALES, type Lang } from "@/i18n";
 import PageHeader from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import Base from "@/layouts/Base";
 import { getCollection } from "astro:content";
-import Layout from "@/layouts/Base";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   return Object.keys(LOCALES).map((lang) => ({ params: { lang } }));
 }
 
+type Platform = CollectionEntry<"funding">;
+
 const locale = Astro.currentLocale as Lang;
-const t = useTranslations(locale);
 const platforms = await getCollection("funding", ({ id }) => {
   return id.startsWith(`${locale}/`);
 });
@@ -27,22 +28,46 @@ function ensureTagsArray(tags: string | string[] | undefined): string[] {
 const allTags = [...new Set(platforms.flatMap(platform => ensureTagsArray(platform.data.tags)))];
 const allTypes = [...new Set(platforms.map(platform => platform.data.type))];
 
-function getPlatformSlug(platform) {
+function getPlatformSlug(platform: Platform): string {
   const parts = platform.slug.split('/');
   return parts.length > 1 ? parts.slice(1).join('/') : platform.slug;
 }
----         
 
-<Layout title={title}>
-  <section class="container space-y-6 ">
+// Helper function to format currency amounts
+const formatAmount = (amount: string): string => {
+  return amount.startsWith('$') ? amount : `$${amount}`;
+};
+
+// Helper function to get platform card color based on type
+const getPlatformColor = (type: string): string => {
+  const colorMap: Record<string, string> = {
+    'Grant': 'bg-blue-100 dark:bg-blue-900',
+    'Investment': 'bg-green-100 dark:bg-green-900',
+    'Bounty': 'bg-purple-100 dark:bg-purple-900',
+    'default': 'bg-gray-100 dark:bg-gray-900'
+  };
+  return colorMap[type] || colorMap.default;
+};
+---
+
+<Base title={title}>
+  <div class="container mx-auto px-4 py-8">
     <PageHeader
       heading={title}
       text="Encuentra plataformas de financiamiento para tus proyectos"
     />
     
-    <div class="flex justify-between items-center">
-      <input type="text" id="search-input" placeholder="Buscar plataformas..." class="w-1/2 p-2 border rounded" />
-      <select id="type-select" class="p-2 border rounded">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+      <input 
+        type="text" 
+        id="search-input" 
+        placeholder="Buscar plataformas..." 
+        class="w-full md:w-1/2 p-2 border rounded bg-background"
+      />
+      <select 
+        id="type-select" 
+        class="w-full md:w-auto p-2 border rounded bg-background"
+      >
         <option value="">Todos los tipos</option>
         {allTypes.map(type => (
           <option value={type}>{type}</option>
@@ -50,40 +75,98 @@ function getPlatformSlug(platform) {
       </select>
     </div>
 
-    <div id="tag-filter" class="flex flex-wrap gap-2 mb-4">
+    <div id="tag-filter" class="flex flex-wrap gap-2 mb-6">
       {allTags.map(tag => (
         <Badge
+          variant="secondary"
           data-tag={tag}
-          className="cursor-pointer"
+          className="cursor-pointer hover:bg-primary/20"
         >
           {tag}
         </Badge>
       ))}
     </div>
 
-    <ul class="space-y-6 pb-8" id="platform-list">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="platform-list">
       {platforms.map((platform) => (
-        <li class="border rounded p-4" data-tags={ensureTagsArray(platform.data.tags).join(',')} data-type={platform.data.type}>
-          <a href={`/${locale}/funding/${getPlatformSlug(platform)}`} class="text-xl font-bold hover:underline">{platform.data.title}</a>
-          <p class="text-gray-600">{platform.data.description}</p>
-          <div class="mt-2">
-            <Badge variant="secondary">{platform.data.type}</Badge>
+        <div 
+          class={`rounded-lg shadow-lg overflow-hidden ${getPlatformColor(platform.data.type)}`}
+          data-tags={ensureTagsArray(platform.data.tags).join(',')} 
+          data-type={platform.data.type}
+        >
+          <div class="relative">
+            {platform.data.cover && (
+              <img 
+                src={platform.data.cover.src} 
+                alt={platform.data.title}
+                width={platform.data.cover.width}
+                height={platform.data.cover.height}
+                class="w-full h-48 object-cover"
+              />
+            )}
+            <div class="absolute top-4 right-4">
+              <Badge variant="secondary" className="bg-white dark:bg-gray-800">
+                {formatAmount(platform.data.amount)}
+              </Badge>
+            </div>
           </div>
-          <p class="mt-2"><strong>Monto:</strong> {platform.data.amount}</p>
-          <p><strong>Tipos de proyectos:</strong> {platform.data.projectTypes.join(', ')}</p>
-          <a href={platform.data.website} class="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded">Visitar sitio web</a>
-        </li>
+          
+          <div class="p-6">
+            <a 
+              href={`/${locale}/ecosystem/funding/${getPlatformSlug(platform)}`} 
+              class="text-xl font-semibold hover:underline mb-2 block"
+            >
+              {platform.data.title}
+            </a>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              {platform.data.description}
+            </p>
+            
+            <div class="mb-4">
+              <div class="flex flex-wrap gap-2">
+                {platform.data.tags.map((tag) => (
+                  <Badge 
+                    variant="secondary" 
+                    className="bg-white/80 dark:bg-gray-800/80"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mb-4">
+              {platform.data.projectTypes.map((projectType) => (
+                <Badge 
+                  variant="default"
+                  className="bg-primary/10 text-primary dark:bg-primary/20"
+                >
+                  {projectType}
+                </Badge>
+              ))}
+            </div>
+            
+            <a 
+              href={platform.data.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark transition-colors"
+            >
+              Visitar sitio web
+            </a>
+          </div>
+        </div>
       ))}
-    </ul>
-  </section>
-</Layout>
+    </div>
+  </div>
+</Base>
 
 <script>
   const searchInput = document.getElementById('search-input') as HTMLInputElement;
   const typeSelect = document.getElementById('type-select') as HTMLSelectElement;
   const tagFilter = document.getElementById('tag-filter');
   const platformList = document.getElementById('platform-list');
-  const platforms = platformList?.querySelectorAll('li') || [];
+  const platforms = platformList?.querySelectorAll('[data-type]') || [];
   
   let selectedTags = new Set();
 

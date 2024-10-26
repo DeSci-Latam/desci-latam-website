@@ -1,35 +1,154 @@
 ---
-import { MdxComponents } from "@/components/content/mdx-components";
-import FundingPostLayout from "@/layouts/funding-post";
-import { getCollection, type CollectionEntry } from "astro:content";
-import { getTableOfContents } from "@/lib/toc";
+import { DashboardTableOfContents } from "@/components/toc";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
+import Base from "@/layouts/Base";
+import { Image } from "astro:assets";
+import type { Items } from '@/lib/toc';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection("funding");
-  return posts.map((post) => {
-    const [lang, ...slugParts] = post.slug.split("/");
+  const funding = await getCollection('funding');
+  return funding.map((entry) => {
+    const [lang, ...slug] = entry.slug.split('/');
     return {
-      params: { lang, slug: slugParts.join("/") },
-      props: post,
+      params: { 
+        lang, 
+        slug: slug.join('/') || undefined 
+      },
+      props: { entry },
     };
   });
 }
 
-type Props = CollectionEntry<"funding">;
-const post = Astro.props;
-const { lang } = Astro.params;
-const { Content } = await post.render();
-const { title, description, date, cover } = post.data;
-const toc = await getTableOfContents(post.body);
+type Props = {
+  entry: CollectionEntry<"funding">;
+};
 
-if (!post) {
-  return new Response(null, {
-    status: 404,
-    statusText: "Not found",
-  });
-}
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+
+const {
+  title,
+  description,
+  type,
+  date,
+  tags,
+  cover,
+  amount,
+  projectTypes,
+  website,
+  seo,
+} = entry.data;
+
+const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Crear estructura del TOC que coincida con la interfaz Items
+const tableOfContents: Items = {
+  items: headings
+    .filter(heading => heading.depth <= 3)
+    .map(heading => ({
+      title: heading.text,
+      url: `#${heading.slug}`,
+      items: []
+    }))
+};
 ---
 
-<FundingPostLayout {...post.data} toc={toc}>
-  <Content components={MdxComponents} />
-</FundingPostLayout>
+<Base title={seo?.title || title} description={seo?.description || description}>
+  <main class="container max-w-5xl py-6 lg:grid lg:grid-cols-[1fr_300px] lg:gap-10 lg:py-10 xl:gap-20">
+    <article class="prose dark:prose-invert max-w-none">
+      {cover && (
+        <Image 
+          src={cover}
+          alt={title}
+          class="rounded-lg mb-6 w-full h-auto" 
+        />
+      )}
+      
+      <div class="flex items-center gap-4 text-sm text-muted-foreground">
+        <time datetime={date.toISOString()} transition:name={"date-" + entry.slug}>
+          {formattedDate}
+        </time>
+        <Badge variant="secondary">{type}</Badge>
+      </div>
+
+      <h1 class="font-heading text-4xl my-4" transition:name={"title-" + entry.slug}>{title}</h1>
+      <p class="text-muted-foreground" transition:name={"desc-" + entry.slug}>{description}</p>
+
+      <div class="my-6 space-y-4">
+        <div>
+          <h3 class="font-semibold">Monto de financiamiento:</h3>
+          <p>{amount}</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold">Tipos de proyectos:</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            {projectTypes.map(type => (
+              <Badge variant="secondary">{type}</Badge>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold">Etiquetas:</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            {tags.map(tag => (
+              <Badge variant="outline">{tag}</Badge>
+            ))}
+          </div>
+        </div>
+
+        <a 
+          href={website} 
+          class={cn(buttonVariants({ variant: "outline" }), "mt-4")} 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          Visitar sitio web
+        </a>
+      </div>
+
+      <hr class="my-6" />
+      <div class="mdx">
+        <Content />
+      </div>
+      
+      <hr class="flex md:hidden my-4" />
+      <div class="flex md:hidden justify-start py-6 lg:py-10">
+        <a href={`/${Astro.params.lang}/funding`} class={cn(buttonVariants({ variant: "ghost" }))}>
+          <Icon name="lucide:chevron-left" class="mr-2 size-4" />
+          Ver todas las plataformas
+        </a>
+      </div>
+    </article>
+
+    <div class="hidden text-sm lg:block">
+      <div class="sticky top-18 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10" transition:animate="slide">
+        <DashboardTableOfContents toc={tableOfContents} client:load />
+      </div>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .mdx :global(h2),
+  .mdx :global(h3) {
+    scroll-margin-top: 100px;
+    scroll-behavior: smooth;
+  }
+
+  /* Asegurar que los headings tengan IDs y sean clicables */
+  .mdx :global(h2),
+  .mdx :global(h3) {
+    position: relative;
+  }
+</style>

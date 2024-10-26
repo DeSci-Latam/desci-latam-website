@@ -1,4 +1,5 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const defaultTheme = require('tailwindcss/defaultTheme');
+const { fontFamily } = defaultTheme;
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -24,7 +25,7 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
-    }, 
+    },
     extend: {
       fontFamily: {
         sans: ["Ubuntu", ...fontFamily.sans],
@@ -60,16 +61,13 @@ module.exports = {
         primaryblue: {
           DEFAULT: "hsl(var(--primaryblue))",
         },
-
         darkblue: {
           DEFAULT: "hsl(var(--darkblue))",
           foreground: "hsl(var(--lightblue-foreground))",
         },
-
         primarywhite: {
           DEFAULT: "hsl(var(--primarywhite))",
         },
-
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -112,5 +110,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), require('daisyui')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+    require('daisyui'),
+  ],
 };
