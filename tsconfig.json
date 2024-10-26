@@ -9,19 +9,22 @@
     "isolatedModules": true,
     "incremental": true,
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@/components/*": ["src/components/*.astro", "src/components/*.tsx", "src/components/*.ts"  ],
-			"@/layouts/*": ["src/layouts/*.astro"],
-			"@/utils": ["src/utils/index.ts"],
+      "@/components/*": ["src/components/*.astro", "src/components/*.tsx", "src/components/*.ts"],
+      "@/components/assets/logos/*": ["src/components/assets/logos/*.astro", "src/components/assets/logos/*.tsx", "src/components/assets/logos/*.ts" , "src/components/assets/logos/*.jsx"],
+      "@/components/layout/header/*": ["src/components/layout/header/*.astro", "src/components/layout/header/*.tsx", "src/components/layout/header/*.ts", "src/components/layout/header/*.jsx"],
+      "@/layouts/*": ["src/layouts/*.astro"],
+      "@/utils": ["src/utils/index.ts"],
       "@/partials/*": ["./src/layouts/partials/*"],
-			"@/data/*": ["src/data/*"],
-			"@/site-config": ["src/data/site.config.ts"],
+      "@/data/*": ["src/data/*"],
+      "@/site-config": ["src/data/site.config.ts"],
       "@/config": ["src/config/*"],
-			"@/styles": ["src/styles/"]
+      "@/styles": ["src/styles/"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.astro"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx","**/*.jsx", "**/*.astro"],
+  "exclude": ["node_modules", "backup"]
 }

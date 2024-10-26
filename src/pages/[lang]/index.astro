@@ -8,14 +8,13 @@ import heroImageEn from "@/assets/en/hero.svg";
 import heroImageptBR from "@/assets/images/home/mariposa.png"; */
 
 // Images
-
-import Mariposa from "@/assets/images/logo/logo.svg";
+/* import Mariposa from "@/assets/images/logo/logo.svg";
 import DescilatamLogo from "@/assets/images/logo/descilatam.svg";
 import Astronauta from "@/assets/images/home/astronauta.png";
 import Pes from "@/assets/images/home/pes.png";
 import Ciencia from "@/assets/images/home/cientifica.png";
 import Caos from "@/assets/images/home/caos.png";
-
+ */
 import { Image } from "astro:assets";
 /* 
 import { cn } from "@/lib/utils";
@@ -30,12 +29,12 @@ export const getStaticPaths = () =>
     params: { lang },
   }));
 
-const supporters = [
+/* const supporters = [
   { name: "Gitcoin", logo: "/path/to/gitcoin-logo.png" },
   { name: "Giveth", logo: "/path/to/giveth-logo.png" },
   { name: "Octant", logo: "/path/to/octant-logo.png" },
   { name: "AuraSci", logo: "/path/to/aurasci-logo.png" },
-];
+]; */
 ---
 
 <Layout>
@@ -262,8 +261,6 @@ const supporters = [
 </section>
 </Layout>
 
-
-
 <script>
   import { animate } from "motion";
   const showAnimations =
@@ -281,6 +278,29 @@ const supporters = [
       }
     );
   }
+</script>
+
+<script>
+  function ml_webform_success_19061547() {
+    try {
+      if (window.top) {
+        window.top.location.href = "https://descilatam.org/newslatter-succes";
+      } else {
+        window.location.href = "https://descilatam.org/newslatter-succes";
+      }
+    } catch (e) {
+      window.location.href = "https://descilatam.org/newslatter-succes";
+    }
+  }
+</script>
+
+<script
+  src="https://groot.mailerlite.com/js/w/webforms.min.js?v2d8fb22bb5b3677f161552cd9e774127"
+  type="text/javascript"></script>
+<script>
+  fetch(
+    "https://assets.mailerlite.com/jsonp/1150335/forms/135668232739620393/takel"
+  );
 </script>
 
 <style type="text/css">
@@ -312,26 +332,6 @@ const supporters = [
 
   .ml-form-embedSubmitLoad:after {
     content: " ";
-    display: block;
-    width: 11px;
-    height: 11px;
-    margin: 1px;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    border-color: #212739 #212739 #212739 transparent;
-    animation: ml-form-embedSubmitLoad 1.2s linear infinite;
-  }
-  @keyframes ml-form-embedSubmitLoad {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  #mlb2-19061547.ml-form-embedContainer {
-    box-sizing: border-box;
-    display: table;
     margin: 0 auto;
     position: static;
     width: 100% !important;
@@ -1601,20 +1601,21 @@ const supporters = [
 </style>
 
 <script>
-  function ml_webform_success_19061547() {
+  declare global {
+    interface Window {
+      ml_webform_success_19061547: () => void;
+    }
+  }
+
+  window.ml_webform_success_19061547 = function() {
     try {
-      window.top.location.href = "https://descilatam.org/newslatter-succes";
+      if (window.top && window.top.location) {
+        window.top.location.href = "https://descilatam.org/newslatter-succes";
+      } else {
+        window.location.href = "https://descilatam.org/newslatter-succes";
+      }
     } catch (e) {
       window.location.href = "https://descilatam.org/newslatter-succes";
     }
-  }
-</script>
-
-<script
-  src="https://groot.mailerlite.com/js/w/webforms.min.js?v2d8fb22bb5b3677f161552cd9e774127"
-  type="text/javascript"></script>
-<script>
-  fetch(
-    "https://assets.mailerlite.com/jsonp/1150335/forms/135668232739620393/takel"
-  );
+  };
 </script>

@@ -83,8 +83,10 @@ const funding = defineCollection({
       title: z.string(),
       date: z.coerce.date(),
       type: z.string(),
+      category: z.enum(CATEGORIES),
       tags: z.array(z.string()),
       description: z.string(),
+      draft: z.boolean().optional(),
       cover: image()
         .refine((img) => img.width >= 600, {
           message: "cover must be at least 600px wide",
@@ -107,6 +109,7 @@ const funding = defineCollection({
       tags: z.string(),
       description: z.string(),
       versionNumber: z.string(),
+      draft: z.boolean().optional(),
       cover: image()
       .refine((img) => img.width >= 600, {
         message: "cover must be at least 600px wide",
@@ -126,6 +129,7 @@ const blog = defineCollection({
       description: z.string(),
       cover: z.string(),
       category: z.string(),
+      draft: z.boolean().optional(),
       locale: z.enum(['es', 'pt' , 'en']),
       // Transform string to Date object
       pubDate: z
@@ -146,6 +150,7 @@ const blog = defineCollection({
 const docs = defineCollection({
   schema: z.object({
     title: z.string(),
+    draft: z.boolean().optional(),
     description: z.string(),
   }),
 });
@@ -153,6 +158,7 @@ const docs = defineCollection({
 const guides = defineCollection({
   schema: z.object({
     title: z.string(),
+    draft: z.boolean().optional(),
     description: z.string(),
     published: z.boolean().default(true),
     featured: z.boolean().default(false),
@@ -170,6 +176,7 @@ const releases = defineCollection({
       title: z.string(),
       description: z.string(),
       versionNumber: z.string(),
+      draft: z.boolean().optional(),
       image: z.object({
         src: image(),
         alt: z.string(),

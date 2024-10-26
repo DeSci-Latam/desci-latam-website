@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import type { TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 
@@ -7,29 +6,13 @@ interface TocProps {
   toc: TableOfContents;
 }
 
-export function DashboardTableOfContents({ toc }: TocProps) {
-  const itemIds = toc.items
-    ? toc.items
-        .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
-        .flat()
-        .filter(Boolean)
-        .map((id) => id?.split("#")[1])
-    : [];
-  const activeHeading = useActiveItem(itemIds);
-
-  if (!toc?.items) {
-    return null;
-  }
-
-  return (
-    <div className="space-y-2">
-      <p className="font-medium">On This Page</p>
-      <Tree tree={toc} activeItem={activeHeading} />
-    </div>
-  );
+interface TreeProps {
+  tree: TableOfContents;
+  level?: number;
+  activeItem?: string | null;
 }
 
-function useActiveItem(itemIds: (string | undefined)[]) {
+function useActiveItem(itemIds: (string | undefined)[]): string {
   const [activeId, setActiveId] = React.useState<string>("");
 
   React.useEffect(() => {
@@ -48,7 +31,6 @@ function useActiveItem(itemIds: (string | undefined)[]) {
       if (!id) {
         return;
       }
-
       const element = document.getElementById(id);
       if (element) {
         observer.observe(element);
@@ -60,7 +42,6 @@ function useActiveItem(itemIds: (string | undefined)[]) {
         if (!id) {
           return;
         }
-
         const element = document.getElementById(id);
         if (element) {
           observer.unobserve(element);
@@ -70,12 +51,6 @@ function useActiveItem(itemIds: (string | undefined)[]) {
   }, [itemIds]);
 
   return activeId;
-}
-
-interface TreeProps {
-  tree: TableOfContents;
-  level?: number;
-  activeItem?: string | null;
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
@@ -104,3 +79,26 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
     </ul>
   ) : null;
 }
+
+export function DashboardTableOfContents({ toc }: TocProps) {
+  const itemIds = toc.items
+    ? toc.items
+        .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
+        .flat()
+        .filter(Boolean)
+        .map((id) => id?.split("#")[1])
+    : [];
+
+  const activeHeading = useActiveItem(itemIds);
+
+  if (!toc?.items) {
+    return null;
+  }
+
+  return (
+    <div className="space-y-2">
+      <p className="font-medium">On This Page</p>
+      <Tree tree={toc} activeItem={activeHeading} />
+    </div>
+  );
+} 

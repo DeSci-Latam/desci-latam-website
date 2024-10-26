@@ -1,7 +1,6 @@
 ---
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
 import Layout from "@/layouts/Base";
-import { Image } from "astro:assets";
 import PageHeadline from "@/components/PageHeadline";
 import { Badge } from "@/components/ui/badge";
 import CategoryFilter from "@/components/filters/CategoryFilter";
@@ -16,50 +15,59 @@ export async function getStaticPaths() {
       }));
     })
   );
-
   return paths.flat();
 }
 
 const { lang, category } = Astro.params;
 const locale = lang as Lang;
 const t = useTranslations(locale);
-
 const posts = await filterPostsByCategory(category as string, locale);
-
 const title = t({
   es: `Blog - ${category}`,
   en: `Blog - ${category}`,
   pt: `Blog - ${category}`,
 });
 
+// Helper para la imagen por defecto
+const defaultCover = "/images/default-cover.jpg";
 ---
 
 <Layout title={title}>
   <section class="container py-10 pt-28 h-screen">
     <PageHeadline title={title} />
-
     <CategoryFilter locale={locale} category={category} />
-
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
       {posts.map((post) => {
         const [, ...slug] = post.slug.split("/");
+        
         return (
           <article class="group space-y-4">
             <a
               href={`/${locale}/blog/${slug.join("/")}/`}
               class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
             >
-              <Image
-                loading="eager"
-                class="w-full h-full object-cover rounded-xl overflow-hidden"
-                width={720}
-                height={360}
-                src={post.data.cover}
-                alt={post.data.title}
-                transition:name={`img-${post.slug}`}
-              />
+              {post.data.cover ? (
+                <img 
+                  class="w-full h-full object-cover rounded-xl overflow-hidden"
+                  src={post.data.cover.src}
+                  alt={post.data.title}
+                  width={post.data.cover.width}
+                  height={post.data.cover.height}
+                  loading="eager"
+                  transition:name={`img-${post.slug}`}
+                />
+              ) : (
+                <img 
+                  class="w-full h-full object-cover rounded-xl overflow-hidden"
+                  src={defaultCover}
+                  alt={post.data.title}
+                  width="720"
+                  height="360"
+                  loading="eager"
+                  transition:name={`img-${post.slug}`}
+                />
+              )}
             </a>
-
             <div class="flex items-center justify-between">
               <Badge radius="md" className="capitalize">
                 {post.data.category}
@@ -75,7 +83,6 @@ const title = t({
                 })}
               </span>
             </div>
-
             <div>
               <a href={`/${locale}/blog/${slug.join("/")}/`} class="group-hover:underline">
                 <h2
@@ -92,3 +99,4 @@ const title = t({
     </div>
   </section>
 </Layout>
+---

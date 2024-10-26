@@ -2,99 +2,107 @@
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
 import Layout from "@/layouts/Base";
 import { Image } from "astro:assets";
-/* import PageHeadline from "@/components/PageHeadline"; */
 import PageHeader from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { getPosts } from "@/utils/post";
 import CategoryFilter from "@/components/filters/CategoryFilter";
 
+// Helper para la imagen por defecto
+const defaultCover = {
+  src: "/images/default-cover.jpg",
+  width: 1200,
+  height: 630
+};
+
 const locale = Astro.currentLocale as Lang;
 const t = useTranslations(locale);
-
 const posts = await getPosts(undefined, locale);
-
 const title = t({
   es: "Blog",
   en: "Blog",
   pt: "Blog",
 });
 
-export const getStaticPaths = () =>
+export const getStaticPaths = () => 
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },
   }));
-
 ---
 
 <Layout title={title}>
-  <section class="   h-screen">
+  <section class="h-screen">
     <PageHeader
-    heading={
-      t({
+      heading={t({
         es: "Blog",
         en: "At the heart of scientific evolution",
         pt: "No coração da evolução científica",
-      })
-    }
-    text={
-      t({
+      })}
+      text={t({
         es: "Blog description",
         en: "At the heart of scientific evolution",
         pt: "No coração da evolução científica",
-      })
-    }
-  />
-
+      })}
+    />
     <CategoryFilter locale={locale} />
-
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
-      {posts.map((post) => {
-        const [, ...slug] = post.slug.split("/");
+      {posts.map((currentPost) => {
+        const slugParts = currentPost.slug.split("/");
+        const postSlug = slugParts.slice(1).join("/");
+        
         return (
           <article class="group space-y-4">
             <a
-              href={`/${locale}/blog/${slug.join("/")}/`}
+              href={`/${locale}/blog/${postSlug}/`}
               class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
             >
-              <Image
-                loading="eager"
-                class="w-full h-full object-cover rounded-xl overflow-hidden"
-                width={720}
-                height={360}
-                src={post.data.cover}
-                alt={post.data.title}
-                transition:name={`img-${post.slug}`}
-              />
+              {currentPost.data.cover ? (
+                <Image 
+                  src={currentPost.data.cover} 
+                  alt={currentPost.data.title}
+                  width={240}
+                  height={100}
+                  class="w-full h-full object-cover rounded-xl overflow-hidden"
+                />
+              ) : (
+                <Image 
+                  src={defaultCover.src}
+                  alt={currentPost.data.title}
+                  width={defaultCover.width}
+                  height={defaultCover.height}
+                  class="w-full h-full object-cover rounded-xl overflow-hidden"
+                />
+              )}
             </a>
-
             <div class="flex items-center justify-between">
               <a
-                href={`/${locale}/blog/category/${post.data.category}/`}
-                transition:name={"badge-cat-" + post.slug}
+                href={`/${locale}/blog/category/${currentPost.data.category}/`}
+                transition:name={`badge-cat-${currentPost.slug}`}
               >
                 <Badge radius="md" className="capitalize">
-                  {post.data.category}
+                  {currentPost.data.category}
                 </Badge>
               </a>
               <span
                 class="font-medium text-muted-foreground"
-                transition:name={"pubDate-" + post.slug}
+                transition:name={`pubDate-${currentPost.slug}`}
               >
-                {new Date(post.data.date).toLocaleDateString(locale, {
+                {new Date(currentPost.data.date).toLocaleDateString(locale, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric'
                 })}
               </span>
             </div>
-
             <div>
-              <a href={`/${locale}/blog/${slug.join("/")}/`} class="group-hover:underline">
+              <a 
+                href={`/${locale}/blog/${postSlug}/`} 
+                class="group-hover:underline"
+              >
                 <h2
                   class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
-                  transition:name={"title-" + post.slug}
+                  transition:name={`title-${currentPost.slug}`}
                 >
-                  {post.data.title}
+                  {currentPost.data.title}
                 </h2>
               </a>
             </div>

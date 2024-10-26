@@ -1,5 +1,5 @@
 ---
-import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import { useTranslations, type Lang } from "@/i18n";
 import Base from "@/layouts/Base";
 import { getCollection } from "astro:content";
 import { Badge } from "@/components/ui/badge";
@@ -36,7 +36,7 @@ const title = `${t("changelog")} - ${post.data.versionNumber}`;
               {post.data.versionNumber}
             </Badge>
             <span class="text-sm text-muted-foreground">
-              {formatDate(post.data.date, locale)}
+              {formatDate(post.data.date)}
             </span>
           </div>
         </div>
@@ -47,4 +47,4 @@ const title = `${t("changelog")} - ${post.data.versionNumber}`;
       </div>
     </div>
   </section>
-</Base>
+</Base>           

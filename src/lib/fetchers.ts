@@ -20,7 +20,7 @@ export async function getCategories() {
 export async function getPosts(locale: string) {
   const posts = (await getCollection("blog2"))
     .filter((post) => post.slug.startsWith(locale))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
   return posts;
 }
@@ -29,7 +29,7 @@ export async function getPosts(locale: string) {
 export async function getPostsByCategory(category: string) {
   const posts = (await getCollection("blog2"))
     .filter((post) => post.data.category.includes(category))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
   return posts;
 }

@@ -17,7 +17,6 @@ const posts = await getCollection("changelog", ({ id }) => {
 });
 posts.sort((a, b) => +b.data.date - +a.data.date);
 
-
 // Helper function to ensure tags are always an array
 function ensureTagsArray(tags: string | string[] | undefined): string[] {
   if (Array.isArray(tags)) return tags;
@@ -27,32 +26,25 @@ function ensureTagsArray(tags: string | string[] | undefined): string[] {
 
 // Extract unique tags from all posts
 const allTags = [...new Set(posts.flatMap(post => ensureTagsArray(post.data.tags)))];
-
 ---
 
-<Base title={
-  t({
-    es: "Changelog",
-    en: "At the heart of scientific evolution",
-    pt: "No coração da evolução científica",
-  })
-}>
-  <section class="w-full  ">
+<Base title={t({
+  es: "Changelog",
+  en: "At the heart of scientific evolution",
+  pt: "No coração da evolução científica",
+})}>
+  <section class="w-full">
     <PageHeader
-      heading={
-        t({
-          es: "Changelog",
-          en: "At the heart of scientific evolution",
-          pt: "No coração da evolução científica",
-        })
-      }
-      text={
-        t({
-          es: "Changelog description",
-          en: "At the heart of scientific evolution",
-          pt: "No coração da evolução científica",
-        })
-      }
+      heading={t({
+        es: "Changelog",
+        en: "At the heart of scientific evolution",
+        pt: "No coração da evolução científica",
+      })}
+      text={t({
+        es: "Changelog description",
+        en: "At the heart of scientific evolution",
+        pt: "No coração da evolução científica",
+      })}
     />
     
     <div id="tag-filter">
@@ -104,7 +96,6 @@ const allTags = [...new Set(posts.flatMap(post => ensureTagsArray(post.data.tags
 <script>
   const tagFilter = document.getElementById('tag-filter');
   const postList = document.getElementById('post-list');
-  const tags = tagFilter?.querySelectorAll('[data-tag]') || [];
   const posts = postList?.querySelectorAll('li') || [];
   
   let selectedTags = new Set();
@@ -139,4 +130,4 @@ const allTags = [...new Set(posts.flatMap(post => ensureTagsArray(post.data.tags
       }
     });
   }
-</script>             
+</script>
