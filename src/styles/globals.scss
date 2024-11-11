@@ -33,7 +33,8 @@
     --primary-foreground: 0 0% 98%;
 
     --primarywhite: 252 252% 252%;
-    --primaryblue: 195 89% 83%;
+    --primaryblue: 159 100% 72%;
+/*     --primaryblue: 195 89% 83%; */
     --lightblue: 197 41% 97%;
 
     --darkblue: 228, 29%, 10%, 96%;
@@ -52,7 +53,9 @@
     --radius: 0.5rem;
     --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, .08);
 
-    
+    .font-heading {
+      color: hsl(0 0% 7%);
+    }
   
   }
 
@@ -62,7 +65,7 @@
 
     --foreground: 0 0% 93%;
 
-    --primaryblue: 195 89% 83%;
+    --primaryblue: 160 76% 66%;
     --lightblue: 197 41% 97%;
 
     --muted: 0 0% 12%;
