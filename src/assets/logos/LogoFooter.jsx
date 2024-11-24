@@ -1,6 +1,6 @@
-export const TailcastLogo = () => (
+export const LogoFooter = () => (
 
-<div className=" h-24">
+<div className="h-[24px] w-[146px]">
 <svg width="100%" height="100%" viewBox="0 0 110 18" fill="none"   xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1329_1467)">
 <path d="M9.44416 3.16939V10.2H3.14126C1.40562 10.1918 0 8.77551 0 7.03469V0H6.30086C8.02835 0.0122449 9.44416 1.43061 9.44416 3.16939Z" fill="currentColor"/>

@@ -1,0 +1,137 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import PageHeader from "@/components/page-header";
+import { Badge } from "@/components/ui/badge";
+import Base from "@/layouts/Base";
+import { formatDate } from "@/lib/utils";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  return Object.keys(LOCALES).map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.currentLocale as Lang;
+const t = useTranslations(locale);
+const posts = await getCollection("changelog", ({ id }) => {
+  return id.startsWith(`${locale}/`);
+});
+posts.sort((a, b) => +b.data.date - +a.data.date);
+
+// Helper function to ensure tags are always an array
+function ensureTagsArray(tags: string | string[] | undefined): string[] {
+  if (Array.isArray(tags)) return tags;
+  if (typeof tags === 'string') return [tags];
+  return [];
+}
+
+// Extract unique tags from all posts
+const allTags = [...new Set(posts.flatMap(post => ensureTagsArray(post.data.tags)))];
+---
+
+<Base title={t({
+  es: "Changelog",
+  en: "Changelog",
+  pt: "Changelog",
+})}>
+  <section class="w-full">
+    <PageHeader
+      heading={t({
+            es: "Registro de todas nuestras actualizaciones",
+  en: "Record of all our updates.",
+  pt: "Registro de todas as nossas atualizações"
+
+     
+      })}
+        text={t({
+       es: "Changelog",
+        en: "Changelog",
+        pt: "Changelog", })}
+    />
+    
+    <div id="tag-filter" class="flex flex-wrap gap-2">
+      {allTags.map(tag => (
+        <Badge
+          data-tag={tag}
+          className="cursor-pointer transition-all duration-200 bg-primary  hover:bg-primary"
+          variant="default"
+          radius="lg"
+        >
+          {tag}
+        </Badge>
+      ))}
+    </div>
+
+    <ul class="pt-6 max-w-4xl" id="post-list">
+      {posts.map(async (post) => {
+        const { Content } = await post.render();
+        const postTags = ensureTagsArray(post.data.tags);
+        return (
+          <li class="flex flex-col max-md:gap-y-4 md:flex-row w-full" data-tags={postTags.join(',')}>
+            <div class="md:basis-32 lg:basis-56 shrink-0 grow-0">
+              <div class="md:sticky md:top-24 w-auto mr-6">
+                <a
+                  href={`/${locale}/changelog/${post.slug.split('/').pop()}`}
+                  class="flex flex-col gap-y-2 pb-4"
+                >
+                  <Badge
+                    variant="default"
+                    radius="lg"
+                    className="w-14 h-7 justify-center text-md bg_release_version text-white"
+                  >
+                    {post.data.versionNumber}
+                  </Badge>
+                  <span class="text-sm text-muted-foreground">
+                    {formatDate(post.data.date)}
+                  </span>
+                </a>
+              </div>
+            </div>
+    {/*         <div class="prose dark:prose-invert max-w-none w-full pb-24"> */}
+              <div class='prose dark:prose-invert prose-img:rounded-3xl max-w-none dark:prose-a:text-neutral dark:prose-h1:text-maintext dark:prose-h2:text-maintext dark:prose-h3:text-maintext dark:prose-h4:text-maintext dark:prose-h5:text-maintext dark:prose-h6:text-maintext prose-a:text-accent prose-h1:font-light prose-h2:font-light prose-h3:font-light prose-h4:font-light prose-h5:font-light prose-h1:text-primary prose-h2:text-primary prose-h3:text-primary prose-h4:text-primary prose-h5:text-primary'>
+              <Content />
+            </div>
+          </li>
+        )
+      })}
+    </ul>
+  </section>
+</Base>
+
+<script>
+  const tagFilter = document.getElementById('tag-filter');
+  const postList = document.getElementById('post-list');
+  const posts = postList?.querySelectorAll('li') || [];
+  
+  let selectedTags = new Set();
+
+  tagFilter?.addEventListener('click', (event) => {
+    const clickedTag = (event.target as Element).closest('[data-tag]');
+    if (!clickedTag) return;
+
+    const tag = (clickedTag as HTMLElement).dataset.tag;
+    if (!tag) return;
+    
+    if (selectedTags.has(tag)) {
+      selectedTags.delete(tag);
+      clickedTag.classList.remove('bg-primary', 'text-primary');
+      clickedTag.classList.add('bg-primary/80', 'text-primary');
+    } else {
+      selectedTags.add(tag);
+      clickedTag.classList.add('bg-primary', 'text-primary');
+      clickedTag.classList.remove('bg-gray1', 'text-primary');
+    }
+
+    filterPosts();
+  });
+
+  function filterPosts() {
+    posts.forEach(post => {
+      const postTags = (post as HTMLElement).dataset.tags?.split(',') || [];
+      if (selectedTags.size === 0 || postTags.some(tag => selectedTags.has(tag))) {
+        post.style.display = '';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+  }
+</script>

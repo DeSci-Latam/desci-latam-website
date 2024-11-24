@@ -13,7 +13,7 @@ const isActive = (path: string) =>
   getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
 ---
 
-<header class="fixed w-full z-40 bg-background border-b border-gray-800">
+<header class="fixed w-full z-40 border-b bg-mainbackground dark:bg-mainbackground border-border1  dark:border-gray2">
   <!-- Top border animation container -->
   <div class="header-border-container top-0">
     <div class="header-border-follow"></div>
@@ -27,12 +27,9 @@ const isActive = (path: string) =>
   <div class="max-w-[1304px] mx-auto">
     <div class="h-16 flex items-center justify-between px-2">
       <div class="flex items-center gap-4">
-        <div class="drawer flex lg:hidden gap-4">
-          <div></div>
-          <input id="drawer-mobile" type="checkbox" class="drawer-toggle" />
-          
+        <div class="flex lg:hidden gap-4 h-16 items-center">
           <!-- Menu Button -->
-          <label for="drawer-mobile" class="w-10 h-10 flex items-center justify-center cursor-pointer">
+          <label for="drawer-mobile" class="flex items-center justify-center cursor-pointer w-10 h-10">
             <div class="drawer-toggle-default absolute transition-all duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" class="text-gray-200">
@@ -46,53 +43,104 @@ const isActive = (path: string) =>
               </svg>
             </div>
           </label>
-
+        
           <!-- Logo -->
           <a href={getRelativeLocaleUrl(locale, "/")} class="flex items-center">
             <TailcastLogo />
           </a>
-
+        
+          <!-- Checkbox para el drawer -->
+          <input id="drawer-mobile" type="checkbox" class="drawer-toggle" />
+        
           <!-- Mobile Drawer Content -->
           <div class="drawer-side top-[64px] pb-[64px]">
             <label for="drawer-mobile" class="drawer-overlay"></label>
-            <div class="w-[280px] min-h-screen bg-background flex flex-col pb-[75px]">
+            <div class="w-[280px] min-h-screen bg-mainbackground flex flex-col pb-[75px]">
               <nav class="flex-1 overflow-y-auto px-4 py-6">
-                <!-- Comunidad -->
-                <details class="border-b border-gray-800">
-                  <summary class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg cursor-pointer">
-                    <span>{t({ es: "Comunidad", en: "Community", pt: "Communidade" })}</span>
+                <!-- Aprende -->
+                <details class="border-b border-gray2">
+                  <summary class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg cursor-pointer">
+                    <span>{t({ es: "Aprende", en: "Learn", pt: "Aprenda" })}</span>
                     <svg class="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
                       <path d="M6 9l6 6 6-6"/>
                     </svg>
                   </summary>
-                  <a href={getRelativeLocaleUrl(locale, "/changelog")}
-                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/learn/what-is-desci")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "¿Qué es DeSci?", en: "What is DeSci?", pt: "O que é DeSci?" })}
+                  </a>
+                  <a href={getRelativeLocaleUrl(locale, "/learn/paths")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "Rutas de Aprendizaje", en: "Learning Paths", pt: "Caminhos de Aprendizagem" })}
+                  </a>
+                </details>
+        
+                <!-- Blog -->
+                <a href={getRelativeLocaleUrl(locale, "/blog")}
+                  class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg border-b border-gray2">
+                  <span>{t({ es: "Blog", en: "Blog", pt: "Blog" })}</span>
+                </a>
+        
+                <!-- Comunidad -->
+                <details class="border-b border-gray2">
+                  <summary class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg cursor-pointer">
+                    <span>{t({ es: "Comunidad", en: "Community", pt: "Comunidade" })}</span>
+                    <svg class="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </summary>
+                  <a href={getRelativeLocaleUrl(locale, "/community/events")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "Eventos", en: "Events", pt: "Eventos" })}
+                  </a>
+                  <a href={getRelativeLocaleUrl(locale, "/community/global-communities")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "Comunidades Globales", en: "Global Communities", pt: "Comunidades Globais" })}
+                  </a>
+                </details>
+        
+                <!-- Recursos -->
+                <details class="border-b border-gray2">
+                  <summary class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg cursor-pointer">
+                    <span>{t({ es: "Recursos", en: "Resources", pt: "Recursos" })}</span>
+                    <svg class="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </summary>
+                  <a href={getRelativeLocaleUrl(locale, "/resources/funding")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}
+                  </a>
+                  <a href={getRelativeLocaleUrl(locale, "/resources/toolkit")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "Kit de Herramientas", en: "Toolkit", pt: "Kit de Ferramentas" })}
+                  </a>
+                </details>
+        
+                <!-- Sobre Nosotros -->
+                <details class="border-b border-gray2">
+                  <summary class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg cursor-pointer">
+                    <span>{t({ es: "Sobre Nosotros", en: "About", pt: "Sobre" })}</span>
+                    <svg class="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </summary>
+                  <a href={getRelativeLocaleUrl(locale, "/about")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "Nuestra Historia", en: "Our Story", pt: "Nossa História" })}
+                  </a>
+                  <a href={getRelativeLocaleUrl(locale, "/about/team")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
+                    {t({ es: "Equipo", en: "Team", pt: "Equipe" })}
+                  </a>
+                  <a href={getRelativeLocaleUrl(locale, "/about/changelog")}
+                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray3 rounded-lg">
                     {t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}
                   </a>
                 </details>
-
-                <!-- Ecosistema -->
-                <details class="border-b border-gray-800">
-                  <summary class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg cursor-pointer">
-                    <span>{t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}</span>
-                    <svg class="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
-                      <path d="M6 9l6 6 6-6"/>
-                    </svg>
-                  </summary>
-                  <a href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")}
-                    class="block py-2 px-8 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg">
-                    {t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}
-                  </a>
-                </details>
-
-                <!-- Blog -->
-                <a href={getRelativeLocaleUrl(locale, "/blog")}
-                  class="flex items-center justify-between py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg">
-                  <span>{t({ es: "Blog", en: "Blog", pt: "Blog" })}</span>
-                </a>
               </nav>
-
-              <div class="border-t border-gray-800 p-4">
+        
+              <div class="border-t border-gray2 p-4">
                 <div class="flex items-center justify-between">
                   <LocaleSelect />
                   <ThemeToggle client:load />
@@ -110,26 +158,188 @@ const isActive = (path: string) =>
         <!-- Desktop Navigation -->
         <nav class="hidden lg:block relative">
           <ul class="flex items-center space-x-1 relative">
+            {/* Aprende */}
             <li class="relative group">
-              <button class="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-colors duration-200">
-                <span>{t({ es: "Comunidad", en: "Community", pt: "Communidade" })}</span>
+              <button class="flex items-center gap-2 px-4 py-2 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
+                <span class="menu-text-size">{t({ es: "Aprende", en: "Learn", pt: "Aprenda" })}</span>
+                <svg class="w-4 h-4 stroke-current fill-none stroke-2 transition-transform duration-300 group-hover:rotate-180" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="invisible group-hover:visible absolute h-[30px] w-full left-0 bottom-0 bg-transparent"></div>
+              <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute top-[50px] left-0 bg-white dark:bg-mainbackground border border-border1 dark:border-gray2 transition-all duration-300 ease-out w-[400px] rounded-lg shadow-lg py-2 z-50">
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:bg-mainbackground dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-green4 transition-colors text-sm duration-200 border-[0.5px] border-border1 dark:border-gray2 rounded-t-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/learn/what-is-desci")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "¿Qué es DeSci?", en: "What is DeSci?", pt: "O que é DeSci?" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Introducción a la Ciencia Descentralizada", en: "Introduction to Decentralized Science", pt: "Introdução à Ciência Descentralizada" })}
+                    </p>
+                  </a>
+                </li>
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-mainbackground transition-colors text-sm duration-200 border-[0.5px] border-border1 border-t-0 dark:border-t-0 dark:border-gray2 rounded-b-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/learn/paths")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Rutas de Aprendizaje", en: "Learning Paths", pt: "Caminhos de Aprendizagem" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Contenido específico por perfil", en: "Profile-specific content", pt: "Conteúdo específico por perfil" })}
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            {/* Blog - Sin dropdown */}
+            <li class="relative">
+              <a href={getRelativeLocaleUrl(locale, "/blog")} class="flex items-center gap-2 px-4 py-2 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
+                <span class="menu-text-size">{t({ es: "Blog", en: "Blog", pt: "Blog" })}</span>
+              </a>
+            </li>
+        
+            {/* Comunidad */}
+            <li class="relative group">
+              <button class="flex items-center gap-2 px-4 py-2 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
+                <span class="menu-text-size">{t({ es: "Comunidad", en: "Community", pt: "Comunidade" })}</span>
+                <svg class="w-4 h-4 stroke-current fill-none stroke-2 transition-transform duration-300 group-hover:rotate-180" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="invisible group-hover:visible absolute h-[30px] w-full left-0 bottom-0 bg-transparent"></div>
+              <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute top-[50px] left-0 bg-white dark:bg-mainbackground border border-border1 dark:border-gray2 transition-all duration-300 ease-out w-[400px] rounded-lg shadow-lg py-2 z-50">
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:bg-mainbackground dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-green4 transition-colors text-sm duration-200 border-[0.5px] border-border1 dark:border-gray2 rounded-t-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/community/events")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Eventos", en: "Events", pt: "Eventos" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Próximos eventos y meetups", en: "Upcoming events and meetups", pt: "Próximos eventos e meetups" })}
+                    </p>
+                  </a>
+                </li>
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-mainbackground transition-colors text-sm duration-200 border-[0.5px] border-border1 border-t-0 dark:border-t-0 dark:border-gray2 rounded-b-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/community/global-communities")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Comunidades Globales", en: "Global Communities", pt: "Comunidades Globais" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Conoce otras comunidades DeSci", en: "Meet other DeSci communities", pt: "Conheça outras comunidades DeSci" })}
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            {/* Recursos */}
+            <li class="relative group">
+              <button class="flex items-center gap-2 px-4 py-2 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
+                <span class="menu-text-size">{t({ es: "Recursos", en: "Resources", pt: "Recursos" })}</span>
+                <svg class="w-4 h-4 stroke-current fill-none stroke-2 transition-transform duration-300 group-hover:rotate-180" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="invisible group-hover:visible absolute h-[30px] w-full left-0 bottom-0 bg-transparent"></div>
+              <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute top-[50px] left-0 bg-white dark:bg-mainbackground border border-border1 dark:border-gray2 transition-all duration-300 ease-out w-[400px] rounded-lg shadow-lg py-2 z-50">
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:bg-mainbackground dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-green4 transition-colors text-sm duration-200 border-[0.5px] border-border1 dark:border-gray2 rounded-t-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/resources/funding")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Becas y oportunidades", en: "Grants and opportunities", pt: "Bolsas e oportunidades" })}
+                    </p>
+                  </a>
+                </li>
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-mainbackground transition-colors text-sm duration-200 border-[0.5px] border-border1 border-t-0 dark:border-t-0 dark:border-gray2 rounded-b-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/resources/toolkit")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Kit de Herramientas", en: "Toolkit", pt: "Kit de Ferramentas" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Herramientas y plantillas", en: "Tools and templates", pt: "Ferramentas e modelos" })}
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        
+            {/* About con Changelog */}
+            <li class="relative group">
+              <button class="flex items-center gap-2 px-4 py-2 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
+                <span class="menu-text-size">{t({ es: "Sobre Nosotros", en: "About", pt: "Sobre" })}</span>
+                <svg class="w-4 h-4 stroke-current fill-none stroke-2 transition-transform duration-300 group-hover:rotate-180" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="invisible group-hover:visible absolute h-[30px] w-full left-0 bottom-0 bg-transparent"></div>
+              <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute top-[50px] right-0 bg-white dark:bg-mainbackground border border-border1 dark:border-gray2 transition-all duration-300 ease-out w-[400px] rounded-lg shadow-lg py-2 z-50">
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:bg-mainbackground dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-green4 transition-colors text-sm duration-200 border-[0.5px] border-border1 dark:border-gray2 rounded-t-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/about")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Nuestra Historia", en: "Our Story", pt: "Nossa História" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Conoce más sobre DeSci Latam", en: "Learn more about DeSci Latam", pt: "Saiba mais sobre DeSci Latam" })}
+                    </p>
+                  </a>
+                </li>
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-mainbackground transition-colors text-sm duration-200 border-[0.5px] border-border1 border-t-0 dark:border-t-0 dark:border-gray2">
+                  <a href={getRelativeLocaleUrl(locale, "/about/team")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Equipo", en: "Team", pt: "Equipe" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Conoce a nuestro equipo", en: "Meet our team", pt: "Conheça nossa equipe" })}
+                    </p>
+                  </a>
+                </li>
+                <li class="mx-2 block hover:text-mainbackground dark:text-gray-300 dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-mainbackground transition-colors text-sm duration-200 border-[0.5px] border-border1 border-t-0 dark:border-t-0 dark:border-gray2 rounded-b-lg">
+                  <a href={getRelativeLocaleUrl(locale, "/about/changelog")} class="block w-full h-full px-4 py-4 cursor-pointer">
+                    <span class="font-medium block">
+                      {t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}
+                    </span>
+                    <p class="sub-menu mt-1">
+                      {t({ es: "Historial de actualizaciones", en: "Updates history", pt: "Histórico de atualizações" })}
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+       <!--  <nav class="hidden lg:block relative ">
+
+         
+          <ul class="flex items-center space-x-1 relative ">
+            <li class="relative group">
+              <button class="flex items-center h-[90px] gap-2 px-4 py-2 dark:text-gray-300  dark:hover:text-white transition-colors duration-200">
+                <span class="menu-text-size">{t({ es: "Comunidad", en: "Community", pt: "Communidade" })}</span>
                 <svg class="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
                   <path d="M6 9l6 6 6-6"/>
                 </svg>
               </button>
-              <ul class="invisible group-hover:visible opacity-0 group-hover:opacity-100 absolute left-0 top-full transform -translate-y-2 group-hover:translate-y-0 transition-all duration-200 ease-out min-w-[200px] bg-background border border-gray-800 rounded-lg shadow-lg py-2 z-50">
-                <li>
+              <ul class="invisible mt-[-25px]  group-hover:visible bg-white dark:bg-mainbackground border border-border1 dark:border-gray2  absolute left-0  transform -translate-y-2 group-hover:translate-y-0 transition-all duration-200 ease-out w-[400px]   rounded-lg shadow-lg py-2 z-50">
+                <li class=" mx-2  opacity-0 group-hover:opacity-100 block px-4 py-4 hover:text-mainbackground  dark:text-gray-300 dark:bg-mainbackground dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-green4 transition-colors text-sm duration-200 border-[0.5px] border-border1  dark:border-gray2 rounded-t-lg cursor-pointer">
                   <a href={getRelativeLocaleUrl(locale, "/changelog")}
-                    class="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 transition-colors duration-200">
+                    >
                     {t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}
                   </a>
+                  <div> <p class="sub-menu">{t({ es: "Encuentra todas las actualizaciones", en: "Changelog", pt: "Changelog" })}</p> </div>
+                </li>
+                <li class=" mx-2  opacity-0 group-hover:opacity-100 block px-4 py-4 hover:text-mainbackground dark:text-gray-300 dark:hover:text-white hover:bg-maincolor dark:hover:bg-gray3 bg-mainbackground border-[0.5px] border-border1 border-t-0  dark:border-t-0 dark:border-gray2 transition-colors text-sm duration-200 rounded-b-lg cursor-pointer">
+                  <a href={getRelativeLocaleUrl(locale, "/changelog")}
+                    >
+                    {t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}
+                  </a>
+                  <div> <p class="sub-menu">{t({ es: "Encuentra todas las actualizaciones", en: "Changelog", pt: "Changelog" })}</p> </div>
                 </li>
               </ul>
             </li>
 
             <li class="relative group">
-              <button class="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-colors duration-200">
-                <span>{t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}</span>
+              <button class="flex items-center gap-2 px-4 py-2 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
+                <span class="menu-text-size">{t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}</span>
                 <svg class="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
                   <path d="M6 9l6 6 6-6"/>
                 </svg>
@@ -137,21 +347,26 @@ const isActive = (path: string) =>
               <ul class="invisible group-hover:visible opacity-0 group-hover:opacity-100 absolute left-0 top-full transform -translate-y-2 group-hover:translate-y-0 transition-all duration-200 ease-out min-w-[200px] bg-background border border-gray-800 rounded-lg shadow-lg py-2 z-50">
                 <li>
                   <a href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")}
-                    class="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 transition-colors duration-200">
+                    class="block px-4 py-2 dark:text-gray-300 dark:hover:text-white hover:bg-gray-800/50 transition-colors duration-200">
                     {t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}
                   </a>
                 </li>
               </ul>
             </li>
 
+
+        
+           
             <li class="relative">
-              <a href={getRelativeLocaleUrl(locale, "/blog")}
-                class="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-colors duration-200">
+              <button class="flex items-center gap-2 px-4 py-2 dark:text-gray-300  dark:hover:text-white transition-colors duration-200">
+              <a  class="menu-text-size" href={getRelativeLocaleUrl(locale, "/blog")}
+                class="flex items-center gap-2 px-4 py-2 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 {t({ es: "Blog", en: "Blog", pt: "Blog" })}
               </a>
+            </button>
             </li>
           </ul>
-        </nav>
+        </nav> -->
       </div>
 
       <!-- Right Section -->
@@ -167,6 +382,12 @@ const isActive = (path: string) =>
 </header>
 
 <style>
+
+button {
+    
+    font-size: 0.7rem;
+    
+  }
 
 .group:hover > ul {
   top: calc(100% + 0.9rem);  /* Ajusta este valor */

@@ -105,7 +105,7 @@ export function ThemeToggle() {
     <button
       role="button"
       onClick={toggleTheme}
-      className="min-h-[40px] block focus:outline-none text-muted-foreground dark:hover:text-primary"
+      className="min-h-[40px] block focus:outline-none "
     >
       <span className="sr-only ">Toggle mode</span>
       <AnimatePresence initial={false}>

@@ -2,60 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @import "main";
+@import "main";
 
- */
-
-
-:root {
-  --radius: 8px;
-  --submenu: 10px;
-
-svg,
-path {
-  fill: currentColor;
-  aspect-ratio: 1;
-}
-
-[class^="material-icons"] {
-  vertical-align: middle;
-  font-size: 1.1em;
-}
-}
-
+ /*        darkblue: "#121521",
+        mainblue: "#ACE7FA",
+        lightblue: "#F3F8FA",
+        whitelight: "#F8FBFC",
+        darkblack: "#010101", */
 
 @layer base { 
   :root {
 
-    --main-color: 160 34 12%;
-    --border-color-1: 0 0 96%;
-    --gray-1: 210 2 80%;
-    --gray-2: 228 4 22%;
-
-  
-  --primary: 160 34 12%;
-  --primary-foreground: 0 0 99%;
-  --secondary: green;   
-  --accent: 171 71 25%;  
-  --neutral: 165 74 88%;  
-  --base-100: yellow;  
-  --info: 252 252% 252%;  
-  --success: 252 252% 252%;  
-  --warning: 252 252% 252%;  
-  --error: 252 252% 252%;  
 
 
 
-    --gray-3: 144 9 11%;
-    --green-4: 160 60 97%;
 
-
-    --main-background: 0 0 99%;
-
-    --main-text: 220 4 16%;
-
-    --invert-text: 0 0 99%;
-
+    
     /* --background: 252 252% 252%;
     --background-200: 0 0% 98%;
 
@@ -96,17 +58,13 @@ path {
     --radius: 0.5rem;
     --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, .08);
 
-
+    .font-heading {
+      color: hsl(0 0% 7%);
     } */
   
   }
 
   .dark {
-
-    --main-background: 143 9 8%;
-    --main-text: 0 0 99%;
-    --invert-text: 143 9 8%;
-
 /*     --background: 0 0% 7%;
     --background-200: 0 170% 0%;
 
@@ -165,9 +123,9 @@ path {
     font-display: swap;
   }
 
-/*   * {
+  * {
     @apply border-border;
-  } */
+  }
 
   /* If you want a custom scrollbar - By @diomed */
   /* * {
@@ -199,15 +157,15 @@ path {
   }
 
   body {
-    @apply bg-mainbackground text-maintext font-sans;
+    @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   @layer base {
     /* body {
       transition: background-color 0.5s ease;
-    } */    
-
+    } */
+  
     .prose code {
       @apply text-base;
     }
@@ -228,10 +186,6 @@ path {
   background-color: var(--header-background);
 }
 
-.sub-menu {
-  font-size: 0.7rem;
-}
-
   .glass {
     background: rgba(57, 56, 56, 0.52);
     backdrop-filter: blur(13px) saturate(150%);
@@ -245,13 +199,6 @@ path {
   
   
    
-.active {
-  @apply bg-primary text-gray1 !important 
-
-}
-
-
-
 
   /* Documentation part */
   .docs-grid-cols-2 {
@@ -268,7 +215,7 @@ path {
 
   /* MdxComponent: For <code></code> with no parent <pre></pre> */
   :not(pre)>code {
-    @apply relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm bg-mainbackground ;
+    @apply relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm bg-background text-foreground;
   }
 }
 
@@ -280,7 +227,13 @@ path {
   background-clip: text;
 }
 
-
+.bg_release_version {
+  background: linear-gradient(25deg,
+      #3a084e,
+      #5b0e81,
+      #bc4c9b,
+      #df7f4f) !important;
+}
 
 /* Vercel card style */
 .card_border {
@@ -366,10 +319,3 @@ path {
     calc(-2.3*var(--s)) calc(1.7*var(--s)),0 0
   }
 }
-
-.menu-text-size {
-  font-size: 0.8rem;
-}
-
-
-

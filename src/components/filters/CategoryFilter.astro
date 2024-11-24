@@ -6,6 +6,8 @@ import type { Lang } from "@/i18n";
 const { locale, category } = Astro.props;
 const t = useTranslations(locale as Lang);
 
+
+
 const categories = await getCategories(locale as Lang);
 
 ---
@@ -13,25 +15,29 @@ const categories = await getCategories(locale as Lang);
 <div class="flex flex-wrap gap-3 my-6">
   <a
     href={`/${locale}/blog/`}
-    class={`px-3 py-1 rounded-full text-sm ${
+    class={`px-3 py-1 rounded-md text-sm ${
       !category
-        ? "bg-primary text-primary-foreground"
-        : "bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground"
+        ? "bg-primary text-primary-foreground hover:rounded-full"
+        : "bg-primary text-primary-foreground hover:rounded-full hover:bg-primary hover:text-primary-foreground"
     }`}
   >
-    {t("all")}
+  {t({
+    es: "Todo",
+    en: "All",
+    pt: "Todos",
+  })} 
   </a>
   {
     categories.map((cat) => (
       <a
         href={`/${locale}/blog/category/${cat}/`}
-        class={`px-3 py-1 rounded-full text-sm ${
+        class={`px-3 py-1 rounded-md text-sm ${
           category === cat
-            ? "bg-primary text-primary-foreground"
-            : "bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground"
+            ? "bg-neutral text-primary hover:rounded-full"
+            : "bg-neutral  text-primary hover:rounded-full hover:bg-[primary]"
         }`}
       >
-        {cat}
+        <span class="pr-2">#</span>{cat}
       </a>
     ))
   }

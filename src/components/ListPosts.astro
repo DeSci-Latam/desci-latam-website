@@ -7,7 +7,7 @@ import PostCard from '@/components/PostCard'
 import { cn } from '@/utils'
 
 type Props = {
-	posts: CollectionEntry<'blog2'>[]
+	posts: CollectionEntry<'blog'>[]
 	FirstBig?: boolean
 }
 
@@ -17,7 +17,7 @@ const { FirstBig = false } = Astro.props
 const locale = Astro.currentLocale as Lang;
 /* const t = useTranslations(locale); */
 
-const posts = (await getCollection("blog2"))
+const posts = (await getCollection("blog"))
   .filter((post) => post.slug.split("/")[0] === locale)
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 

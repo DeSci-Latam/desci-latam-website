@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content'
 import type { Lang } from '@/i18n'
 
 export const getCategories = async (locale: Lang) => {
-	const posts = await getCollection('blog2')
+	const posts = await getCollection('blog')
 	const categories = new Set(
 		posts
 			.filter((post) => post.slug.split('/')[0] === locale)
@@ -15,14 +15,14 @@ export const getFundingCategories = async (locale: Lang) => {
 	const posts = await getCollection('funding')
 	const categories = new Set(
 		posts
-			.filter((post) => post.slug.split('/')[0] === locale)
+			.filter((post) => post.slug.split('/')[0] === locale)	
 			.map((post) => post.data.category)
 	)
 	return Array.from(categories)
 }
 
 export const getPosts = async (max?: number, locale?: Lang) => {
-	return (await getCollection('blog2'))
+	return (await getCollection('blog'))
 		.filter((post) => !post.data.draft && (!locale || post.slug.split('/')[0] === locale))
 		.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 		.slice(0, max)

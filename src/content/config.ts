@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { CATEGORIES } from '@/data/categories'
+import { CATEGORY_IDS } from '@/data/categories';
 
 // Post collection schema
 const postsCollection = defineCollection({
@@ -16,7 +16,6 @@ const postsCollection = defineCollection({
     draft: z.boolean().optional(),
   }),
 });
-
 
 // Author collection schema
 const authorsCollection = defineCollection({
@@ -37,15 +36,14 @@ const authorsCollection = defineCollection({
   }),
 });
 
-
- const blog2 = defineCollection({
+const blog = defineCollection({
   type: 'content',
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
       date: z.coerce.date(),
-      category: z.enum(CATEGORIES),
+      category: z.enum(CATEGORY_IDS),
       tags: z.array(z.string()),
       draft: z.boolean().default(false),
       cover: image()
@@ -56,34 +54,13 @@ const authorsCollection = defineCollection({
     }),
 }); 
 
-
-/* 
-const funding= defineCollection({
-
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      tags: z.string(),
-      description: z.string(),
-      versionNumber: z.string(),
-      cover: image()
-      .refine((img) => img.width >= 600, {
-        message: "cover must be at least 600px wide",
-      }),
-     
-      date: z.coerce.date(),
-    }),
-});
-
- */
-
 const funding = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       date: z.coerce.date(),
       type: z.string(),
-      category: z.enum(CATEGORIES),
+      category: z.enum(CATEGORY_IDS),
       tags: z.array(z.string()),
       description: z.string(),
       draft: z.boolean().optional(),
@@ -101,8 +78,7 @@ const funding = defineCollection({
     }),
 });
 
- const changelog= defineCollection({
-
+const changelog = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -111,41 +87,12 @@ const funding = defineCollection({
       versionNumber: z.string(),
       draft: z.boolean().optional(),
       cover: image()
-      .refine((img) => img.width >= 600, {
-        message: "cover must be at least 600px wide",
-      }),
-     
+        .refine((img) => img.width >= 600, {
+          message: "cover must be at least 600px wide",
+        }),
       date: z.coerce.date(),
     }),
 });
-
-
-
-const blog = defineCollection({
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      cover: z.string(),
-      category: z.string(),
-      draft: z.boolean().optional(),
-      locale: z.enum(['es', 'pt' , 'en']),
-      // Transform string to Date object
-      pubDate: z
-        .string()
-        .or(z.date())
-        .transform((val) => new Date(val)),
-      updatedDate: z
-        .string()
-        .optional()
-        .transform((str) => (str ? new Date(str) : undefined)),
-    }),
-});
-
-
-
-
 
 const docs = defineCollection({
   schema: z.object({
@@ -170,7 +117,6 @@ const guides = defineCollection({
 });
 
 const releases = defineCollection({
-  // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -181,13 +127,17 @@ const releases = defineCollection({
         src: image(),
         alt: z.string(),
       }),
-      // Transform string to Date object
       date: z.date({ coerce: true }),
     }),
 });
 
-export const collections = {  authors: authorsCollection,  posts: postsCollection, blog, blog2, changelog, docs, guides, releases, funding };
-
-
-/* export const collections = { blog , changelog };
- */
+export const collections = {
+  authors: authorsCollection,
+  posts: postsCollection,
+  blog,
+  changelog,
+  docs,
+  guides,
+  releases,
+  funding
+};

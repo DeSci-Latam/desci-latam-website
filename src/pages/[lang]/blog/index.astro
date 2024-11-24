@@ -29,19 +29,22 @@ export const getStaticPaths = () =>
   }));
 ---
 
+
+
 <Layout title={title}>
   <section class="h-screen">
     <PageHeader
+ 
       heading={t({
-        es: "Blog",
-        en: "At the heart of scientific evolution",
-        pt: "No coração da evolução científica",
+        es: "Noticias, guías y análisis sobre  ciencia descentralizada ",
+        en: "News, guides, and analysis about decentralized science",
+        pt: "Notícias, guias e análises sobre ciência descentralizada",
       })}
       text={t({
-        es: "Blog description",
-        en: "At the heart of scientific evolution",
-        pt: "No coração da evolução científica",
-      })}
+        es: "Blog",
+        en: "Blog",
+        pt: "Blog",
+      })} 
     />
     <CategoryFilter locale={locale} />
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
