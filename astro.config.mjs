@@ -12,9 +12,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
   site: isProduction ? PROD_URL : DEV_URL,
-  output: 'static',  // Asegura que sea static para Pagefind
+  output: 'static',
   build: {
     format: 'directory'
+  },
+  experimental: {
+    contentCollectionCache: true
   },
   i18n: {
     defaultLocale: 'es',

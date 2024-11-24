@@ -45,29 +45,51 @@ const { className = '' } = Astro.props;
     }
   </div>
 </dialog>
-
 <script>
+  interface PagefindUI {
+    new (config: PagefindUIConfig): unknown;
+  }
+
+  interface PagefindUIConfig {
+    element: string;
+    showImages?: boolean;
+    bundlePath?: string;
+    baseUrl?: string;
+  }
+
   let searchUI: any = null;
   let initialized = false;
   
-  async function initializeSearch() {
-  if (!searchUI && !import.meta.env.DEV) {
-    try {
-      const { PagefindUI } = await import('@pagefind/default-ui');
-      searchUI = new PagefindUI({
-        element: '#pagefind-search',
-        showImages: false,
-        bundlePath: '/_pagefind/',
-        baseUrl: import.meta.env.BASE_URL
-      });
-    } catch (error) {
-      console.error('Error initializing PagefindUI:', error);
+  async function destroySearch() {
+    if (searchUI) {
+      searchUI = null;
+      const searchContainer = document.querySelector('#pagefind-search');
+      if (searchContainer) {
+        searchContainer.innerHTML = '';
+      }
     }
   }
-}
+
+  async function initializeSearch() {
+    if (!searchUI && !import.meta.env.DEV) {
+      try {
+        const { PagefindUI } = await import('@pagefind/default-ui');
+        searchUI = new PagefindUI({
+          element: '#pagefind-search',
+          showImages: false,
+          bundlePath: '/_pagefind/',
+          baseUrl: import.meta.env.BASE_URL
+        });
+      } catch (error) {
+        console.error('Error initializing PagefindUI:', error);
+      }
+    }
+  }
 
   function setupSearch() {
-    if (initialized) return;
+    if (initialized) {
+      destroySearch();
+    }
     
     const buttons = document.querySelectorAll('[data-open-modal]');
     const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
@@ -81,7 +103,6 @@ const { className = '' } = Astro.props;
       dialog.classList.remove('opacity-0');
       document.body.classList.add('overflow-hidden');
       
-      // Focus en el input de búsqueda
       const searchInput = dialog.querySelector('input');
       if (searchInput) {
         searchInput.focus();
@@ -124,13 +145,13 @@ const { className = '' } = Astro.props;
       }
     });
 
-    // Manejar la navegación de Astro
-    document.addEventListener('astro:page-load', () => {
+    document.addEventListener('astro:page-load', async () => {
+      await destroySearch();
       closeSearch();
-      searchUI = null;  // Reset searchUI on navigation
     });
 
-    document.addEventListener('astro:after-swap', () => {
+    document.addEventListener('astro:after-swap', async () => {
+      await destroySearch();
       closeSearch();
     });
 
