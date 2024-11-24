@@ -8,88 +8,116 @@ import { getPosts } from "@/utils/post";
 import CategoryFilter from "@/components/filters/CategoryFilter";
 import { getCategoryTranslation } from "@/data/categories";
 import type { LocaleKey } from "@/data/types";
+import type { CollectionEntry } from "astro:content";
 
-// Helper para la imagen por defecto
+type BlogPost = CollectionEntry<"blog">;
+
+// Configuración para imágenes en proporción 16:9
+const POST_IMAGE_SIZES = {
+  width: 640,
+  height: 360,
+  quality: 90
+};
+
 const defaultCover = {
   src: "/images/default-cover.jpg",
-  width: 1200,
-  height: 630
+  width: POST_IMAGE_SIZES.width,
+  height: POST_IMAGE_SIZES.height
 };
 
 const locale = Astro.currentLocale as Lang;
 const t = useTranslations(locale);
-const posts = await getPosts(undefined, locale);
+const rawPosts = await getPosts(undefined, locale);
+
+// Preparar los datos formateados antes del template
+const postsData = rawPosts.map(post => ({
+  slug: post.slug.split("/").slice(1).join("/"),
+  title: post.data.title,
+  date: post.data.date,
+  category: post.data.category,
+  categoryTranslated: getCategoryTranslation(
+    post.data.category,
+    locale as LocaleKey,
+    'blog'
+  ),
+  cover: post.data.cover,
+  originalSlug: post.slug
+}));
+
 const title = t({
   es: "Blog",
   en: "Blog",
-  pt: "Blog",
+  pt: "Blog"
 });
 
-export const getStaticPaths = () =>
-  Object.keys(LOCALES).map((lang) => ({
-    params: { lang },
+export function getStaticPaths() {
+  return Object.keys(LOCALES).map((lang) => ({
+    params: { lang }
   }));
+}
 ---
 
 <Layout title={title}>
   <section class="h-screen">
     <PageHeader
       heading={t({
-        es: "Noticias, guías y análisis sobre ciencia descentralizada ",
+        es: "Noticias, guías y análisis sobre ciencia descentralizada",
         en: "News, guides, and analysis about decentralized science",
-        pt: "Notícias, guias e análises sobre ciência descentralizada",
+        pt: "Notícias, guias e análises sobre ciência descentralizada"
       })}
       text={t({
         es: "Blog",
         en: "Blog",
-        pt: "Blog",
+        pt: "Blog"
       })}
     />
     <CategoryFilter locale={locale} />
-    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
-      {posts.map((currentPost) => {
-        const slugParts = currentPost.slug.split("/");
-        const postSlug = slugParts.slice(1).join("/");
-        const categoryTranslated = getCategoryTranslation(currentPost.data.category, locale as LocaleKey, 'blog');
-
-        return (
+    <div class="container mx-auto px-4">
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
+        {postsData.map(post => (
           <article class="group space-y-4">
             <a
-              href={`/${locale}/blog/${postSlug}/`}
-              class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
+              href={`/${locale}/blog/${post.slug}/`}
+              class="block relative w-full"
             >
-              {currentPost.data.cover ? (
-                <Image
-                  src={currentPost.data.cover}
-                  alt={currentPost.data.title}
-                  width={240}
-                  height={100}
-                  class="w-full h-full object-cover rounded-xl overflow-hidden"
-                />
-              ) : (
-                <Image
-                  src={defaultCover.src}
-                  alt={currentPost.data.title}
-                  width={defaultCover.width}
-                  height={defaultCover.height}
-                  class="w-full h-full object-cover rounded-xl overflow-hidden"
-                />
-              )}
+              <div class="relative w-full aspect-video rounded-xl overflow-hidden">
+                {post.cover ? (
+                  <Image
+                    src={post.cover}
+                    alt={post.title}
+                    width={POST_IMAGE_SIZES.width}
+                    height={POST_IMAGE_SIZES.height}
+                    quality={POST_IMAGE_SIZES.quality}
+                    class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <Image
+                    src={defaultCover.src}
+                    alt={post.title}
+                    width={defaultCover.width}
+                    height={defaultCover.height}
+                    class="w-full h-full object-cover transition duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                )}
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+              </div>
             </a>
             <div class="flex items-center justify-between">
               <a
-                href={`/${locale}/blog/category/${currentPost.data.category}/`}
-                transition:name={`badge-cat-${currentPost.slug}`}
+                href={`/${locale}/blog/category/${post.category}/`}
+                transition:name={`badge-cat-${post.originalSlug}`}
               >
                 <Badge radius="md" className="capitalize">
-                  {categoryTranslated}
+                  {post.categoryTranslated}
                 </Badge>
               </a>
               <span
                 class="font-medium text-muted-foreground"
-                transition:name={`pubDate-${currentPost.slug}`}
+                transition:name={`pubDate-${post.originalSlug}`}
               >
-                {new Date(currentPost.data.date).toLocaleDateString(locale, {
+                {new Date(post.date).toLocaleDateString(locale, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric'
@@ -98,21 +126,20 @@ export const getStaticPaths = () =>
             </div>
             <div>
               <a
-                href={`/${locale}/blog/${postSlug}/`}
+                href={`/${locale}/blog/${post.slug}/`}
                 class="group-hover:underline"
               >
                 <h2
                   class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
-                  transition:name={`title-${currentPost.slug}`}
+                  transition:name={`title-${post.originalSlug}`}
                 >
-                  {currentPost.data.title}
+                  {post.title}
                 </h2>
               </a>
             </div>
           </article>
-        );
-      })}
+        ))}
+      </div>
     </div>
   </section>
 </Layout>
----

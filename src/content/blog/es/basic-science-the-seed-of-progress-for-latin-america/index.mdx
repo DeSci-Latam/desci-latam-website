@@ -3,7 +3,6 @@ title: "Ciencia Básica: La Semilla del Progreso para Latinoamérica 🌱🔬"
 description: "Explorando la importancia de la ciencia básica para el desarrollo de América Latina"
 date: 2024-10-23
 category: "science"
-category_translate: "ciencia"
 cover: "./cover.jpg"
 tags: ["Ciencia Básica", "Latinoamérica", "Investigación", "Desarrollo"]
 ---
@@ -60,7 +59,7 @@ La ciencia básica tiene un impacto profundo y duradero en la sociedad, aunque a
 
 ### Situación global
 
-<ClientEChartsComponent 
+<ClientEChartsComponent
   option={{
     title: {
       text: 'Inversión en I+D (% del PIB)',
@@ -96,7 +95,11 @@ La ciencia básica tiene un impacto profundo y duradero en la sociedad, aunque a
         label: {
           show: true,
           position: 'right',
-          formatter: '{c}%'
+          formatter: '{c}%',
+          color: 'var(--invert-text)',
+          textBorderWidth: 0,
+          textShadowBlur: 0,
+          fontSize: 12
         },
         itemStyle: {
           color: '#3182bd'
@@ -205,58 +208,62 @@ La inversión en I+D en Latinoamérica sigue siendo significativamente menor que
 
 ### Producción científica
 
-<ClientEChartsComponent 
-  option={{
-    title: {
-      text: 'Publicaciones científicas por universidad (2010-2015)',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'value',
-      name: 'Número de publicaciones',
-      nameLocation: 'middle',
-      nameGap: 30
-    },
-    yAxis: {
-      type: 'category',
-      data: ['U. Antioquia (Col.)', 'UNC (Argentina)', 'U. Concepción (Chile)', 'U. Nac. Colombia', 'PUC Chile', 'UNIFESP (Brasil)', 'U. Chile', 'UFMG (Brasil)', 'UFRGS (Brasil)', 'UBA (Argentina)', 'UNESP (Brasil)', 'UFRJ (Brasil)', 'UNICAMP (Brasil)', 'UNAM (México)', 'USP (Brasil)'].reverse()
-    },
-    series: [
-      {
-        name: 'Publicaciones',
-        type: 'bar',
-        data: [4020, 5044, 5243, 7373, 9385, 10138, 12273, 13316, 14191, 15456, 16000, 17082, 18393, 25686, 67734].reverse(),
-        label: {
-          show: true,
-          position: 'right',
-          formatter: '{c}'
-        },
-        itemStyle: {
-          color: '#3182bd'
-        }
-      }
-    ]
-  }}
-  style={{ height: '600px', width: '100%' }}
+<ClientEChartsComponent
+ option={{
+   title: {
+     text: 'Publicaciones científicas por universidad (2010-2015)',
+     left: 'center'
+   },
+   tooltip: {
+     trigger: 'axis',
+     axisPointer: {
+       type: 'shadow'
+     }
+   },
+   grid: {
+     left: '3%',
+     right: '4%',
+     bottom: '3%',
+     containLabel: true
+   },
+   xAxis: {
+     type: 'value',
+     name: 'Número de publicaciones',
+     nameLocation: 'middle',
+     nameGap: 30
+   },
+   yAxis: {
+     type: 'category',
+     data: ['U. Antioquia (Col.)', 'UNC (Argentina)', 'U. Concepción (Chile)', 'U. Nac. Colombia', 'PUC Chile', 'UNIFESP (Brasil)', 'U. Chile', 'UFMG (Brasil)', 'UFRGS (Brasil)', 'UBA (Argentina)', 'UNESP (Brasil)', 'UFRJ (Brasil)', 'UNICAMP (Brasil)', 'UNAM (México)', 'USP (Brasil)'].reverse()
+   },
+   series: [
+     {
+       name: 'Publicaciones',
+       type: 'bar',
+       data: [4020, 5044, 5243, 7373, 9385, 10138, 12273, 13316, 14191, 15456, 16000, 17082, 18393, 25686, 67734].reverse(),
+       label: {
+         show: true,
+         position: 'right',
+         formatter: '{c}',
+         color: 'var(--invert-text)',
+         textBorderWidth: 0,
+         textShadowBlur: 0,
+         fontSize: 12
+       },
+       itemStyle: {
+         color: '#3182bd'
+       }
+     }
+   ]
+ }}
+ style={{ height: '600px', width: '100%' }}
 />
 
 > Las universidades, pilares de la ciencia y la tecnología en América Latina" (OEI, 2018)
 
 ### Colaboración internacional
 
-<ClientEChartsComponent 
+<ClientEChartsComponent
   option={{
     title: {
       text: 'Colaboración Internacional en Publicaciones (%, 2015)',
@@ -292,7 +299,11 @@ La inversión en I+D en Latinoamérica sigue siendo significativamente menor que
         label: {
           show: true,
           position: 'right',
-          formatter: '{c}%'
+          formatter: '{c}%',
+          color: 'var(--invert-text)',
+          textBorderWidth: 0,
+          textShadowBlur: 0,
+          fontSize: 12
         },
         itemStyle: {
           color: '#3182bd'
@@ -309,161 +320,173 @@ La inversión en I+D en Latinoamérica sigue siendo significativamente menor que
 
 ### Relación entre publicaciones y crecimiento económico
 
-<ClientEChartsComponent 
-  option={{
-    title: {
-      text: 'Impacto de un 1% de aumento en publicaciones sobre el PIB (%)',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'value',
-      name: 'Rango de impacto en PIB (%)',
-      nameLocation: 'middle',
-      nameGap: 30
-    },
-    yAxis: {
-      type: 'category',
-      data: ['Países africanos', 'Muestra completa', 'Países emergentes', 'Países desarrollados']
-    },
-    series: [
-      {
-        name: 'Rango de impacto',
-        type: 'bar',
-        data: [
-          {value: [0.274, 0.441], itemStyle: {color: '#3182bd'}},
-          {value: [0.324, 0.465], itemStyle: {color: '#3182bd'}},
-          {value: [0.338, 0.477], itemStyle: {color: '#3182bd'}},
-          {value: [0.302, 0.577], itemStyle: {color: '#3182bd'}}
-        ],
-        label: {
-          show: true,
-          formatter: function (params) {
-            return params.value[0].toFixed(3) + ' - ' + params.value[1].toFixed(3);
-          },
-          position: 'right'
-        }
-      }
-    ]
-  }}
-  style={{ height: '650px', width: '100%' }}
+<ClientEChartsComponent
+ option={{
+   title: {
+     text: 'Impacto de un 1% de aumento en publicaciones sobre el PIB (%)',
+     left: 'center'
+   },
+   tooltip: {
+     trigger: 'axis',
+     axisPointer: {
+       type: 'shadow'
+     }
+   },
+   grid: {
+     left: '3%',
+     right: '4%',
+     bottom: '3%',
+     containLabel: true
+   },
+   xAxis: {
+     type: 'value',
+     name: 'Rango de impacto en PIB (%)',
+     nameLocation: 'middle',
+     nameGap: 30
+   },
+   yAxis: {
+     type: 'category',
+     data: ['Países africanos', 'Muestra completa', 'Países emergentes', 'Países desarrollados']
+   },
+   series: [
+     {
+       name: 'Rango de impacto',
+       type: 'bar',
+       data: [
+         {value: [0.274, 0.441], itemStyle: {color: '#3182bd'}},
+         {value: [0.324, 0.465], itemStyle: {color: '#3182bd'}},
+         {value: [0.338, 0.477], itemStyle: {color: '#3182bd'}},
+         {value: [0.302, 0.577], itemStyle: {color: '#3182bd'}}
+       ],
+       label: {
+         show: true,
+         formatter: function (params) {
+           return params.value[0].toFixed(3) + ' - ' + params.value[1].toFixed(3);
+         },
+         position: 'right',
+         color: 'var(--invert-text)',
+         textBorderWidth: 0,
+         textShadowBlur: 0,
+         fontSize: 12
+       }
+     }
+   ]
+ }}
+ style={{ height: '650px', width: '100%' }}
 />
 
 > Knowledge creation and economic growth: the importance of basic research" (Moyo & Phiri, 2024)
 
 ### Crecimiento de publicaciones en Latinoamérica
 
-<ClientEChartsComponent 
-  option={{
-    title: {
-      text: 'Crecimiento de publicaciones científicas en América Latina',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: ['2010', '2015'],
-      name: 'Año',
-      nameLocation: 'middle',
-      nameGap: 30
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Número de publicaciones',
-      nameLocation: 'middle',
-      nameGap: 40
-    },
-    series: [
-      {
-        name: 'Publicaciones',
-        type: 'bar',
-        data: [86513, 118847],
-        label: {
-          show: true,
-          position: 'top',
-          formatter: '{c:,}'
-        },
-        itemStyle: {
-          color: '#3182bd'
-        }
-      }
-    ]
-  }}
-  style={{ height: '400px', width: '100%' }}
+<ClientEChartsComponent
+ option={{
+   title: {
+     text: 'Crecimiento de publicaciones científicas en América Latina',
+     left: 'center'
+   },
+   tooltip: {
+     trigger: 'axis',
+     axisPointer: {
+       type: 'shadow'
+     }
+   },
+   grid: {
+     left: '3%',
+     right: '4%',
+     bottom: '3%',
+     containLabel: true
+   },
+   xAxis: {
+     type: 'category',
+     data: ['2010', '2015'],
+     name: 'Año',
+     nameLocation: 'middle',
+     nameGap: 30
+   },
+   yAxis: {
+     type: 'value',
+     name: 'Número de publicaciones',
+     nameLocation: 'middle',
+     nameGap: 40
+   },
+   series: [
+     {
+       name: 'Publicaciones',
+       type: 'bar',
+       data: [86513, 118847],
+       label: {
+         show: true,
+         position: 'top',
+         formatter: '{c:,} publicaciones',
+         color: 'var(--invert-text)',
+         textBorderWidth: 0,
+         textShadowBlur: 0,
+         fontSize: 12
+       },
+       itemStyle: {
+         color: '#3182bd'
+       }
+     }
+   ]
+ }}
+ style={{ height: '300px', width: '100%' }}
 />
 
 ## La Importancia de las Publicaciones STEM 🧪
 
 <div class="w-[600px] h-[300px]">
-<ClientEChartsComponent 
-  option={{
-    title: {
-      text: 'Impacto en el PIB por un 1% de aumento en publicaciones',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'value',
-      name: 'Rango de impacto en PIB (%)',
-      nameLocation: 'middle',
-      nameGap: 30
-    },
-    yAxis: {
-      type: 'category',
-      data: ['Publicaciones totales', 'Publicaciones STEM']
-    },
-    series: [
-      {
-        name: 'Rango de impacto',
-        type: 'bar',
-        data: [
-          {value: [0.324, 0.465], itemStyle: {color: '#3182bd'}},
-          {value: [0.347, 0.491], itemStyle: {color: '#31a354'}}
-        ],
-        label: {
-          show: true,
-          formatter: function (params) {
-            return params.value[0].toFixed(3) + ' - ' + params.value[1].toFixed(3);
-          },
-          position: 'right'
-        }
-      }
-    ]
-  }}
-  style={{ height: '100%', width: '100%' }}
+<ClientEChartsComponent
+ option={{
+   title: {
+     text: 'Impacto en el PIB por un 1% de aumento en publicaciones',
+     left: 'center'
+   },
+   tooltip: {
+     trigger: 'axis',
+     axisPointer: {
+       type: 'shadow'
+     }
+   },
+   grid: {
+     left: '3%',
+     right: '4%',
+     bottom: '3%',
+     containLabel: true
+   },
+   xAxis: {
+     type: 'value',
+     name: 'Rango de impacto en PIB (%)',
+     nameLocation: 'middle',
+     nameGap: 30
+   },
+   yAxis: {
+     type: 'category',
+     data: ['Publicaciones totales', 'Publicaciones STEM']
+   },
+   series: [
+     {
+       name: 'Rango de impacto',
+       type: 'bar',
+       data: [
+         {value: [0.324, 0.465], itemStyle: {color: '#3182bd'}},
+         {value: [0.347, 0.491], itemStyle: {color: '#31a354'}}
+       ],
+       label: {
+         show: true,
+         formatter: function (params) {
+           return params.value[0].toFixed(3) + ' - ' + params.value[1].toFixed(3);
+         },
+         position: 'right',
+         color: 'var(--invert-text)',
+         textBorderWidth: 0,
+         textShadowBlur: 0,
+         fontSize: 12
+       }
+     }
+   ]
+ }}
+ style={{ height: '100%', width: '100%' }}
 />
 </div>
 
