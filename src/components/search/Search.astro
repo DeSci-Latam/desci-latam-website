@@ -12,7 +12,7 @@ const { className = '' } = Astro.props;
 <div id="search-container" class={`ms-auto ${className}`}>
   <button 
     data-open-modal 
-    class="search-button flex items-center justify-center rounded-md gap-1 pr-4 p-0  hover:scale-125 transition-transform duration-200"
+    class="search-button flex items-center justify-center rounded-md gap-1 pr-4 p-0 hover:scale-125 transition-transform duration-200"
     aria-label="Buscar"
   >
     <IoSearch className="w-5 h-5" />
@@ -40,26 +40,31 @@ const { className = '' } = Astro.props;
           </p>
         </div>
       ) : (
-        <div id="pagefind-search"></div>
+        <div id="pagefind-search" class="pagefind-ui"></div>
       )
     }
   </div>
 </dialog>
 
 <script>
-  interface PagefindUI {
-    new (config: PagefindUIConfig): unknown;
-  }
-
-  interface PagefindUIConfig {
-    element: string;
-    showImages?: boolean;
-    bundlePath?: string;
-    baseUrl?: string;
-  }
-
-  let searchUI: unknown = null;
+  let searchUI: any = null;
   let initialized = false;
+  
+  async function initializeSearch() {
+  if (!searchUI && !import.meta.env.DEV) {
+    try {
+      const { PagefindUI } = await import('@pagefind/default-ui');
+      searchUI = new PagefindUI({
+        element: '#pagefind-search',
+        showImages: false,
+        bundlePath: '/_pagefind/',
+        baseUrl: import.meta.env.BASE_URL
+      });
+    } catch (error) {
+      console.error('Error initializing PagefindUI:', error);
+    }
+  }
+}
 
   function setupSearch() {
     if (initialized) return;
@@ -67,28 +72,20 @@ const { className = '' } = Astro.props;
     const buttons = document.querySelectorAll('[data-open-modal]');
     const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
     const closeButton = dialog?.querySelector('[data-close-modal]');
-    const dialogFrame = dialog?.querySelector('.dialog-frame');
 
-    if (!buttons.length || !dialog || !closeButton || !dialogFrame) return;
+    if (!buttons.length || !dialog || !closeButton) return;
 
     async function openSearch() {
-      if (!searchUI && !import.meta.env.DEV) {
-        try {
-          const { PagefindUI } = await import('@pagefind/default-ui');
-          searchUI = new PagefindUI({
-            element: '#pagefind-search',
-            showImages: false,
-            bundlePath: import.meta.env.BASE_URL.replace(/\/$/, '') + '/pagefind/',
-            baseUrl: import.meta.env.BASE_URL
-          });
-        } catch (error) {
-          console.error('Error initializing PagefindUI:', error);
-        }
-      }
-      
+      await initializeSearch();
       dialog.showModal();
       dialog.classList.remove('opacity-0');
       document.body.classList.add('overflow-hidden');
+      
+      // Focus en el input de búsqueda
+      const searchInput = dialog.querySelector('input');
+      if (searchInput) {
+        searchInput.focus();
+      }
     }
 
     function closeSearch() {
@@ -99,36 +96,43 @@ const { className = '' } = Astro.props;
       }, 200);
     }
 
-    // Eventos para los botones
     buttons.forEach(button => {
       button.addEventListener('click', openSearch);
     });
     
     closeButton.addEventListener('click', closeSearch);
 
-    // Click fuera para cerrar
     dialog.addEventListener('click', (e) => {
       const rect = dialog.getBoundingClientRect();
-      if (
+      const isOutside = 
         e.clientX < rect.left ||
         e.clientX > rect.right ||
         e.clientY < rect.top ||
-        e.clientY > rect.bottom
-      ) {
+        e.clientY > rect.bottom;
+      
+      if (isOutside) {
         closeSearch();
       }
     });
 
-    // Atajo de teclado
     window.addEventListener('keydown', (e) => {
-      if (e.key === '/' && !dialog.open) {
+      if (e.key === 'Escape' && dialog.open) {
+        closeSearch();
+      } else if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && !dialog.open) {
         e.preventDefault();
         openSearch();
       }
     });
 
-    // Cerrar al navegar
-    document.addEventListener('astro:after-swap', closeSearch);
+    // Manejar la navegación de Astro
+    document.addEventListener('astro:page-load', () => {
+      closeSearch();
+      searchUI = null;  // Reset searchUI on navigation
+    });
+
+    document.addEventListener('astro:after-swap', () => {
+      closeSearch();
+    });
 
     initialized = true;
   }
@@ -136,12 +140,11 @@ const { className = '' } = Astro.props;
   // Setup inicial
   setupSearch();
 
-  // Setup en navegación
+  // Re-setup después de la navegación
   document.addEventListener('astro:page-load', setupSearch);
 </script>
 
 <style is:global>
-  /* Estilos para el tema claro */
   #pagefind-search {
     --pagefind-ui-scale: 1;
     --pagefind-ui-primary: #034AD8;
@@ -152,7 +155,6 @@ const { className = '' } = Astro.props;
     width: 100%;
   }
 
-  /* Estilos para el tema oscuro */
   .dark #pagefind-search {
     --pagefind-ui-primary: #eeeeee;
     --pagefind-ui-text: #eeeeee;
@@ -196,3 +198,4 @@ const { className = '' } = Astro.props;
       z-index: 50;
     }
   }
+</style>
