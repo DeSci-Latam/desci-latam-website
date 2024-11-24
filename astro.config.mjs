@@ -5,8 +5,8 @@ import tailwind from '@astrojs/tailwind';
 import react from "@astrojs/react";
 import icon from "astro-icon";
 import simpleStackForm from "simple-stack-form";
-const PROD_URL = 'http://localhost:4321';
-const DEV_URL = 'http://localhost:4321';
+const PROD_URL = 'https://dev-descilatam-website.vercel.app';
+const DEV_URL = 'https://dev-descilatam-website.vercel.app';
 
 
 // Detecta si estamos en producción
