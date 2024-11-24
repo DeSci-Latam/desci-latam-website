@@ -51,6 +51,30 @@ const blogCategories: Category[] = [
     }
   },
   {
+    id: 'dao',
+    translations: {
+      es: 'DAO',
+      en: 'DAO',
+      pt: 'DAO'
+    }
+  },
+  {
+    id: 'desci',
+    translations: {
+      es: 'DeSci',
+      en: 'DeSci',
+      pt: 'DeSCi'
+    }
+  },
+  {
+    id: 'gitcoin',
+    translations: {
+      es: 'Gitcoin',
+      en: 'Gitcoin',
+      pt: 'Gitcoin'
+    }
+  },
+  {
     id: 'others',
     translations: {
       es: 'Otros',
