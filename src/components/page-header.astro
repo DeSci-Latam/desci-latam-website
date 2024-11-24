@@ -12,9 +12,11 @@ const { heading, text, className, ...attrs } = Astro.props;
 ---
 
 <div class={cn("", className)} {...attrs}>
-  <h1 class="inline-block font-heading text-4xl">
+
+  {text && <p class="text-muted-foreground">{text}</p>}
+  <h1 class="inline-block font-heading text-3xl">
     {heading}
   </h1>
-  {text && <p class="text-muted-foreground">{text}</p>}
+  
 </div>
 <hr class="my-4" />

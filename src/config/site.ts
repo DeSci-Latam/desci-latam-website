@@ -5,39 +5,10 @@ export const siteConfig: SiteConfig = {
   description:
     "Conectando científicos con blockchain",
   url: "https://descilatam.org",
-  ogImage: "https://astro-nomy.vercel.app/og.jpg",
+  ogImage: "https://descilatam.org/og.jpg",
   links: {
-    twitter: "https://twitter.com/crypto_nahue",
-    github: "https://github.com/cryptonahue",
+    twitter: "https://x.com/descilatam",
+    github: "https://github.com/DeSci-Latam",
   },
 };
 
-export const footerLinks: SidebarNavItem[] = [
-  {
-    title: "Company",
-    items: [
-      { title: "About", href: "#" },
-      { title: "Enterprise", href: "#" },
-      { title: "Partners", href: "#" },
-      { title: "Jobs", href: "#" },
-    ],
-  },
-  {
-    title: "Product",
-    items: [
-      { title: "Security", href: "#" },
-      { title: "Customization", href: "#" },
-      { title: "Customers", href: "#" },
-      { title: "Changelog", href: "#" },
-    ],
-  },
-  {
-    title: "Docs",
-    items: [
-      { title: "Introduction", href: "#" },
-      { title: "Installation", href: "#" },
-      { title: "Components", href: "#" },
-      { title: "Code Blocks", href: "#" },
-    ],
-  },
-];

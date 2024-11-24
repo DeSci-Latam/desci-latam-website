@@ -4,28 +4,43 @@ import Layout from "@/layouts/Base";
 import PageHeadline from "@/components/PageHeadline";
 import { Badge } from "@/components/ui/badge";
 import CategoryFilter from "@/components/filters/CategoryFilter";
-import { getCategories, filterPostsByCategory } from "@/utils/post";
+import { getCategories, filterPostsByCategory } from "@/lib/fetchers";
+import { getCategoryTranslation } from "@/data/categories";
+import type { LocaleKey } from "@/data/types";
 
 export async function getStaticPaths() {
   const paths = await Promise.all(
     Object.keys(LOCALES).map(async (lang) => {
       const categories = await getCategories(lang as Lang);
       return categories.map((category) => ({
-        params: { lang, category },
+        params: { lang, category: category.id },
+        props: { category }
       }));
     })
   );
   return paths.flat();
 }
 
-const { lang, category } = Astro.params;
+const { lang } = Astro.params;
+const { category } = Astro.props;
 const locale = lang as Lang;
+
+function isValidLocale(locale: string): locale is LocaleKey {
+  return ['es', 'en', 'pt'].includes(locale);
+}
+
+if (!isValidLocale(locale)) {
+  throw new Error(`Invalid locale: ${locale}`);
+}
+
 const t = useTranslations(locale);
-const posts = await filterPostsByCategory(category as string, locale);
+const posts = await filterPostsByCategory(category.id, locale);
+const categoryTranslated = getCategoryTranslation(category.id, locale, 'blog');
+
 const title = t({
-  es: `Blog - ${category}`,
-  en: `Blog - ${category}`,
-  pt: `Blog - ${category}`,
+  es: `Blog - ${categoryTranslated}`,
+  en: `Blog - ${categoryTranslated}`,
+  pt: `Blog - ${categoryTranslated}`,
 });
 
 // Helper para la imagen por defecto
@@ -33,69 +48,68 @@ const defaultCover = "/images/default-cover.jpg";
 ---
 
 <Layout title={title}>
-  <section class="container py-10 pt-28 h-screen">
+  <section class="container py-10 h-screen">
     <PageHeadline title={title} />
-    <CategoryFilter locale={locale} category={category} />
+    <CategoryFilter locale={locale} category={category.id} />
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
-      {posts.map((post) => {
-        const [, ...slug] = post.slug.split("/");
-        
-        return (
-          <article class="group space-y-4">
-            <a
-              href={`/${locale}/blog/${slug.join("/")}/`}
-              class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
+      {posts.map((post) => (
+        <article class="group space-y-4">
+          <a
+            href={`/${locale}/blog/${post.slug.split('/').slice(1).join("/")}/`}
+            class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
+          >
+            {post.data.cover ? (
+              <img
+                class="w-full h-full object-cover rounded-xl overflow-hidden"
+                src={post.data.cover.src}
+                alt={post.data.title}
+                width={post.data.cover.width}
+                height={post.data.cover.height}
+                loading="eager"
+                transition:name={`img-${post.slug}`}
+              />
+            ) : (
+              <img
+                class="w-full h-full object-cover rounded-xl overflow-hidden"
+                src={defaultCover}
+                alt={post.data.title}
+                width="720"
+                height="360"
+                loading="eager"
+                transition:name={`img-${post.slug}`}
+              />
+            )}
+          </a>
+          <div class="flex items-center justify-between">
+            <Badge radius="md" className="capitalize">
+              {getCategoryTranslation(post.data.category, locale, 'blog')}
+            </Badge>
+            <span
+              class="font-medium text-muted-foreground"
+              transition:name={"pubDate-" + post.slug}
             >
-              {post.data.cover ? (
-                <img 
-                  class="w-full h-full object-cover rounded-xl overflow-hidden"
-                  src={post.data.cover.src}
-                  alt={post.data.title}
-                  width={post.data.cover.width}
-                  height={post.data.cover.height}
-                  loading="eager"
-                  transition:name={`img-${post.slug}`}
-                />
-              ) : (
-                <img 
-                  class="w-full h-full object-cover rounded-xl overflow-hidden"
-                  src={defaultCover}
-                  alt={post.data.title}
-                  width="720"
-                  height="360"
-                  loading="eager"
-                  transition:name={`img-${post.slug}`}
-                />
-              )}
-            </a>
-            <div class="flex items-center justify-between">
-              <Badge radius="md" className="capitalize">
-                {post.data.category}
-              </Badge>
-              <span
-                class="font-medium text-muted-foreground"
-                transition:name={"pubDate-" + post.slug}
+              {new Date(post.data.date).toLocaleDateString(locale, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </span>
+          </div>
+          <div>
+            <a 
+              href={`/${locale}/blog/${post.slug.split('/').slice(1).join("/")}/`} 
+              class="group-hover:underline"
+            >
+              <h2
+                class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
+                transition:name={"title-" + post.slug}
               >
-                {new Date(post.data.date).toLocaleDateString(locale, {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </span>
-            </div>
-            <div>
-              <a href={`/${locale}/blog/${slug.join("/")}/`} class="group-hover:underline">
-                <h2
-                  class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
-                  transition:name={"title-" + post.slug}
-                >
-                  {post.data.title}
-                </h2>
-              </a>
-            </div>
-          </article>
-        );
-      })}
+                {post.data.title}
+              </h2>
+            </a>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 </Layout>

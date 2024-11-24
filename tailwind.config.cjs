@@ -28,8 +28,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["Ubuntu", ...fontFamily.sans],
-        heading: ["Ubuntu-Bold", ...fontFamily.sans],
+        sans: ["MerriweatherSans", ...fontFamily.sans],
+        heading: ["Merriweather", ...fontFamily.sans],
       },
       height: {
         18: "4.5rem",
@@ -38,15 +38,12 @@ module.exports = {
         18: "4.5rem",
       },
       colors: {
-        border: "hsl(var(--border))",
+      /*   border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: {
-          DEFAULT: "hsl(var(--background))",
-          200: "hsl(var(--background))",
-        },
-        foreground: "hsl(var(--primary))",
-        primary: {
+        ring: "hsl(var(--ring))", */
+       
+   /*      foreground: "hsl(var(--primary))", */
+    /*     primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
@@ -87,7 +84,54 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        }, */
+
+"primary": "hsl(var(--primary))",
+"primary-foreground": "hsl(var(--primary-foreground))",
+          
+"secondary": "hsl(var(--secondary))",
+          
+"accent": "hsl(var(--accent))",
+          
+"neutral": "hsl(var(--neutral))",
+          
+"base-100": "hsl(var(--base-100))",
+          
+"info": "hsl(var(--info))",
+          
+"success": "hsl(var(--success))",
+          
+"warning": "hsl(var(--warning))",
+          
+"error": "hsl(var(--error))",
+        
+        mainbackground: {
+          DEFAULT: "hsl(var(--main-background))",
         },
+        maintext: {
+          DEFAULT: "hsl(var(--main-text))",
+        },
+        maincolor:{
+          DEFAULT: "hsl(var(--main-color))",
+        },
+        border1:{
+          DEFAULT: "hsl(var(--border-color-1))",
+        },
+        green4:{
+          DEFAULT: "hsl(var(--green-4))",
+        },
+        gray1:{
+          DEFAULT: "hsl(var(--gray-1))",
+        },
+        gray2:{
+          DEFAULT: "hsl(var(--gray-2))",
+        },
+        gray3:{
+          DEFAULT: "hsl(var(--gray-3))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -115,4 +159,7 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('daisyui'),
   ],
+  daisyui: {
+    themes: false,
+  },
 };

@@ -9,23 +9,24 @@ const languageLabels = {
 ---
 <div class="dropdown dropdown-top lg:dropdown-end lg:dropdown-bottom ml-2" transition:animate="fade">
   <div tabindex="0" role="button" class="btn btn-ghost btn-sm rounded-full gap-1 normal-case flex items-center px-2 py-2">
-    <span class="material-icons-sharp text-gray-400 items-center">language</span>
-    <span>{languageLabels[Astro.currentLocale as keyof typeof languageLabels].label}</span>
+    <span class="material-icons-sharp dark:text-gray-400 items-center">language</span>
+    <spa class="font-normal ">{languageLabels[Astro.currentLocale as keyof typeof languageLabels].label}</span>
   </div>
-  <ul tabindex="0" class="dropdown-content z-[1] mt-3 menu gap-2 shadow bg-base-200 rounded-box w-40">
+  <ul tabindex="0" class="dropdown-content z-[1] mt-3 menu gap-2 shadow bg-mainbackground rounded-box w-40">
     {languageOptions.map((option) => (
       <li>
-        <a
+        <a 
+       
           href={option.path}
           class:list={[
-            "flex items-center gap-2",
-            { "active": option.lang === Astro.currentLocale }
+            "flex items-center gap-2 bg-green4 dark:bg-gray3",
+            { "active ": option.lang === Astro.currentLocale }
           ]}
           data-lang={option.lang}
           transition:name={`language-${option.lang}`}
         >
-          <span>{languageLabels[option.lang as keyof typeof languageLabels].flag}</span>
-          <span>{languageLabels[option.lang as keyof typeof languageLabels].label}</span>
+         {/*  <span>{languageLabels[option.lang as keyof typeof languageLabels].flag}</span> */}
+          <span >{languageLabels[option.lang as keyof typeof languageLabels].label}</span>
         </a>
       </li>
     ))}

@@ -9,8 +9,8 @@ import ProviderAnimations from "@/components/ProviderAnimations";
 import TailwindIndicator from "@/components/tailwind-indicator";
 import { Navbar } from "../components/Navbar.tsx";
 import Header from "@/components/HeaderNuevo";
-import Header55 from "@/components/layout/header";
-import { MainNavigationMenu } from "@/components/main-navigation-menu-mio";
+/* import Header55 from "@/components/layout/header";
+import { MainNavigationMenu } from "@/components/main-navigation-menu-mio"; */
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 import { SheetMobileNav } from "@/components/layout/sheet-mobile-nav";
@@ -33,9 +33,8 @@ type Props = {
   mainClass?: string;
 };
 ---
-
 <html
-  class="scroll-smooth"
+  class="scroll-smooth min-h-screen antialiased"
   lang={LOCALES[locale].lang || locale}
   dir={LOCALES[locale].dir || null}
 >
@@ -49,24 +48,18 @@ type Props = {
   </head>
   <ProviderTheme />
   <ProviderAnimations />
-  <body>
-    <div>
-      <LocaleSuggest />
-      <Header className="border-b" />
-      <div>
-        <main class={cn(mainClass)}>
-          <div
-            class="w-screen grid justify-center bg-lightblue dark:bg-background px-4 xl:px-0 pt-18 pb-8"
-          >
-            <div class="max-w-screen-xl xl:w-[1280px] w-xl">
-              <div class="w-full flex justify-center">
-                <slot />
-              </div>
-            </div>
+  <body class="flex flex-col min-h-screen bg-background text-foreground">
+    <LocaleSuggest />
+    <Header className="border-b" />
+    <main class={cn("flex-1 flex flex-col", mainClass)}>
+      <div class="flex-1 bg-lightblue dark:bg-background px-4 xl:px-0 pt-20 pb-8">
+        <div class="max-w-screen-xl xl:w-[1280px] mx-auto h-full">
+          <div class="w-full flex justify-center h-full">
+            <slot />
           </div>
-        </main>
+        </div>
       </div>
-    </div>
+    </main>
     <Footer />
     <TailwindIndicator />
     <Toaster richColors client:only="react" />

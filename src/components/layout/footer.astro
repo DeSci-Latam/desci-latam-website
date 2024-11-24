@@ -1,71 +1,253 @@
 ---
-/* import { NewsletterForm } from "@/components/forms/newsletter-form"; */
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { footerLinks, siteConfig } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Icon } from "astro-icon/components";
-
+import { LogoFooter } from "../../assets/logos/LogoFooter";   
 type Props = {
   className?: string;
 };
 
+
+
+
+const locale = Astro.currentLocale as Lang;
+const t = useTranslations(locale);
+
+
+
 const { className } = Astro.props;
 ---
 
-<footer class={cn("border-t", className)}>
-  <div
-    class="container grid grid-cols-1 gap-6 py-14 sm:grid-cols-2 md:grid-cols-5 max-w-[1280px]"
-  >
-    {
-      footerLinks.map((section) => (
-        <div>
-          <span class="text-sm font-medium text-foreground">
-            {section.title}
-          </span>
-          <ul class="mt-4 list-inside space-y-3">
-            {section.items?.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="text-sm  hover:text-primary"
-                >
-                  {link.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))
-    }
-    <div class="flex flex-col items-end md:col-span-2">
-      Form Newsletter coming soon!
-      <!-- <NewsletterForm client:only="react" /> -->
+
+<footer class={cn("border-t border-border1 dark:border-gray2", className)}>
+  {/* Sección principal */}
+  <div class="container grid grid-cols-1 gap-8 py-8 sm:grid-cols-2 md:grid-cols-5 max-w-[1280px]">
+    {/* Primera columna con logo */}
+    <div class="md:col-span-1">
+
+<div class="flex pb-2">
+      <a href={getRelativeLocaleUrl(locale, "/")}>
+        <LogoFooter />
+      </a></div>
+
+
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+        {t({
+          es: "Impulsando la ciencia descentralizada en Latinoamérica",
+          en: "Driving decentralized science in Latin America",
+          pt: "Impulsionando a ciência descentralizada na América Latina"
+        })}
+      </p>
+      <div class="flex space-x-4">
+        <a 
+          href={siteConfig.links.twitter} 
+          target="_blank" 
+          rel="noreferrer"
+          aria-label="Twitter"
+          class="text-gray-400 hover:text-maincolor transition-colors"
+        >
+          <Icon name="twitter" class="size-5" />
+        </a>
+        <a 
+          href={siteConfig.links.github} 
+          target="_blank" 
+          rel="noreferrer"
+          aria-label="GitHub"
+          class="text-gray-400 hover:text-maincolor transition-colors"
+        >
+          <Icon name="github" class="size-5" />
+        </a>
+      </div>
+    </div>
+
+    {/* Columna Explorar */}
+    <div>
+      <span class="text-sm font-medium text-foreground uppercase tracking-wider">
+        {t({
+          es: "Explorar",
+          en: "Explore",
+          pt: "Explorar"
+        })}
+      </span>
+      <ul class="mt-4 list-inside space-y-3">
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "/learn/what-is-desci")}
+            class="text-sm text-gray-600 dark:text-gray-300 hover:text-maincolor dark:hover:text-white transition-colors"
+          >
+            {t({
+              es: "¿Qué es DeSci?",
+              en: "What is DeSci?",
+              pt: "O que é DeSci?"
+            })}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "/blog")}
+            class="text-sm text-gray-600 dark:text-gray-300 hover:text-maincolor dark:hover:text-white transition-colors"
+          >
+            Blog
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "/resources")}
+            class="text-sm text-gray-600 dark:text-gray-300 hover:text-maincolor dark:hover:text-white transition-colors"
+          >
+            {t({
+              es: "Recursos",
+              en: "Resources",
+              pt: "Recursos"
+            })}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    {/* Columna Comunidad */}
+    <div>
+      <span class="text-sm font-medium text-foreground uppercase tracking-wider">
+        {t({
+          es: "Comunidad",
+          en: "Community",
+          pt: "Comunidade"
+        })}
+      </span>
+      <ul class="mt-4 mb-4 list-inside space-y-3">
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "/community/events")}
+            class="text-sm text-gray-600 dark:text-gray-300 hover:text-maincolor dark:hover:text-white transition-colors"
+          >
+            {t({
+              es: "Eventos",
+              en: "Events",
+              pt: "Eventos"
+            })}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "/community/global-communities")}
+            class="text-sm text-gray-600 dark:text-gray-300 hover:text-maincolor dark:hover:text-white transition-colors"
+          >
+            {t({
+              es: "Comunidades Globales",
+              en: "Global Communities",
+              pt: "Comunidades Globais"
+            })}
+          </a>
+        </li>
+      </ul>
+
+<span class="text-sm font-medium mt-4 text-foreground uppercase tracking-wider">
+        {t({
+          es: "Recursos",
+          en: "Resources",
+          pt: "Recursos"
+        })}
+      </span>
+      <ul class="mt-4 list-inside space-y-3">
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "/resources/funding")}
+            class="text-sm text-gray-600 dark:text-gray-300 hover:text-maincolor dark:hover:text-white transition-colors"
+          >
+            {t({
+              es: "Financiamiento",
+              en: "Funding",
+              pt: "Financiamento"
+            })}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, "/resources/toolkit")}
+            class="text-sm text-gray-600 dark:text-gray-300 hover:text-maincolor dark:hover:text-white transition-colors"
+          >
+            {t({
+              es: "Kit de Herramientas",
+              en: "Toolkit",
+              pt: "Kit de Ferramentas"
+            })}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+   
+
+    {/* Newsletter */}
+    <div class="flex flex-col md:col-span-1">
+      <span class="text-sm font-medium text-foreground uppercase tracking-wider mb-4">
+        Newsletter
+      </span>
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-4"> 
+        {t({
+          es: "Mantente actualizado con las últimas novedades",
+          en: "Stay updated with the latest news",
+          pt: "Mantenha-se atualizado com as últimas novidades"
+        })}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-2">
+        <input
+          type="email"
+          placeholder={t({
+            es: "Tu correo electrónico",
+            en: "Your email",
+            pt: "Seu email"
+          })}
+          class="px-2 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-maincolor"
+          aria-label={t({
+            es: "Ingresa tu correo electrónico",
+            en: "Enter your email",
+            pt: "Digite seu email"
+          })}
+        />
+        <button
+          type="submit"
+          class="px-4 py-2 bg-maincolor text-white rounded-md hover:bg-maincolor/90 transition-colors"
+        >
+          {t({
+            es: "Suscribirse",
+            en: "Subscribe",
+            pt: "Inscrever-se"
+          })}
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="border-t py-4 ">
-    <div class="container flex items-center justify-between max-w-[1280px]">
-      <!-- <span class="text-muted-foreground text-sm">
-        Copyright &copy; 2024. All rights reserved.
-      </span> -->
-      <p class="text-left text-sm ">
-        {"Desarrollado por"}
+  {/* Sección inferior */}
+  <div class="border-t border-border1 dark:border-gray2 py-4">
+    <div class="container flex flex-col sm:flex-row items-center justify-between max-w-[1280px] gap-4">
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        {t({
+          es: "Desarrollado por",
+          en: "Developed by",
+          pt: "Desenvolvido por"
+        })}{' '}
         <a
           href={siteConfig.links.twitter}
           target="_blank"
           rel="noreferrer"
-          class="font-medium underline underline-offset-4"
+          class="font-medium text-maincolor hover:underline underline-offset-4 transition-colors"
         >
           CryptoNahue
         </a>
       </p>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-4">
         <a
           href={siteConfig.links.github}
           target="_blank"
           rel="noreferrer"
-          class="font-medium underline underline-offset-4"
+          aria-label="GitHub"
+          class="text-gray-400 hover:text-maincolor transition-colors"
         >
           <Icon name="github" class="size-5" />
         </a>

@@ -2,17 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "main";
+/* @import "main";
 
- /*        darkblue: "#121521",
-        mainblue: "#ACE7FA",
-        lightblue: "#F3F8FA",
-        whitelight: "#F8FBFC",
-        darkblack: "#010101", */
+ */
 
-@layer base {
+
+:root {
+  --radius: 8px;
+  --submenu: 10px;
+
+svg,
+path {
+  fill: currentColor;
+  aspect-ratio: 1;
+}
+
+[class^="material-icons"] {
+  vertical-align: middle;
+  font-size: 1.1em;
+}
+}
+
+
+@layer base { 
   :root {
-    --background: 252 252% 252%;
+
+    --main-color: 160 34 12%;
+    --border-color-1: 0 0 96%;
+    --gray-1: 210 2 80%;
+    --gray-2: 228 4 22%;
+
+  
+  --primary: 160 34 12%;
+  --primary-foreground: 0 0 99%;
+  --secondary: green;   
+  --accent: 171 71 25%;  
+  --neutral: 165 74 88%;  
+  --base-100: yellow;  
+  --info: 252 252% 252%;  
+  --success: 252 252% 252%;  
+  --warning: 252 252% 252%;  
+  --error: 252 252% 252%;  
+
+
+
+    --gray-3: 144 9 11%;
+    --green-4: 160 60 97%;
+
+
+    --main-background: 0 0 99%;
+
+    --main-text: 220 4 16%;
+
+    --invert-text: 0 0 99%;
+
+    /* --background: 252 252% 252%;
     --background-200: 0 0% 98%;
 
     --foreground: 0 0% 7%;
@@ -29,11 +73,11 @@
     --card: 0 0% 100%;
     --card-foreground: 0 0% 9%;
 
-    --primary: 0 0% 7%;
+    --primary:  187 75% 95% 100%  
     --primary-foreground: 0 0% 98%;
 
     --primarywhite: 252 252% 252%;
-    --primaryblue: 195 89% 83%;
+    --primaryblue: 159 100% 72%;
     --lightblue: 197 41% 97%;
 
     --darkblue: 228, 29%, 10%, 96%;
@@ -52,17 +96,23 @@
     --radius: 0.5rem;
     --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, .08);
 
-    
+
+    } */
   
   }
 
   .dark {
-    --background: 0 0% 7%;
+
+    --main-background: 143 9 8%;
+    --main-text: 0 0 99%;
+    --invert-text: 143 9 8%;
+
+/*     --background: 0 0% 7%;
     --background-200: 0 170% 0%;
 
     --foreground: 0 0% 93%;
 
-    --primaryblue: 195 89% 83%;
+    --primaryblue: 160 76% 66%;
     --lightblue: 197 41% 97%;
 
     --muted: 0 0% 12%;
@@ -93,6 +143,8 @@
 
     --radius: 0.5rem;
     --ds-shadow-border: 0 0 0 1px hsla(0, 0%, 100%, .145);
+
+ */
   }
 }
 
@@ -100,22 +152,22 @@
 
 @layer base {
   @font-face {
-    font-family: 'Ubuntu';
-    src: url('/fonts/UbuntuSans-Regular.woff2'), url('/fonts/UbuntuSans-Bold.woff2'), format('woff2');
+    font-family: 'MerriweatherSans';
+    src: url('/fonts/MerriweatherSans-Regular.woff2'), url('/fonts/MerriweatherSans-Bold.woff2'), format('woff2');
     font-style: normal;
     font-display: swap;
   }
 
   @font-face {
-    font-family: 'Ubuntu-Bold';
-    src: url('/fonts/UbuntuSans-Bold.woff2'), format('woff2');
+    font-family: 'Merriweather';
+    src: url('/fonts/Merriweather-Regular.woff2'), format('woff2');
     font-style: bold;
     font-display: swap;
   }
 
-  * {
+/*   * {
     @apply border-border;
-  }
+  } */
 
   /* If you want a custom scrollbar - By @diomed */
   /* * {
@@ -147,15 +199,15 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-mainbackground text-maintext font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   @layer base {
     /* body {
       transition: background-color 0.5s ease;
-    } */
-  
+    } */    
+
     .prose code {
       @apply text-base;
     }
@@ -172,6 +224,14 @@
     } */
   }
   
+.header-background {
+  background-color: var(--header-background);
+}
+
+.sub-menu {
+  font-size: 0.7rem;
+}
+
   .glass {
     background: rgba(57, 56, 56, 0.52);
     backdrop-filter: blur(13px) saturate(150%);
@@ -185,6 +245,13 @@
   
   
    
+.active {
+  @apply bg-primary text-gray1 !important 
+
+}
+
+
+
 
   /* Documentation part */
   .docs-grid-cols-2 {
@@ -201,7 +268,7 @@
 
   /* MdxComponent: For <code></code> with no parent <pre></pre> */
   :not(pre)>code {
-    @apply relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm bg-background text-foreground;
+    @apply relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm bg-mainbackground ;
   }
 }
 
@@ -213,13 +280,7 @@
   background-clip: text;
 }
 
-.bg_release_version {
-  background: linear-gradient(25deg,
-      #3a084e,
-      #5b0e81,
-      #bc4c9b,
-      #df7f4f) !important;
-}
+
 
 /* Vercel card style */
 .card_border {
@@ -305,3 +366,10 @@
     calc(-2.3*var(--s)) calc(1.7*var(--s)),0 0
   }
 }
+
+.menu-text-size {
+  font-size: 0.8rem;
+}
+
+
+

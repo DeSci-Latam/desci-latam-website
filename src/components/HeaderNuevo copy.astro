@@ -1,0 +1,207 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations, type Lang } from "@/i18n";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Search from "@/components/search/Search";
+import LocaleSelect from "@/components/i18n/LocaleSelect";
+import { TailcastLogo } from "../assets/logos/TailcastLogo";
+import icon from "astro-icon";
+
+const t = useTranslations(Astro.currentLocale as Lang);
+const locale = Astro.currentLocale as Lang;
+
+const isActive = (path: string) =>
+  getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
+---
+
+<header class="fixed w-full z-40 bg-base-100 border-b border-base-300">
+  <div class="max-w-[1304px] mx-auto">
+    <div class="navbar">
+      <!-- Logo y Menú Móvil -->
+      <div class="flex-none lg:hidden">
+        <label for="drawer-mobile" class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
+      </div>
+      
+      <!-- Logo -->
+      <div class="flex-1">
+        <a href={getRelativeLocaleUrl(locale, "/")} class="btn btn-ghost">
+          <TailcastLogo />
+        </a>
+      </div>
+
+      <!-- Menú Desktop -->
+      <div class="hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 gap-2">
+          <!-- Comunidad Dropdown -->
+          <li>
+            <details class="dropdown">
+              <summary class="btn btn-ghost">
+                {t({ es: "Comunidad", en: "Community", pt: "Communidade" })}
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <ul class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-200 rounded-box w-52">
+                <li>
+                  <a href={getRelativeLocaleUrl(locale, "/changelog")} class="flex items-center gap-3">
+                    <icon name="mdi:clock-time-four" class="w-5 h-5" />
+                    <span>{t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={getRelativeLocaleUrl(locale, "/docs")} class="flex items-center gap-3">
+                    <icon name="mdi:book-open" class="w-5 h-5" />
+                    <span>{t({ es: "Documentación", en: "Documentation", pt: "Documentação" })}</span>
+                  </a>
+                </li>
+              </ul>
+            </details>
+          </li>
+
+          <!-- Ecosistema Dropdown -->
+          <li>
+            <details class="dropdown">
+              <summary class="btn btn-ghost">
+                {t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <ul class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-200 rounded-box w-52">
+                <li>
+                  <a href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")} class="flex items-center gap-3">
+                    <icon name="mdi:cash" class="w-5 h-5" />
+                    <span>{t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}</span>
+                  </a>
+                </li>
+              </ul>
+            </details>
+          </li>
+
+          <!-- Blog -->
+          <li>
+            <a 
+              href={getRelativeLocaleUrl(locale, "/blog")}
+              class:list={["btn btn-ghost", { "btn-active": isActive("/blog") }]}
+            >
+              {t({ es: "Blog", en: "Blog", pt: "Blog" })}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Controles (Search, Theme, Language) -->
+      <div class="flex-none gap-2">
+        <Search client:load />
+        <div class="hidden lg:flex items-center gap-2">
+          <ThemeToggle client:load />
+          <LocaleSelect />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer para móvil -->
+  <div class="drawer lg:hidden">
+    <input id="drawer-mobile" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-side">
+      <label for="drawer-mobile" class="drawer-overlay"></label>
+      <ul class="menu p-4 w-80 min-h-full bg-base-200">
+        <!-- Contenido del menú móvil -->
+        <li>
+          <details>
+            <summary>
+              {t({ es: "Comunidad", en: "Community", pt: "Communidade" })}
+            </summary>
+            <ul>
+              <li>
+                <a href={getRelativeLocaleUrl(locale, "/changelog")} class="flex items-center gap-3">
+                  <icon name="mdi:clock-time-four" class="w-5 h-5" />
+                  <span>{t({ es: "Changelog", en: "Changelog", pt: "Changelog" })}</span>
+                </a>
+              </li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>
+              {t({ es: "Ecosistema", en: "Ecosystem", pt: "Ecosistema" })}
+            </summary>
+            <ul>
+              <li>
+                <a href={getRelativeLocaleUrl(locale, "/ecosystem/funding/")} class="flex items-center gap-3">
+                  <icon name="mdi:cash" class="w-5 h-5" />
+                  <span>{t({ es: "Financiamiento", en: "Funding", pt: "Financiamento" })}</span>
+                </a>
+              </li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <a href={getRelativeLocaleUrl(locale, "/blog")}>
+            {t({ es: "Blog", en: "Blog", pt: "Blog" })}
+          </a>
+        </li>
+        <!-- Controles móviles -->
+        <div class="mt-auto border-t border-base-300 pt-4">
+          <div class="flex items-center justify-between">
+            <LocaleSelect />
+            <ThemeToggle client:load />
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Estilos personalizados que complementan DaisyUI */
+  .dropdown-content {
+    @apply mt-2;
+  }
+
+  .menu :where(li:not(.menu-title):not(:empty)) > :where(:not(ul).active) {
+    @apply bg-primary text-primary-content;
+  }
+
+  /* Mejoras para el drawer móvil */
+  .drawer-side {
+    @apply pt-16; /* Espacio para el header */
+  }
+
+  .drawer-overlay {
+    @apply bg-black/40 backdrop-blur-sm;
+  }
+</style>
+
+<script>
+  function setupDrawer() {
+    const drawer = document.getElementById('drawer-mobile') as HTMLInputElement;
+    
+    if (drawer) {
+      // Manejar el scroll del body
+      drawer.addEventListener('change', () => {
+        document.body.style.overflow = drawer.checked ? 'hidden' : '';
+      });
+
+      // Cerrar drawer al hacer clic en links
+      document.querySelectorAll('.drawer-side a').forEach(link => {
+        link.addEventListener('click', () => {
+          drawer.checked = false;
+          document.body.style.overflow = '';
+        });
+      });
+    }
+  }
+
+  // Setup inicial
+  setupDrawer();
+
+  // Setup en navegación
+  document.addEventListener('astro:page-load', setupDrawer);
+</script> 

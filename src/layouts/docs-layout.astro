@@ -2,7 +2,7 @@
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 /* import { MainNavigationMenu } from "@/components/main-navigation-menu"; */
-import { MainNavigationMenu } from "@/components/main-navigation-menu-mio";
+/* import { MainNavigationMenu } from "@/components/main-navigation-menu-mio"; */
 import { siteConfig } from "@/config/site";
 import { Icon } from "astro-icon/components";
 import BaseLayout from "./base-layout.astro";
@@ -32,7 +32,7 @@ const { title, description } = Astro.props;
     /> -->
 
     <!-- if use Navigation Menu on desktop -->
-    <MainNavigationMenu slot="left-header" client:load />
+    <!-- <MainNavigationMenu slot="left-header" client:load /> -->
     <SheetMobileNav
       mainNavItems={[...navMenuConfig.links]}
       sidebarNavItems={[
