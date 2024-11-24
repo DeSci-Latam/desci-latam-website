@@ -6,8 +6,8 @@ import react from "@astrojs/react";
 import icon from "astro-icon";
 import simpleStackForm from "simple-stack-form";
 
-const PROD_URL = 'https://dev-descilatam-website.vercel.app';
-const DEV_URL = 'https://dev-descilatam-website.vercel.app';
+const PROD_URL = 'https://testv2descilatam.vercel.app';
+const DEV_URL = 'https://testv2descilatam.vercel.app';
 const isProduction = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
