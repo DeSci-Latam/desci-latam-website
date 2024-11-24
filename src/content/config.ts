@@ -1,5 +1,8 @@
 import { defineCollection, z } from 'astro:content';
-import { CATEGORY_IDS } from '@/data/categories';
+import {
+  BLOG_CATEGORIES,
+  FUNDING_CATEGORIES,
+} from '@/data/categories';
 
 // Post collection schema
 const postsCollection = defineCollection({
@@ -43,7 +46,7 @@ const blog = defineCollection({
       title: z.string(),
       description: z.string(),
       date: z.coerce.date(),
-      category: z.enum(CATEGORY_IDS),
+      category: z.enum(BLOG_CATEGORIES.ids),
       tags: z.array(z.string()),
       draft: z.boolean().default(false),
       cover: image()
@@ -52,7 +55,7 @@ const blog = defineCollection({
         })
         .optional(),
     }),
-}); 
+});
 
 const funding = defineCollection({
   schema: ({ image }) =>
@@ -60,7 +63,7 @@ const funding = defineCollection({
       title: z.string(),
       date: z.coerce.date(),
       type: z.string(),
-      category: z.enum(CATEGORY_IDS),
+      category: z.enum(FUNDING_CATEGORIES.ids),
       tags: z.array(z.string()),
       description: z.string(),
       draft: z.boolean().optional(),

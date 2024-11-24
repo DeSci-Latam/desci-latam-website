@@ -1,15 +1,21 @@
 ---
 import { useTranslations } from "@/i18n";
-import { getCategories } from "@/utils/post";
+import { getCategories, toBlogCategory } from "@/utils/post";
+import { getCategoryTranslation } from "@/data/categories";
 import type { Lang } from "@/i18n";
+import type { LocaleKey } from "@/data/types";
+
+interface Props {
+  locale: Lang;
+  category?: string;
+}
 
 const { locale, category } = Astro.props;
 const t = useTranslations(locale as Lang);
-
-
-
 const categories = await getCategories(locale as Lang);
 
+// Convertir la categoría actual a BlogCategoryId si existe
+const currentCategory = category ? toBlogCategory(category) : null;
 ---
 
 <div class="flex flex-wrap gap-3 my-6">
@@ -21,24 +27,28 @@ const categories = await getCategories(locale as Lang);
         : "bg-primary text-primary-foreground hover:rounded-full hover:bg-primary hover:text-primary-foreground"
     }`}
   >
-  {t({
-    es: "Todo",
-    en: "All",
-    pt: "Todos",
-  })} 
+    {t({
+      es: "Todo",
+      en: "All",
+      pt: "Todos",
+    })}
   </a>
   {
-    categories.map((cat) => (
-      <a
-        href={`/${locale}/blog/category/${cat}/`}
-        class={`px-3 py-1 rounded-md text-sm ${
-          category === cat
-            ? "bg-neutral text-primary hover:rounded-full"
-            : "bg-neutral  text-primary hover:rounded-full hover:bg-[primary]"
-        }`}
-      >
-        <span class="pr-2">#</span>{cat}
-      </a>
-    ))
+    categories.map((cat) => {
+      const categoryTranslated = getCategoryTranslation(cat.id, locale as LocaleKey, 'blog');
+      return (
+        <a
+          href={`/${locale}/blog/category/${cat.id}/`}
+          class={`px-3 py-1 rounded-md text-sm ${
+            currentCategory === cat.id
+              ? "bg-neutral text-primary hover:rounded-full"
+              : "bg-neutral text-primary hover:rounded-full hover:bg-[primary]"
+          }`}
+        >
+          <span class="pr-2">#</span>
+          {categoryTranslated}
+        </a>
+      );
+    })
   }
 </div>
