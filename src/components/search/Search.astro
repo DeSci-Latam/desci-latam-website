@@ -40,36 +40,40 @@ const { className = '' } = Astro.props;
           </p>
         </div>
       ) : (
-        <div id="pagefind-search" class="pagefind-ui"></div>
+        <div id="pagefind-search" class="pagefind-ui">
+          <div class="search-loading hidden">Loading search...</div>
+        </div>
       )
     }
   </div>
 </dialog>
+
 <script>
   let searchUI: any = null;
   let initialized = false;
   
   async function destroySearch() {
     if (searchUI) {
-      // Limpiar completamente el contenedor antes de reinicializar
       const searchContainer = document.querySelector('#pagefind-search');
       if (searchContainer) {
-        searchContainer.innerHTML = '';
+        searchContainer.innerHTML = '<div class="search-loading">Loading search...</div>';
       }
       searchUI = null;
     }
   }
 
   async function initializeSearch() {
-    // Asegurarse de que no haya una instancia previa
     await destroySearch();
     
     if (!searchUI && !import.meta.env.DEV) {
       try {
         const { PagefindUI } = await import('@pagefind/default-ui');
-        // Verificar si el contenedor existe antes de inicializar
         const container = document.querySelector('#pagefind-search');
         if (!container) return;
+        
+        // Mostrar loading
+        const loadingEl = container.querySelector('.search-loading');
+        if (loadingEl) loadingEl.classList.remove('hidden');
         
         searchUI = new PagefindUI({
           element: '#pagefind-search',
@@ -77,16 +81,20 @@ const { className = '' } = Astro.props;
           bundlePath: '/_pagefind/',
           baseUrl: import.meta.env.BASE_URL
         });
+        
+        // Ocultar loading después de inicializar
+        if (loadingEl) loadingEl.classList.add('hidden');
       } catch (error) {
         console.error('Error initializing PagefindUI:', error);
+        const container = document.querySelector('#pagefind-search');
+        if (container) {
+          container.innerHTML = '<div class="error-message">Error loading search. Please try again.</div>';
+        }
       }
     }
   }
 
   function setupSearch() {
-    // Si ya está inicializado, no hacer nada
-    if (initialized) return;
-    
     const buttons = document.querySelectorAll('[data-open-modal]');
     const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
     const closeButton = dialog?.querySelector('[data-close-modal]');
@@ -110,15 +118,18 @@ const { className = '' } = Astro.props;
       setTimeout(() => {
         dialog.close();
         document.body.classList.remove('overflow-hidden');
-        destroySearch(); // Destruir la instancia al cerrar
+        destroySearch();
       }, 200);
     }
 
+    // Eliminar event listeners anteriores
     buttons.forEach(button => {
-      button.addEventListener('click', openSearch, { once: true }); // Agregar once: true
+      button.removeEventListener('click', openSearch);
+      button.addEventListener('click', openSearch);
     });
     
-    closeButton.addEventListener('click', closeSearch, { once: true }); // Agregar once: true
+    closeButton.removeEventListener('click', closeSearch);
+    closeButton.addEventListener('click', closeSearch);
 
     dialog.addEventListener('click', (e) => {
       const rect = dialog.getBoundingClientRect();
@@ -133,26 +144,34 @@ const { className = '' } = Astro.props;
       }
     });
 
-    // Remover event listeners anteriores si existen
-    const cleanup = () => {
-      document.removeEventListener('astro:page-load', setupSearch);
-      document.removeEventListener('astro:after-swap', closeSearch);
-    };
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dialog.open) {
+        closeSearch();
+      } else if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && !dialog.open) {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+  }
 
-    // Limpiar en navegación
-    document.addEventListener('astro:page-load', () => {
-      cleanup();
-      initialized = false;
-      setupSearch();
-    }, { once: true });
-
-    document.addEventListener('astro:after-swap', closeSearch, { once: true });
-
-    initialized = true;
+  // Cleanup function para remover event listeners
+  function cleanup() {
+    const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+    if (dialog && dialog.open) {
+      dialog.close();
+    }
+    document.body.classList.remove('overflow-hidden');
+    destroySearch();
+    initialized = false;
   }
 
   // Setup inicial
   setupSearch();
+
+  // Manejar navegación
+  document.addEventListener('astro:before-swap', cleanup);
+  document.addEventListener('astro:after-swap', cleanup);
+  document.addEventListener('astro:page-load', setupSearch);
 </script>
 
 <style is:global>
@@ -201,6 +220,18 @@ const { className = '' } = Astro.props;
   .search-dialog::backdrop {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
+  }
+
+  .search-loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--pagefind-ui-text);
+  }
+
+  .error-message {
+    text-align: center;
+    padding: 2rem;
+    color: #ef4444;
   }
 
   @media (min-width: 1024px) {
