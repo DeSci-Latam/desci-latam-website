@@ -12,7 +12,6 @@ import type { CollectionEntry } from "astro:content";
 
 type BlogPost = CollectionEntry<"blog">;
 
-// Configuración para imágenes en proporción 16:9
 const POST_IMAGE_SIZES = {
   width: 640,
   height: 360,
@@ -29,7 +28,6 @@ const locale = Astro.currentLocale as Lang;
 const t = useTranslations(locale);
 const rawPosts = await getPosts(undefined, locale);
 
-// Preparar los datos formateados antes del template
 const postsData = rawPosts.map(post => ({
   slug: post.slug.split("/").slice(1).join("/"),
   title: post.data.title,
@@ -58,7 +56,7 @@ export function getStaticPaths() {
 ---
 
 <Layout title={title}>
-  <section class="h-screen">
+  <div class="min-h-screen flex flex-col">
     <PageHeader
       heading={t({
         es: "Noticias, guías y análisis sobre ciencia descentralizada",
@@ -71,16 +69,18 @@ export function getStaticPaths() {
         pt: "Blog"
       })}
     />
-    <CategoryFilter locale={locale} />
-    <div class="container mx-auto px-4">
-      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-11 lg:gap-y-16 lg:gap-x-8">
-        {postsData.map(post => (
-          <article class="group space-y-4">
-            <a
-              href={`/${locale}/blog/${post.slug}/`}
-              class="block relative w-full"
-            >
-              <div class="relative w-full aspect-video rounded-xl overflow-hidden">
+
+    <main class="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <CategoryFilter locale={locale} />
+      
+      <div class="mt-8 sm:mt-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {postsData.map(post => (
+            <article class="flex flex-col group bg-card rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg">
+              <a
+                href={`/${locale}/blog/${post.slug}/`}
+                class="relative aspect-[16/9] overflow-hidden"
+              >
                 {post.cover ? (
                   <Image
                     src={post.cover}
@@ -102,44 +102,46 @@ export function getStaticPaths() {
                   />
                 )}
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-              </div>
-            </a>
-            <div class="flex items-center justify-between">
-              <a
-                href={`/${locale}/blog/category/${post.category}/`}
-                transition:name={`badge-cat-${post.originalSlug}`}
-              >
-                <Badge radius="md" className="capitalize">
-                  {post.categoryTranslated}
-                </Badge>
               </a>
-              <span
-                class="font-medium text-muted-foreground"
-                transition:name={`pubDate-${post.originalSlug}`}
-              >
-                {new Date(post.date).toLocaleDateString(locale, {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </span>
-            </div>
-            <div>
-              <a
-                href={`/${locale}/blog/${post.slug}/`}
-                class="group-hover:underline"
-              >
-                <h2
-                  class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
-                  transition:name={`title-${post.originalSlug}`}
+
+              <div class="flex flex-col flex-1 p-4 sm:p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <a
+                    href={`/${locale}/blog/category/${post.category}/`}
+                    transition:name={`badge-cat-${post.originalSlug}`}
+                  >
+                    <Badge radius="md" className="capitalize">
+                      {post.categoryTranslated}
+                    </Badge>
+                  </a>
+                  <span
+                    class="text-sm font-medium text-muted-foreground"
+                    transition:name={`pubDate-${post.originalSlug}`}
+                  >
+                    {new Date(post.date).toLocaleDateString(locale, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </span>
+                </div>
+
+                <a
+                  href={`/${locale}/blog/${post.slug}/`}
+                  class="group-hover:underline mt-auto"
                 >
-                  {post.title}
-                </h2>
-              </a>
-            </div>
-          </article>
-        ))}
+                  <h2
+                    class="font-heading text-lg sm:text-xl lg:text-2xl leading-tight line-clamp-3"
+                    transition:name={`title-${post.originalSlug}`}
+                  >
+                    {post.title}
+                  </h2>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </main>
+  </div>
 </Layout>
