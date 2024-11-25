@@ -371,7 +371,7 @@ const isActive = (path: string) =>
 
       <!-- Right Section -->
       <div class="flex items-center gap-4">
-        <Search client:load />
+        <Search/>
         <div class="hidden lg:flex items-center gap-4">
           <ThemeToggle client:load />
           <LocaleSelect />
@@ -459,6 +459,7 @@ button {
     border-radius: 9999px;
   }
 </style>
+
 <script>
   let initialized = false;
 
