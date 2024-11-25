@@ -8,7 +8,7 @@ import simpleStackForm from "simple-stack-form";
 
 // Configuración de URLs
 const SITE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://testv2descilatam.vercel.app'
+  ? 'https://desci-latam-website-black.vercel.app'
   : 'http://localhost:4321';
 
 export default defineConfig({
