@@ -7,7 +7,7 @@ import icon from "astro-icon";
 import simpleStackForm from "simple-stack-form";
 
 const PROD_URL = 'https://testv2descilatam.vercel.app';
-const DEV_URL = 'https://testv2descilatam.vercel.app';
+const DEV_URL = 'https://localhost:4321';
 const isProduction = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
