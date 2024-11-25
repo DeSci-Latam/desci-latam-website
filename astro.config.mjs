@@ -6,12 +6,13 @@ import react from "@astrojs/react";
 import icon from "astro-icon";
 import simpleStackForm from "simple-stack-form";
 
-const PROD_URL = 'https://testv2descilatam.vercel.app';
-const DEV_URL = 'https://localhost:4321';
-const isProduction = process.env.NODE_ENV === 'production';
+// Configuración de URLs
+const SITE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://testv2descilatam.vercel.app'
+  : 'http://localhost:4321';
 
 export default defineConfig({
-  site: isProduction ? PROD_URL : DEV_URL,
+  site: SITE_URL,
   output: 'static',
   build: {
     format: 'directory'
@@ -39,11 +40,11 @@ export default defineConfig({
       },
       drafts: true,
       gfm: true
-    }), 
-    icon(), 
-    sitemap(), 
-    react(), 
-    simpleStackForm(), 
+    }),
+    icon(),
+    sitemap(),
+    react(),
+    simpleStackForm(),
     tailwind({
       applyBaseStyles: false
     })

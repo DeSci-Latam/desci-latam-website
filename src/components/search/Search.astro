@@ -1,0 +1,243 @@
+---
+import '@pagefind/default-ui/css/ui.css';
+import { IoSearch } from "react-icons/io5";
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<div id="search-container" class={`ms-auto ${className}`}>
+  <button 
+    data-open-modal 
+    class="search-button flex items-center justify-center rounded-md gap-1 pr-4 p-0 hover:scale-125 transition-transform duration-200"
+    aria-label="Buscar"
+  >
+    <IoSearch className="w-5 h-5" />
+  </button>
+</div>
+
+<dialog 
+  id="search-dialog"
+  class="search-dialog fixed h-full max-h-full w-full max-w-full border border-zinc-400 bg-white dark:bg-[#0a0910ec] shadow backdrop:backdrop-blur sm:mx-auto sm:mb-auto sm:mt-16 sm:h-max sm:max-h-[calc(100%-8rem)] sm:min-h-[15rem] sm:w-5/6 sm:rounded-md opacity-0 z-50"
+>
+  <div class="dialog-frame flex flex-col gap-4 p-6 pt-12 sm:pt-6">
+    <button
+      data-close-modal
+      class="ms-auto cursor-pointer rounded-full bg-black text-white px-4 py-2 dark:bg-white dark:text-black hover:opacity-90 transition-opacity duration-200"
+    >
+      Close
+    </button>
+    
+    {
+      import.meta.env.DEV ? (
+        <div class="mx-auto text-center dark:text-white">
+          <p>
+            Search is only available in production builds. <br />
+            Try building and previewing the site to test it out locally.
+          </p>
+        </div>
+      ) : (
+        <div id="pagefind-search" class="pagefind-ui">
+          <div class="search-loading hidden">Loading search...</div>
+        </div>
+      )
+    }
+  </div>
+</dialog>
+
+<script>
+  let searchUI: any = null;
+  let initialized = false;
+  
+  async function destroySearch() {
+    if (searchUI) {
+      const searchContainer = document.querySelector('#pagefind-search');
+      if (searchContainer) {
+        searchContainer.innerHTML = '<div class="search-loading">Loading search...</div>';
+      }
+      searchUI = null;
+    }
+  }
+
+  async function initializeSearch() {
+    await destroySearch();
+    
+    if (!searchUI && !import.meta.env.DEV) {
+      try {
+        const { PagefindUI } = await import('@pagefind/default-ui');
+        const container = document.querySelector('#pagefind-search');
+        if (!container) return;
+        
+        // Mostrar loading
+        const loadingEl = container.querySelector('.search-loading');
+        if (loadingEl) loadingEl.classList.remove('hidden');
+        
+        searchUI = new PagefindUI({
+          element: '#pagefind-search',
+          showImages: false,
+          bundlePath: '/_pagefind/',
+          baseUrl: import.meta.env.BASE_URL
+        });
+        
+        // Ocultar loading después de inicializar
+        if (loadingEl) loadingEl.classList.add('hidden');
+      } catch (error) {
+        console.error('Error initializing PagefindUI:', error);
+        const container = document.querySelector('#pagefind-search');
+        if (container) {
+          container.innerHTML = '<div class="error-message">Error loading search. Please try again.</div>';
+        }
+      }
+    }
+  }
+
+  function setupSearch() {
+    const buttons = document.querySelectorAll('[data-open-modal]');
+    const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+    const closeButton = dialog?.querySelector('[data-close-modal]');
+
+    if (!buttons.length || !dialog || !closeButton) return;
+
+    async function openSearch() {
+      await initializeSearch();
+      dialog.showModal();
+      dialog.classList.remove('opacity-0');
+      document.body.classList.add('overflow-hidden');
+      
+      const searchInput = dialog.querySelector('input');
+      if (searchInput) {
+        searchInput.focus();
+      }
+    }
+
+    function closeSearch() {
+      dialog.classList.add('opacity-0');
+      setTimeout(() => {
+        dialog.close();
+        document.body.classList.remove('overflow-hidden');
+        destroySearch();
+      }, 200);
+    }
+
+    // Eliminar event listeners anteriores
+    buttons.forEach(button => {
+      button.removeEventListener('click', openSearch);
+      button.addEventListener('click', openSearch);
+    });
+    
+    closeButton.removeEventListener('click', closeSearch);
+    closeButton.addEventListener('click', closeSearch);
+
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isOutside = 
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom;
+      
+      if (isOutside) {
+        closeSearch();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dialog.open) {
+        closeSearch();
+      } else if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && !dialog.open) {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+  }
+
+  // Cleanup function para remover event listeners
+  function cleanup() {
+    const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+    if (dialog && dialog.open) {
+      dialog.close();
+    }
+    document.body.classList.remove('overflow-hidden');
+    destroySearch();
+    initialized = false;
+  }
+
+  // Setup inicial
+  setupSearch();
+
+  // Manejar navegación
+  document.addEventListener('astro:before-swap', cleanup);
+  document.addEventListener('astro:after-swap', cleanup);
+  document.addEventListener('astro:page-load', setupSearch);
+</script>
+
+<style is:global>
+  #pagefind-search {
+    --pagefind-ui-scale: 1;
+    --pagefind-ui-primary: #034AD8;
+    --pagefind-ui-text: #152028;
+    --pagefind-ui-background: #ffffff;
+    --pagefind-ui-border: #152028;
+    --pagefind-ui-tag: #152028;
+    width: 100%;
+  }
+
+  .dark #pagefind-search {
+    --pagefind-ui-primary: #eeeeee;
+    --pagefind-ui-text: #eeeeee;
+    --pagefind-ui-background: #152028;
+    --pagefind-ui-border: #152028;
+    --pagefind-ui-tag: #152028;
+  }
+
+  #pagefind-search .pagefind-ui__search-input {
+    margin-top: 0;
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+
+  #pagefind-search .pagefind-ui__search-clear {
+    width: auto;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  #pagefind-search .pagefind-ui__results-area {
+    margin-top: 1rem;
+  }
+
+  #pagefind-search .pagefind-ui__result {
+    border: none;
+  }
+
+  .search-dialog {
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .search-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .search-loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--pagefind-ui-text);
+  }
+
+  .error-message {
+    text-align: center;
+    padding: 2rem;
+    color: #ef4444;
+  }
+
+  @media (min-width: 1024px) {
+    #search-container {
+      position: relative;
+      z-index: 50;
+    }
+  }
+</style>
