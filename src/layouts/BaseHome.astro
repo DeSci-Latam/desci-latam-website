@@ -1,38 +1,31 @@
 ---
-import BaseHead from "@/components/BaseHead";
-import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
-import { useTranslations, LOCALES, getLocalePaths, type Lang } from "@/i18n";
-const t = useTranslations(Astro.currentLocale as Lang);
-const { title, description, image, articleDate, mainClass } = Astro.props;
-const locale = Astro.currentLocale as Lang;
-const localeTitle = title ? `${title} - ${t(SITE_TITLE)}` : t(SITE_TITLE);
-const localeDescription = description || t(SITE_DESCRIPTION);
-import Footer from "@/components/layout/footer";
-/* import Header from "@/components/Header"; */
-import LocaleSuggest from "@/components/i18n/LocaleSuggest";
-import ProviderTheme from "@/components/ProviderTheme";
-import ProviderAnimations from "@/components/ProviderAnimations";
-import TailwindIndicator from "@/components/tailwind-indicator";
-import { Navbar } from "../components/Navbar.tsx";
-import Header from "@/components/HeaderNuevo";
-// Shadcn
-/* import Header55 from "@/components/layout/header";
-import { MainNavigationMenu } from "@/components/main-navigation-menu-mio"; */
-import { Toaster } from "sonner";
-import { cn } from "@/lib/utils";
-import { SheetMobileNav } from "@/components/layout/sheet-mobile-nav";
-import { navMenuConfig } from "@/config/nav-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { siteConfig } from "@/config/site";
-import { Icon } from "astro-icon/components";
-type Props = {
+import BaseHead from "@/components/BaseHead"
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts"
+import { useTranslations, LOCALES, type Lang } from "@/i18n"
+import Footer from "@/components/layout/footer"
+import LocaleSuggest from "@/components/i18n/LocaleSuggest"
+import ProviderTheme from "@/components/ProviderTheme"
+import ProviderAnimations from "@/components/ProviderAnimations"
+import TailwindIndicator from "@/components/tailwind-indicator"
+import Header from "@/components/HeaderNuevo"
+import { Toaster } from "sonner"
+import { cn } from "@/lib/utils"
+
+interface Props {
   title?: string;
   image?: string;
   description?: string;
   articleDate?: string;
   mainClass?: string;
-};
+}
+
+const { title, description, image, articleDate, mainClass } = Astro.props;
+const locale = Astro.currentLocale as Lang;
+const t = useTranslations(locale);
+const localeTitle = title ? `${title} - ${t(SITE_TITLE)}` : t(SITE_TITLE);
+const localeDescription = description || t(SITE_DESCRIPTION);
 ---
+
 <html
   class="scroll-smooth min-h-screen flex flex-col"
   lang={LOCALES[locale].lang || locale}
