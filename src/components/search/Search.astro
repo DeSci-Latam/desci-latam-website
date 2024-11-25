@@ -40,12 +40,7 @@ const { className = '' } = Astro.props;
           </p>
         </div>
       ) : (
-        <div class="pagefind-ui" id="search">
-          <form class="pagefind-ui__form" role="search" aria-label="Search this site" onsubmit="return false;">
-            <div class="pagefind-ui__search-input">
-              <input type="text" placeholder="Search" aria-label="Search this site"/>
-            </div>
-          </form>
+        <div id="search" class="pagefind-ui">
           <div class="search-loading hidden">Loading search...</div>
         </div>
       )
@@ -121,10 +116,13 @@ const { className = '' } = Astro.props;
         dialog.classList.remove('opacity-0');
         document.body.classList.add('overflow-hidden');
         
-        const searchInput = dialog.querySelector('input');
-        if (searchInput) {
-          searchInput.focus();
-        }
+        // Enfoque en el input después de que PagefindUI lo haya creado
+        setTimeout(() => {
+          const searchInput = dialog.querySelector('.pagefind-ui__search-input input');
+          if (searchInput instanceof HTMLInputElement) {
+            searchInput.focus();
+          }
+        }, 100);
       };
 
       const closeSearch = () => {
@@ -189,7 +187,7 @@ const { className = '' } = Astro.props;
 </script>
 
 <style is:global>
-  #pagefind-search {
+  #search {
     --pagefind-ui-scale: 1;
     --pagefind-ui-primary: #034AD8;
     --pagefind-ui-text: #152028;
@@ -199,7 +197,7 @@ const { className = '' } = Astro.props;
     width: 100%;
   }
 
-  .dark #pagefind-search {
+  .dark #search {
     --pagefind-ui-primary: #eeeeee;
     --pagefind-ui-text: #eeeeee;
     --pagefind-ui-background: #152028;
