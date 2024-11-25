@@ -3,6 +3,8 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations, type Lang } from "@/i18n";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Search from "@/components/search/Search";
+import Search2 from "@/components/Search2"
+import Search3 from "@/components/Search3"
 import LocaleSelect from "@/components/i18n/LocaleSelect";
 import { TailcastLogo } from "../assets/logos/TailcastLogo";      
 
@@ -372,6 +374,8 @@ const isActive = (path: string) =>
       <!-- Right Section -->
       <div class="flex items-center gap-4">
         <Search client:load />
+        <Search2 client:load />
+        <Search3 client:load />
         <div class="hidden lg:flex items-center gap-4">
           <ThemeToggle client:load />
           <LocaleSelect />
