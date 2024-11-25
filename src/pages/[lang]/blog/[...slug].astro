@@ -7,7 +7,13 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => {
     const [lang, ...slug] = post.slug.split("/");
-    return { params: { lang, slug: slug.join("/") || undefined }, props: post };
+    return { 
+      params: { 
+        lang, 
+        slug: slug.join("/") || undefined 
+      }, 
+      props: post 
+    };
   });
 }
 
@@ -15,30 +21,29 @@ const post = Astro.props;
 const { Content } = await post.render();
 const title = post.data.title;
 
-const contentProps = {};
+const coverImage = post.data.cover ? {
+  src: post.data.cover,
+  width: 1200,
+  height: 630,
+  alt: post.data.title
+} : null;
 ---
 
 <Layout {title}>
-  {post.data.cover && (
-    <Image 
-      src={post.data.cover}
-      width={post.data.cover.width}
-      height={post.data.cover.height}
-      alt={post.data.title}
-      class="cover"
-    />
+  {coverImage && (
+    <div class="relative w-full aspect-[16/9] mb-8 overflow-hidden rounded-xl">
+      <Image 
+        src={coverImage.src}
+        width={coverImage.width}
+        height={coverImage.height}
+        alt={coverImage.alt}
+        class="w-full h-full object-cover"
+      />
+    </div>
   )}
-
   <h1 class="font-heading text-4xl my-4">
     {title}
   </h1>
   <hr class="my-6" />
-  <Content {...contentProps} />
+  <Content />
 </Layout>
-
-<style>
-  .cover {
-    border-radius: 16px;
-  }
-</style>
-```
