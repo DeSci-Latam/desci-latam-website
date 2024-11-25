@@ -46,7 +46,7 @@ export default defineConfig({
     react(),
     simpleStackForm(),
     tailwind({
-      applyBaseStyles: false
+      applyBaseStyles: false      
     })
   ],
   markdown: {
