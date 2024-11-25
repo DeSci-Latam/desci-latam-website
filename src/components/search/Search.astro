@@ -40,7 +40,12 @@ const { className = '' } = Astro.props;
           </p>
         </div>
       ) : (
-        <div id="pagefind-search" class="pagefind-ui">
+        <div class="pagefind-ui" id="search">
+          <form class="pagefind-ui__form" role="search" aria-label="Search this site" onsubmit="return false;">
+            <div class="pagefind-ui__search-input">
+              <input type="text" placeholder="Search" aria-label="Search this site"/>
+            </div>
+          </form>
           <div class="search-loading hidden">Loading search...</div>
         </div>
       )
@@ -49,129 +54,138 @@ const { className = '' } = Astro.props;
 </dialog>
 
 <script>
-  let searchUI: any = null;
-  let initialized = false;
-  
-  async function destroySearch() {
-    if (searchUI) {
-      const searchContainer = document.querySelector('#pagefind-search');
-      if (searchContainer) {
-        searchContainer.innerHTML = '<div class="search-loading">Loading search...</div>';
-      }
-      searchUI = null;
-    }
-  }
+  class SearchManager {
+    private static instance: SearchManager;
+    private searchUI: any = null;
+    private initialized = false;
 
-  async function initializeSearch() {
-    await destroySearch();
-    
-    if (!searchUI && !import.meta.env.DEV) {
+    private constructor() {}
+
+    static getInstance() {
+      if (!SearchManager.instance) {
+        SearchManager.instance = new SearchManager();
+      }
+      return SearchManager.instance;
+    }
+
+    private async destroySearch() {
+      if (this.searchUI) {
+        const searchContainer = document.querySelector('#search');
+        if (searchContainer) {
+          searchContainer.innerHTML = '<div class="search-loading">Loading search...</div>';
+        }
+        this.searchUI = null;
+      }
+    }
+
+    private async initializeSearch() {
+      if (this.searchUI || import.meta.env.DEV) return;
+
       try {
         const { PagefindUI } = await import('@pagefind/default-ui');
-        const container = document.querySelector('#pagefind-search');
+        const container = document.querySelector('#search');
         if (!container) return;
-        
-        // Mostrar loading
+
         const loadingEl = container.querySelector('.search-loading');
         if (loadingEl) loadingEl.classList.remove('hidden');
-        
-        searchUI = new PagefindUI({
-          element: '#pagefind-search',
+
+        this.searchUI = new PagefindUI({
+          element: '#search',
           showImages: false,
           bundlePath: '/_pagefind/',
           baseUrl: import.meta.env.BASE_URL
         });
-        
-        // Ocultar loading después de inicializar
+
         if (loadingEl) loadingEl.classList.add('hidden');
       } catch (error) {
         console.error('Error initializing PagefindUI:', error);
-        const container = document.querySelector('#pagefind-search');
+        const container = document.querySelector('#search');
         if (container) {
           container.innerHTML = '<div class="error-message">Error loading search. Please try again.</div>';
         }
       }
     }
-  }
 
-  function setupSearch() {
-    const buttons = document.querySelectorAll('[data-open-modal]');
-    const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
-    const closeButton = dialog?.querySelector('[data-close-modal]');
-
-    if (!buttons.length || !dialog || !closeButton) return;
-
-    async function openSearch() {
-      await initializeSearch();
-      dialog.showModal();
-      dialog.classList.remove('opacity-0');
-      document.body.classList.add('overflow-hidden');
+    setupSearch() {
+      if (this.initialized) return;
       
-      const searchInput = dialog.querySelector('input');
-      if (searchInput) {
-        searchInput.focus();
-      }
+      const buttons = document.querySelectorAll('[data-open-modal]');
+      const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+      const closeButton = dialog?.querySelector('[data-close-modal]');
+
+      if (!buttons.length || !dialog || !closeButton) return;
+
+      const openSearch = async () => {
+        await this.initializeSearch();
+        dialog.showModal();
+        dialog.classList.remove('opacity-0');
+        document.body.classList.add('overflow-hidden');
+        
+        const searchInput = dialog.querySelector('input');
+        if (searchInput) {
+          searchInput.focus();
+        }
+      };
+
+      const closeSearch = () => {
+        dialog.classList.add('opacity-0');
+        setTimeout(() => {
+          dialog.close();
+          document.body.classList.remove('overflow-hidden');
+          this.destroySearch();
+        }, 200);
+      };
+
+      buttons.forEach(button => {
+        button.addEventListener('click', openSearch);
+      });
+      
+      closeButton.addEventListener('click', closeSearch);
+
+      dialog.addEventListener('click', (e) => {
+        const rect = dialog.getBoundingClientRect();
+        const isOutside = 
+          e.clientX < rect.left ||
+          e.clientX > rect.right ||
+          e.clientY < rect.top ||
+          e.clientY > rect.bottom;
+        
+        if (isOutside) {
+          closeSearch();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dialog.open) {
+          closeSearch();
+        } else if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && !dialog.open) {
+          e.preventDefault();
+          openSearch();
+        }
+      });
+
+      this.initialized = true;
     }
 
-    function closeSearch() {
-      dialog.classList.add('opacity-0');
-      setTimeout(() => {
+    cleanup() {
+      const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+      if (dialog && dialog.open) {
         dialog.close();
-        document.body.classList.remove('overflow-hidden');
-        destroySearch();
-      }, 200);
+      }
+      document.body.classList.remove('overflow-hidden');
+      this.destroySearch();
+      this.initialized = false;
     }
-
-    // Eliminar event listeners anteriores
-    buttons.forEach(button => {
-      button.removeEventListener('click', openSearch);
-      button.addEventListener('click', openSearch);
-    });
-    
-    closeButton.removeEventListener('click', closeSearch);
-    closeButton.addEventListener('click', closeSearch);
-
-    dialog.addEventListener('click', (e) => {
-      const rect = dialog.getBoundingClientRect();
-      const isOutside = 
-        e.clientX < rect.left ||
-        e.clientX > rect.right ||
-        e.clientY < rect.top ||
-        e.clientY > rect.bottom;
-      
-      if (isOutside) {
-        closeSearch();
-      }
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && dialog.open) {
-        closeSearch();
-      } else if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && !dialog.open) {
-        e.preventDefault();
-        openSearch();
-      }
-    });
   }
 
-  // Cleanup function para remover event listeners
-  function cleanup() {
-    const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
-    if (dialog && dialog.open) {
-      dialog.close();
-    }
-    document.body.classList.remove('overflow-hidden');
-    destroySearch();
-    initialized = false;
-  }
+  // Inicialización
+  const searchManager = SearchManager.getInstance();
+  searchManager.setupSearch();
 
-  // Setup inicial
-  setupSearch();
-
-  // Manejar navegación
-  document.addEventListener('astro:before-swap', cleanup);
-  document.addEventListener('astro:after-swap', cleanup);
-  document.addEventListener('astro:page-load', setupSearch);
+  // Manejo de navegación
+  document.addEventListener('astro:before-swap', () => searchManager.cleanup());
+  document.addEventListener('astro:after-swap', () => searchManager.cleanup());
+  document.addEventListener('astro:page-load', () => searchManager.setupSearch());
 </script>
 
 <style is:global>
@@ -193,23 +207,23 @@ const { className = '' } = Astro.props;
     --pagefind-ui-tag: #152028;
   }
 
-  #pagefind-search .pagefind-ui__search-input {
+  #search .pagefind-ui__search-input {
     margin-top: 0;
     border-radius: 0.5rem;
     width: 100%;
   }
 
-  #pagefind-search .pagefind-ui__search-clear {
+  #search .pagefind-ui__search-clear {
     width: auto;
     padding: 0.5rem;
     border-radius: 0.5rem;
   }
 
-  #pagefind-search .pagefind-ui__results-area {
+  #search .pagefind-ui__results-area {
     margin-top: 1rem;
   }
 
-  #pagefind-search .pagefind-ui__result {
+  #search .pagefind-ui__result {
     border: none;
   }
 
