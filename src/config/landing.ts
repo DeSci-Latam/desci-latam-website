@@ -2,51 +2,48 @@ import type { InfoLdg } from "@/types";
 
 export const infos: InfoLdg[] = [
   {
-    title: "Empower your projects",
+    title: "Ciencia sin fronteras",
     description:
-      "Unlock the full potential of your projects with our open-source SaaS platform. Collaborate seamlessly, innovate effortlessly, and scale limitlessly.",
-    image: "/images/blog/placeholder-about.jpg",
+      "Construimos el puente entre la investigación científica latinoamericana y los nuevos modelos de financiamiento y colaboración global. Desde Buenos Aires hasta Bangkok.",
+    image: "/events/desci-day-ba-stage.jpg",
     list: [
       {
-        title: "Collaborative",
-        description: "Work together with your team members in real-time.",
-        icon: "lucide:laptop",
+        title: "Open Science",
+        description: "Acceso abierto al conocimiento científico para toda la región.",
+        icon: "lucide:flask-conical",
       },
       {
-        title: "Innovative",
-        description: "Stay ahead of the curve with access constant updates.",
-        icon: "lucide:settings",
+        title: "Financiamiento descentralizado",
+        description: "Conectamos científicos con Octant, Gitcoin y fondos globales.",
+        icon: "lucide:coins",
       },
       {
-        title: "Scalable",
-        description:
-          "Our platform offers the scalability needed to adapt to your needs.",
-        icon: "lucide:search",
+        title: "Red regional",
+        description: "Comunidad activa en Argentina, Brasil, México, Perú y más.",
+        icon: "lucide:network",
       },
     ],
   },
   {
-    title: "Seamless Integration",
+    title: "The World of DeSci",
     description:
-      "Integrate our open-source SaaS seamlessly into your existing workflows. Effortlessly connect with your favorite tools and services for a streamlined experience.",
-    image: "/images/blog/placeholder-about.jpg",
+      "DeSci LATAM lidera el Community Hub de The World of DeSci — el paraguas global de proyectos de ciencia descentralizada nacido en Buenos Aires y lanzado en Devcon Bangkok 2024.",
+    image: "/events/desci-day-ba-networking.jpg",
     list: [
       {
-        title: "Flexible",
-        description:
-          "Customize your integrations to fit your unique requirements.",
-        icon: "lucide:laptop",
+        title: "Global",
+        description: "Presente en Bangkok, Buenos Aires, Rio de Janeiro y más.",
+        icon: "lucide:globe",
       },
       {
-        title: "Efficient",
-        description: "Streamline your processes and reducing manual effort.",
-        icon: "lucide:search",
+        title: "NEAR Validator",
+        description: "Operamos un nodo validador NEAR en partnership con MetaPool.",
+        icon: "lucide:server",
       },
       {
-        title: "Reliable",
-        description:
-          "Rely on our robust infrastructure and comprehensive documentation.",
-        icon: "lucide:settings",
+        title: "Comunidad",
+        description: "Más de 12.500 asistentes en eventos a lo largo de 3 años.",
+        icon: "lucide:users",
       },
     ],
   },
@@ -54,83 +51,77 @@ export const infos: InfoLdg[] = [
 
 export const features = [
   {
-    title: "Feature 1",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
+    title: "Eventos presenciales",
+    description: "DeSci Day, meetups y participación en los principales eventos del ecosistema global.",
+    link: "#eventos",
+  },
+  {
+    title: "The World of DeSci",
+    description: "Community Hub oficial del circuito global de ciencia descentralizada.",
+    link: "https://desci.cc",
+  },
+  {
+    title: "NEAR Validator",
+    description: "Nodo validador operativo en partnership con MetaPool, generando ingresos para el ecosistema.",
+    link: "https://metapool.app",
+  },
+  {
+    title: "Financiamiento abierto",
+    description: "Participación en Octant Epoch 4+ y múltiples rondas de Gitcoin Grants.",
     link: "/",
   },
   {
-    title: "Feature 2",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
+    title: "Red LATAM",
+    description: "Comunidad activa en Argentina, Brasil, México, Perú, Uruguay y más países.",
   },
   {
-    title: "Feature 3",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-  },
-  {
-    title: "Feature 4",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
-  },
-  {
-    title: "Feature 5",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-  },
-  {
-    title: "Feature 6",
-    description:
-      "Amet praesentium deserunt ex commodi tempore fuga voluptatem. Sit, sapiente.",
-    link: "/",
+    title: "Divulgación científica",
+    description: "Contenido en español y portugués para democratizar el acceso al conocimiento DeSci.",
+    link: "https://t.me/descilatam",
   },
 ];
 
 export const testimonials = [
   {
-    name: "John Doe",
-    job: "Full Stack Developer",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    name: "Comunidad DeSci LATAM",
+    job: "Telegram · 3+ años",
+    image: "/events/desci-day-ba-audience.jpg",
     review:
-      "The next-saas-stripe-starter repo has truly revolutionized my development workflow. With its comprehensive features and seamless integration with Stripe, I've been able to build and deploy projects faster than ever before. The documentation is clear and concise, making it easy to navigate through the setup process. I highly recommend next-saas-stripe-starter to any developer.",
+      "Desde 2022 conectamos científicos, médicos y builders con los nuevos modelos de financiamiento y colaboración científica global. De Buenos Aires a Bangkok.",
   },
   {
-    name: "Alice Smith",
-    job: "UI/UX Designer",
-    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    name: "The World of DeSci Bangkok",
+    job: "Devcon SEA · Noviembre 2024",
+    image: "/events/desci-day-ba-stage.jpg",
     review:
-      "Thanks to next-saas-stripe-starter, I've been able to create modern and attractive user interfaces in record time. The starter kit provides a solid foundation for building sleek and intuitive designs, allowing me to focus more on the creative aspects of my work.",
+      "DeSci LATAM fue Community Hub oficial en Devcon Southeast Asia — el mayor evento Ethereum de la historia con más de 12.500 asistentes.",
   },
   {
-    name: "David Johnson",
-    job: "DevOps Engineer",
-    image: "https://randomuser.me/api/portraits/men/3.jpg",
+    name: "DeSci Day Buenos Aires",
+    job: "Agosto 2024",
+    image: "/events/desci-day-ba-networking.jpg",
     review:
-      "Thanks to next-saas-stripe-starter, I was able to streamline the entire process and get payments up and running in no time.",
+      "El evento donde nació The World of DeSci. Científicos, médicos y builders reunidos para reescribir las reglas de la investigación científica.",
   },
   {
-    name: "Michael Wilson",
-    job: "Project Manager",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
+    name: "Ethereum Rio",
+    job: "2023 · Rio de Janeiro",
+    image: "/events/ethereum-rio-panel.jpg",
     review:
-      "I'm impressed by the quality of code and clear documentation of next-saas-stripe-starter. Kudos to the team!",
+      "Panel 'From Open Science to DeSci' con representantes de DeSci LATAM, DeSciWorld y la comunidad científica global de Ethereum.",
   },
   {
-    name: "Sophia Garcia",
-    job: "Data Analyst",
-    image: "https://randomuser.me/api/portraits/women/6.jpg",
+    name: "DeSci Rio",
+    job: "2023 · IBMEC, Rio de Janeiro",
+    image: "/events/desci-rio-panel.jpg",
     review:
-      "next-saas-stripe-starter provided me with the tools I needed to efficiently manage user data. Thank you so much!",
+      "Co-organizamos el primer evento DeSci de Brasil, expandiendo la red de ciencia descentralizada al ecosistema de habla portuguesa.",
   },
   {
-    name: "Emily Brown",
-    job: "Marketing Manager",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+    name: "MetaPool · NEAR Validator",
+    job: "Partnership activo",
+    image: "/events/desci-day-ba-speaker.jpg",
     review:
-      "next-saas-stripe-starter has been an invaluable asset in my role as a marketing manager. With its seamless integration with Stripe, I've been able to launch targeted marketing campaigns with built-in payment functionality, allowing us to monetize our products and services more effectively.",
+      "DeSci LATAM opera un nodo validador en la red NEAR en partnership con MetaPool, generando financiamiento sostenible para la comunidad.",
   },
 ];

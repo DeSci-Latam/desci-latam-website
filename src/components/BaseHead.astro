@@ -4,8 +4,6 @@ import { siteConfig } from '@/site-config'
 import { ViewTransitions } from 'astro:transitions'
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts"
 import { useTranslations, LOCALES, getLocalePaths, type Lang } from "@/i18n"
-import { join } from 'path'
-import { AstroFont } from 'astro-font'
 
 export interface Props {
   title?: string
@@ -46,6 +44,14 @@ const localeDescription = description || t(SITE_DESCRIPTION)
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="alternate" type="application/rss+xml" title={siteConfig.title} href="/rss.xml" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
+
+  <!-- Typography: DM Sans (body) + Syne (headings) — 2026 sans-serif stack -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
 
 
   <!-- Alternative languages -->
@@ -105,77 +111,5 @@ const localeDescription = description || t(SITE_DESCRIPTION)
     document.addEventListener("astro:after-swap", setDarkMode);
   </script>
 
-<AstroFont
-config={[
-  {
-	preload: false,
-	display: 'swap',
-	name: 'MerriweatherSans',
-	fallback: 'sans-serif',
-	src: [
-	  {
-		weight: '300',
-		style: 'normal',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-Light.woff2')
-	  },
-	  {
-		weight: '300',
-		style: 'italic',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-LightItalic.woff2')
-	  },
-	  {
-		weight: '400',
-		style: 'normal',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-Regular.woff2')
-	  },
-	  {
-		weight: '400',
-		style: 'italic',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-Italic.woff2')
-	  },
-	  {
-		weight: '500',
-		style: 'normal',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-Medium.woff2')
-	  },
-	  {
-		weight: '500',
-		style: 'italic',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-MediumItalic.woff2')
-	  },
-	  {
-		weight: '600',
-		style: 'normal',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-SemiBold.woff2')
-	  },
-	  {
-		weight: '600',
-		style: 'italic',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-SemiBoldItalic.woff2')
-	  },
-	  {
-		weight: '700',
-		preload: true,
-		style: 'normal',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-Bold.woff2')
-	  },
-	  {
-		weight: '700',
-		style: 'italic',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-BoldItalic.woff2')
-	  },
-	  {
-		weight: '800',
-		style: 'normal',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-ExtraBold.woff2')
-	  },
-	  {
-		weight: '800',
-		style: 'italic',
-		path: join(process.cwd(), 'public', 'fonts', 'MerriweatherSans-ExtraBoldItalic.woff2')
-	  }
-	]
-  }
-]}
-/>
+<!-- Fonts loaded via Google Fonts link tags above (DM Sans + Syne) -->
 </head>

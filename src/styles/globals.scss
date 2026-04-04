@@ -151,19 +151,8 @@ path {
 
 
 @layer base {
-  @font-face {
-    font-family: 'MerriweatherSans';
-    src: url('/fonts/MerriweatherSans-Regular.woff2'), url('/fonts/MerriweatherSans-Bold.woff2'), format('woff2');
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Merriweather';
-    src: url('/fonts/Merriweather-Regular.woff2'), format('woff2');
-    font-style: bold;
-    font-display: swap;
-  }
+  /* Fonts loaded via Google Fonts in BaseHead.astro:
+     DM Sans (body / font-sans) + Syne (headings / font-heading) */
 
 /*   * {
     @apply border-border;
@@ -312,59 +301,31 @@ path {
 }
 
 .bg-animation {
-  --s: 100px; /* control the size */
-  --c1: #C3CCAF;
-  --c2: #67434F;
-
-
-  --_s: calc(2*var(--s)) calc(2*var(--s));
-  --_g: var(--_s) conic-gradient(at 40% 40%,#0000 75%,var(--c1) 0);
-  --_p: var(--_s) conic-gradient(at 20% 20%,#0000 75%,var(--c2) 0);
-  background:
-    calc( .9*var(--s)) calc( .9*var(--s))/var(--_p),
-    calc(-.1*var(--s)) calc(-.1*var(--s))/var(--_p),
-    calc( .7*var(--s)) calc( .7*var(--s))/var(--_g),
-    calc(-.3*var(--s)) calc(-.3*var(--s))/var(--_g),
-    conic-gradient(from 90deg at 20% 20%,var(--c2) 25%,var(--c1) 0) 
-     0 0/var(--s) var(--s);
-  animation: m 3s infinite;
+  position: relative;
+  background: transparent;
+  overflow: hidden;
 }
-@keyframes m {
-  0% {
-   background-position: 
-    calc( .9*var(--s)) calc( .9*var(--s)),
-    calc(-.1*var(--s)) calc(-.1*var(--s)),
-    calc( .7*var(--s)) calc( .7*var(--s)),
-    calc(-.3*var(--s)) calc(-.3*var(--s)),0 0
-  }
-  25% {
-   background-position: 
-    calc(1.9*var(--s)) calc( .9*var(--s)),
-    calc(-1.1*var(--s)) calc(-.1*var(--s)),
-    calc(1.7*var(--s)) calc( .7*var(--s)),
-    calc(-1.3*var(--s)) calc(-.3*var(--s)),0 0
-  }
-  50% {
-   background-position: 
-    calc(1.9*var(--s)) calc(-.1*var(--s)),
-    calc(-1.1*var(--s)) calc( .9*var(--s)),
-    calc(1.7*var(--s)) calc(-.3*var(--s)),
-    calc(-1.3*var(--s)) calc( .7*var(--s)),0 0
-  }
-  75% {
-   background-position: 
-    calc(2.9*var(--s)) calc(-.1*var(--s)),
-    calc(-2.1*var(--s)) calc( .9*var(--s)),
-    calc(2.7*var(--s)) calc(-.3*var(--s)),
-    calc(-2.3*var(--s)) calc( .7*var(--s)),0 0
-  }
-  100% {
-   background-position: 
-    calc(2.9*var(--s)) calc(-1.1*var(--s)),
-    calc(-2.1*var(--s)) calc(1.9*var(--s)),
-    calc(2.7*var(--s)) calc(-1.3*var(--s)),
-    calc(-2.3*var(--s)) calc(1.7*var(--s)),0 0
-  }
+
+.bg-animation::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(155, 90, 255, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(224, 64, 251, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 10%, rgba(99, 66, 210, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+
+.bg-animation > * {
+  position: relative;
+  z-index: 1;
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
 .menu-text-size {

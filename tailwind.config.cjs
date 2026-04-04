@@ -28,8 +28,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["MerriweatherSans", ...fontFamily.sans],
-        heading: ["Merriweather", ...fontFamily.sans],
+        sans: ["DM Sans", ...fontFamily.sans],
+        heading: ["Syne", ...fontFamily.sans],
       },
       height: {
         18: "4.5rem",

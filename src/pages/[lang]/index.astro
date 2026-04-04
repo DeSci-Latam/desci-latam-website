@@ -1,6 +1,9 @@
 ---
 import Layout from "@/layouts/BaseHome";
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import EventsSection from "@/components/sections/events-section.astro";
+import InfoLanding from "@/components/sections/info-landing.astro";
+import { infos } from "@/config/landing";
 const t = useTranslations(Astro.currentLocale as Lang);
 
 /* import heroImageEs from "@/assets/images/home/mariposa.png";
@@ -48,217 +51,221 @@ export const getStaticPaths = () =>
     )
   } -->
 
+  <!-- ─── HERO ──────────────────────────────────────────────── -->
   <section
-    class=" w-screen grid justify-center   bg-lightblue dark:bg-background px-4 xl:px-0 pt-18 mt-4 pb-8"
+    class="bg-animation w-screen min-h-screen flex items-center justify-center px-4 xl:px-0 pt-20 pb-16"
+    style="background-color: #04040c;"
   >
-  <div class="bg-animation rounded-xl">
-    <div
-      class="max-w-screen-xl xl:w-[1280px] w-xl flex flex-wrap  md:flex-nowrap bg-darkblue py-8 px-8 dark:rounded-none rounded-xl"
-    >
-    
-      <div class="md:w-1/2 grid justify-start">
-        <div class="w-full grid gap-2  pb-2">
-          <p
-          class="text-lg text-primaryblue text-balance uppercase"
-        >
-          {
-            t({
-              es: "Ciencia descentralizada latam",
-              en: "Our purpose is to promote the principles of decentralization to build a collaborative and accessible scientific ecosystem for everyone in Latin America.",
-              pt: "Nosso propósito é impulsionar os princípios da descentralização para construir um ecossistema científico colaborativo e acessível para todos na América Latina.",
-            })
-          }
+    <div class="max-w-screen-xl xl:w-[1280px] w-full grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- LEFT: Copy -->
+      <div class="grid gap-7">
+
+        <!-- Tag pill -->
+        <div class="flex">
+          <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full border border-purple-500/30 text-purple-300">
+            🌎 {t({ es: "Science & Technology Hub · LATAM", en: "Science & Technology Hub · LATAM", pt: "Science & Technology Hub · LATAM" })}
+          </span>
+        </div>
+
+        <!-- H1 -->
+        <h1 class="font-heading font-bold text-5xl lg:text-6xl !leading-[1.1] text-white text-balance">
+          {t({ es: "El hub de", en: "The hub of", pt: "O hub de" })}{" "}
+          <span style="background: linear-gradient(90deg, #9b5aff 0%, #e040fb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            {t({ es: "Science & Technology", en: "Science & Technology", pt: "Science & Technology" })}
+          </span>{" "}
+          {t({ es: "de LATAM", en: "in LATAM", pt: "da LATAM" })}
+        </h1>
+
+        <!-- Tagline -->
+        <p class="text-lg text-gray-300 text-balance max-w-lg leading-relaxed font-medium">
+          {t({
+            es: "Conectando la investigación científica con los nuevos modelos de financiamiento y colaboración global.",
+            en: "Connecting scientific research with new models of funding and global collaboration.",
+            pt: "Conectando a pesquisa científica com os novos modelos de financiamento e colaboração global.",
+          })}
         </p>
-          <h1
-            class="font-heading font-bold text-background dark:text-primarywhite text-4xl lg:text-4xl  !leading-[1.1] text-balance"
-          >
-            {
-              t({
-                es: "Conectando científicos con blockchain",
-                en: "At the heart of scientific evolution",
-                pt: "No coração da evolução científica",
-              })
-            }
-          </h1>
-          <p
-            class="text-md text-muted-foreground text-balance "
-          >
-            {
-              t({
-                es: "Impulsando los principios de la descentralización para mejorar el ecosistema científico",
-                en: "Our purpose is to promote the principles of decentralization to build a collaborative and accessible scientific ecosystem for everyone in Latin America.",
-                pt: "Nosso propósito é impulsionar os princípios da descentralização para construir um ecossistema científico colaborativo e acessível para todos na América Latina.",
-              })
-            }
+
+        <!-- Body -->
+        <p class="text-sm text-gray-500 text-balance max-w-lg leading-relaxed">
+          {t({
+            es: "Científicos, médicos, tecnólogos y builders que buscan reescribir las reglas de la investigación. Desde Buenos Aires a Bangkok — construyendo puentes entre la academia y el ecosistema global.",
+            en: "Scientists, doctors, technologists and builders rewriting the rules of research. From Buenos Aires to Bangkok — bridging academia and the global ecosystem.",
+            pt: "Cientistas, médicos, tecnólogos e builders reescrevendo as regras da pesquisa. De Buenos Aires a Bangkok — construindo pontes entre a academia e o ecossistema global.",
+          })}
+        </p>
+
+        <!-- Stats row -->
+        <div class="flex flex-wrap gap-6 py-1">
+          <div>
+            <p class="text-3xl font-bold text-white">3+</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mt-0.5">{t({ es: "Años", en: "Years", pt: "Anos" })}</p>
+          </div>
+          <div class="w-px bg-white/10 self-stretch"></div>
+          <div>
+            <p class="text-3xl font-bold text-white">12.5k+</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mt-0.5">{t({ es: "Asistentes", en: "Attendees", pt: "Participantes" })}</p>
+          </div>
+          <div class="w-px bg-white/10 self-stretch"></div>
+          <div>
+            <p class="text-3xl font-bold text-white">10+</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mt-0.5">{t({ es: "Eventos", en: "Events", pt: "Eventos" })}</p>
+          </div>
+          <div class="w-px bg-white/10 self-stretch"></div>
+          <div>
+            <p class="text-3xl font-bold text-white">NEAR</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mt-0.5">{t({ es: "Validator", en: "Validator", pt: "Validator" })}</p>
+          </div>
+        </div>
+
+        <!-- Partners chips -->
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-3 py-1 rounded-full text-gray-400" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);">
+            ⬡ MetaPool · NEAR Validator
+          </span>
+          <span class="text-xs px-3 py-1 rounded-full text-gray-400" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);">
+            ◈ Octant Epoch 4+
+          </span>
+          <span class="text-xs px-3 py-1 rounded-full text-gray-400" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);">
+            ⬡ DeSciWorld
+          </span>
+          <span class="text-xs px-3 py-1 rounded-full text-gray-400" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);">
+            ◈ Ethereum Foundation
+          </span>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="grid gap-2">
+          <p class="text-sm text-gray-500">
+            {t({ es: "Recibí las últimas novedades en ciencia y tecnología de LATAM", en: "Get the latest science & technology news from LATAM", pt: "Receba as últimas novidades em ciência e tecnologia da LATAM" })}
           </p>
-          <p
-          class=" text-xs text-muted-foreground"
-        >
-          {
-            t({
-              es: "Registrate en nuestra newslatter para recibir las últimas novedades",
-              en: "Our purpose is to promote the principles of decentralization to build a collaborative and accessible scientific ecosystem for everyone in Latin America.",
-              pt: "Nosso propósito é impulsionar os princípios da descentralização para construir um ecossistema científico colaborativo e acessível para todos na América Latina.",
-            })
-          }
-        </p>
-        </div>
-
-        <div class="w-full flex justify-start lg:max-w-sm">
-          <div
-            id="mlb2-19061547"
-            class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-19061547"
+          <form
+            class="ml-block-form flex gap-2 max-w-sm"
+            action="https://assets.mailerlite.com/jsonp/1150335/forms/135668232739620393/subscribe"
+            data-code=""
+            method="post"
+            target="_blank"
           >
-            <div class="ml-form-align-left">
-              <div class="ml-form-embedWrapper embedForm">
-                <div
-                  class="ml-form-embedBody ml-form-embedBodyHorizontal row-form"
-                >
-                  <div
-                    class="ml-form-embedContent"
-                    style="margin-bottom: 0px; "
-                  >
-                  </div>
-
-                  <form
-                    class="ml-block-form"
-                    action="https://assets.mailerlite.com/jsonp/1150335/forms/135668232739620393/subscribe"
-                    data-code=""
-                    method="post"
-                    target="_blank"
-                  >
-                    <div class="ml-form-formContent horozintalForm">
-                      <div class="ml-form-horizontalRow">
-                        <div class="ml-input-horizontal">
-                          <div style="width: 100%;" class="horizontal-fields">
-                            <div
-                              class="ml-field-group ml-field-email ml-validate-email ml-validate-required"
-                            >
-                              <!-- input -->
-                              <input
-                                type="email"
-                                class="form-control"
-                                data-inputmask=""
-                                name="fields[email]"
-                                placeholder="Email"
-                                autocomplete="email"
-                              />
-                              <!-- /input -->
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="ml-button-horizontal primary">
-                          <button type="submit" class="primary"
-                            >Subscribirte</button
-                          >
-
-                          <button
-                            disabled="disabled"
-                            style="display: none;"
-                            type="button"
-                            class="loading"
-                          >
-                            <div class="ml-form-embedSubmitLoad"></div>
-                            <span class="sr-only">Loading...</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Privacy policy -->
-
-                    <!-- /Privacy policy -->
-
-                    <input type="hidden" name="ml-submit" value="1" />
-
-                    <div class="ml-mobileButton-horizontal">
-                      <button type="submit" class="primary">Subscribe</button>
-                      <button
-                        disabled="disabled"
-                        style="display: none;"
-                        type="button"
-                        class="loading"
-                      >
-                        <div class="ml-form-embedSubmitLoad"></div>
-                        <span class="sr-only">Loading...</span>
-                      </button>
-                    </div>
-                    <input type="hidden" name="anticsrf" value="true" />
-                  </form>
-                </div>
-
-                <div
-                  class="ml-form-successBody row-success"
-                  style="display: none"
-                >
-                  <div class="ml-form-successContent">
-                    <h4>Thank you!</h4>
-
-                    <p>You have successfully joined our subscriber list.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <input
+              type="email"
+              name="fields[email]"
+              placeholder={t({ es: "tu@email.com", en: "you@email.com", pt: "você@email.com" })}
+              autocomplete="email"
+              class="flex-1 min-w-0 px-4 py-2.5 rounded-lg text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-purple-500"
+              style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);"
+            />
+            <button
+              type="submit"
+              class="px-5 py-2.5 rounded-lg text-white text-sm font-semibold hover:opacity-90 active:scale-95 transition-all whitespace-nowrap"
+              style="background: linear-gradient(90deg, #6342d2 0%, #e040fb 100%);"
+            >
+              {t({ es: "Suscribirte", en: "Subscribe", pt: "Inscrever-se" })}
+            </button>
+            <input type="hidden" name="ml-submit" value="1" />
+            <input type="hidden" name="anticsrf" value="true" />
+          </form>
         </div>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://t.me/descilatam"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-6 py-3 rounded-lg text-white text-sm font-semibold transition-all hover:scale-105"
+            style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);"
+          >
+            {t({ es: "Únete a la comunidad", en: "Join the community", pt: "Junte-se à comunidade" })} →
+          </a>
+          <a
+            href="#eventos"
+            class="px-6 py-3 rounded-lg text-purple-300 text-sm font-semibold hover:text-white transition-colors"
+          >
+            {t({ es: "Ver eventos", en: "See events", pt: "Ver eventos" })} ↓
+          </a>
+        </div>
+
       </div>
 
-      <div class="w-full md:w-1/2 flex justify-center items-center text-white">
-        <!-- <div>
-          <Image
-            class=" text-white"
-            src={DescilatamLogo}
-            alt="DeSci LATAM"
-          />
-        </div> -->
-        <div> 
-          <h3 class="text-xs text-primaryblue  font-bold uppercase py-2">Anuncios</h3>
-          
-          
-          <div class="carousel w-full max-w-xs">
-          <div id="item1" class="carousel-item w-full grid gap-2 text-lg font-bold text-balance">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-              class="w-full" />
-              <h4>Explorando proyectos DeSci en Gitcoin</h4>
-          </div>
-          <div id="item2" class="carousel-item w-full grid gap-2 text-lg font-bold text-balance">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-              class="w-full" />
-              <h4>La Ciencia Abierta y DeSci: Mismo objetivo, diferentes medios</h4>
-          </div>
-          <div id="item3" class="carousel-item w-full grid gap-2 ">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-              class="w-full" />
-              <h4 class="text-lg font-bold text-balance">¿Por qué DeSci todavía no es perfecto? 7 principales desafíos</h4>
-          </div>
+      <!-- RIGHT: Visual -->
+      <div class="hidden md:flex justify-center items-center relative h-96 lg:h-[28rem]">
+
+        <!-- Glow orb behind logo -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div id="hero-glow-orb" class="w-72 h-72 rounded-full blur-3xl" style="background: radial-gradient(circle, #9b5aff 0%, #e040fb 60%, transparent 100%);"></div>
         </div>
-        <div class="flex w-full justify-center gap-2 py-6">
-          <a href="#item1" class="btn btn-md items center jus     ">1</a>
-          <a href="#item2" class="btn btn-md">2</a>
-          <a href="#item3" class="btn btn-md  ">3</a>
-        </div>  </div>
-     
+
+        <!-- Butterfly logo (large, animated gradient) -->
+        <div id="hero-logo-wrap" class="relative z-10 w-52 h-52 lg:w-64 lg:h-64 cursor-pointer">
+          <svg id="hero-logo-svg" width="100%" height="100%" viewBox="0 0 57 50" xmlns="http://www.w3.org/2000/svg" fill="url(#heroLogoGradient)" overflow="visible">
+            <defs>
+              <linearGradient id="heroLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="objectBoundingBox">
+                <!-- Gradient stop colors animate between purple and cyan -->
+                <stop offset="0%" stop-color="#9b5aff">
+                  <animate attributeName="stop-color"
+                    values="#9b5aff; #e040fb; #22d3ee; #9b5aff"
+                    dur="6s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" stop-color="#e040fb">
+                  <animate attributeName="stop-color"
+                    values="#e040fb; #22d3ee; #9b5aff; #e040fb"
+                    dur="6s" repeatCount="indefinite" />
+                </stop>
+              </linearGradient>
+            </defs>
+            <!-- Top-left quadrant -->
+            <path class="logo-q" style="--qi:0" d="M26.5349 8.80386V28.3333H8.8259C3.94933 28.3107 0 24.3764 0 19.5408V0H17.7033C22.557 0.0340136 26.5349 3.97392 26.5349 8.80386Z"/>
+            <!-- Bottom-left quadrant -->
+            <path class="logo-q" style="--qi:1" d="M26.5349 44.2404V31.5137H14.9216C11.7507 31.5137 9.16357 34.1044 9.16357 37.245V50.0001H20.7769C23.9478 49.9717 26.5349 47.4094 26.5349 44.2404Z"/>
+            <!-- Top-right quadrant -->
+            <path class="logo-q" style="--qi:2" d="M29.7458 8.80386V28.3333H47.4549C52.3314 28.3107 56.2808 24.3708 56.2808 19.5408V0H38.5717C33.7238 0.0283447 29.7458 3.96825 29.7458 8.79819V8.80386Z"/>
+            <!-- Bottom-right quadrant -->
+            <path class="logo-q" style="--qi:3" d="M29.7458 44.2404C29.7458 47.4094 32.3387 49.9717 35.5096 50.0001H47.1229V37.245C47.1229 34.1044 44.5358 31.5137 41.3649 31.5137H29.7458V44.2404Z"/>
+          </svg>
+        </div>
+
+        <!-- Floating card — Bangkok -->
+        <div
+          class="absolute top-8 right-4 lg:right-0 rounded-xl px-4 py-3 text-white text-xs shadow-xl"
+          style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(12px);"
+        >
+          <p class="font-bold text-sm">🌏 Bangkok 2024</p>
+          <p class="text-gray-400 mt-0.5">Devcon SEA · 12,500 asistentes</p>
+        </div>
+
+        <!-- Floating card — Buenos Aires -->
+        <div
+          class="absolute bottom-12 left-0 lg:-left-4 rounded-xl px-4 py-3 text-white text-xs shadow-xl"
+          style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(12px);"
+        >
+          <p class="font-bold text-sm">🇦🇷 Buenos Aires 2025</p>
+          <p class="text-gray-400 mt-0.5">Devconnect ARG · LATAM</p>
+        </div>
+
+        <!-- Floating badge — Gitcoin -->
+        <div
+          class="absolute bottom-4 right-8 lg:right-4 rounded-full px-3 py-1.5 text-xs font-semibold shadow-lg"
+          style="background: rgba(99,66,210,0.3); border: 1px solid rgba(155,90,255,0.4); color: #c4b5fd; backdrop-filter: blur(8px);"
+        >
+          ✦ Gitcoin grantee
+        </div>
+
       </div>
-    </div>
     </div>
   </section>
 
 
-<section>
-  <div class="flex justify-center py-4">
-    <h3> {
-      t({
-        es: "Confian en nosotros",
-        en: "Our purpose is to promote the principles of decentralization to build a collaborative and accessible scientific ecosystem for everyone in Latin America.",
-        pt: "Nosso propósito é impulsionar os princípios da descentralização para construir um ecossistema científico colaborativo e acessível para todos na América Latina.",
-      })
-    }</h3>
+<!-- Info sections — "Qué hacemos" -->
+<div class="w-screen" style="background: linear-gradient(180deg, #04040c 0%, #080320 50%, #04040c 100%); border-top: 1px solid rgba(99,66,210,0.15);">
+  <div class="max-w-screen-xl mx-auto">
+    {infos.map((info, i) => (
+      <InfoLanding data={info} reverse={i % 2 !== 0} />
+    ))}
   </div>
-</section>
+</div>
+
+<EventsSection />
+
 </Layout>
 
 <script>
@@ -1619,3 +1626,81 @@ export const getStaticPaths = () =>
     }
   };
 </script>
+
+<style>
+  /* ── Hero logo gradient fix (override global CSS fill) ── */
+  #hero-logo-svg path {
+    fill: url(#heroLogoGradient) !important;
+  }
+
+  /* ── Hero logo animations ─────────────────────────────── */
+
+  /* 1. Continuous float: up/down with a hint of rotation */
+  #hero-logo-wrap {
+    animation: hero-float 5s ease-in-out infinite;
+    transform-origin: center center;
+  }
+  @keyframes hero-float {
+    0%   { transform: translateY(0px)   rotate(0deg); }
+    25%  { transform: translateY(-10px) rotate(1.2deg); }
+    50%  { transform: translateY(-14px) rotate(0deg); }
+    75%  { transform: translateY(-8px)  rotate(-1deg); }
+    100% { transform: translateY(0px)   rotate(0deg); }
+  }
+
+  /* 2. Hover: scale up + drop-shadow glow */
+  #hero-logo-wrap:hover {
+    animation-play-state: paused;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter 0.35s ease;
+    transform: translateY(-6px) scale(1.08) !important;
+    filter: drop-shadow(0 0 28px rgba(155, 90, 255, 0.7))
+            drop-shadow(0 0 60px rgba(224, 64, 251, 0.4));
+  }
+
+  /* 3. Entry stagger for each quadrant (runs once on load) */
+  .logo-q {
+    animation:
+      logo-q-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      logo-q-breathe 4s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center center;
+    animation-delay: calc(var(--qi) * 0.12s), calc(0.7s + var(--qi) * 0.3s);
+  }
+
+  @keyframes logo-q-in {
+    from {
+      opacity: 0;
+      transform: scale(0.3) rotate(calc(var(--qi) * 15deg - 22deg));
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  /* 4. Subtle breathing/scale on each quadrant (slightly offset per piece) */
+  @keyframes logo-q-breathe {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.04); }
+  }
+
+  /* 5. Glow orb pulse (synced with float) */
+  #hero-glow-orb {
+    opacity: 0.2;
+    animation: glow-orb-pulse 5s ease-in-out infinite;
+  }
+  @keyframes glow-orb-pulse {
+    0%, 100% { transform: scale(1);    opacity: 0.18; }
+    50%       { transform: scale(1.35); opacity: 0.32; }
+  }
+
+  /* 6. Floating cards subtle entrance */
+  #hero-logo-wrap ~ div {
+    animation: card-in 0.8s ease both;
+  }
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>

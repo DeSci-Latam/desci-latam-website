@@ -1,0 +1,331 @@
+---
+import { useTranslations, type Lang } from "@/i18n";
+const t = useTranslations(Astro.currentLocale as Lang);
+
+const sectionLabel = t({ es: "Presencia global", en: "Global presence", pt: "Presença global" });
+const sectionTitle = t({ es: "Llevamos DeSci al mundo", en: "Bringing DeSci to the world", pt: "Levando DeSci ao mundo" });
+const sectionDesc = t({
+  es: "De Buenos Aires a Bangkok, DeSci LATAM está presente en los eventos más importantes de la ciencia descentralizada global.",
+  en: "From Buenos Aires to Bangkok, DeSci LATAM is present at the most important global decentralized science events.",
+  pt: "De Buenos Aires a Bangkok, DeSci LATAM está presente nos eventos mais importantes da ciência descentralizada global.",
+});
+const seriesLabel = t({ es: "Serie Global", en: "Global Series", pt: "Série Global" });
+const seriesDesc = t({
+  es: "DeSci LATAM participó como Community Hub oficial en las dos ediciones más importantes del circuito global The World of DeSci.",
+  en: "DeSci LATAM participated as an official Community Hub in the two most important editions of the global The World of DeSci circuit.",
+  pt: "DeSci LATAM participou como Community Hub oficial nas duas edições mais importantes do circuito global The World of DeSci.",
+});
+
+// Bangkok card
+const bangkokDate   = t({ es: "Noviembre 2024", en: "November 2024", pt: "Novembro 2024" });
+const bangkokDesc   = t({
+  es: "Community Hub de 4 días en el Queen Sirikit Convention Center durante el Devcon Southeast Asia — el mayor evento Ethereum de la historia con más de 12.500 asistentes. DeSci LATAM representó a la región en el epicentro global del ecosistema DeSci.",
+  en: "A 4-day Community Hub at the Queen Sirikit Convention Center during Devcon Southeast Asia — the largest Ethereum event in history with over 12,500 attendees. DeSci LATAM represented the region at the global epicenter of the DeSci ecosystem.",
+  pt: "Community Hub de 4 dias no Queen Sirikit Convention Center durante o Devcon Southeast Asia — o maior evento Ethereum da história com mais de 12.500 participantes. DeSci LATAM representou a região no epicentro global do ecossistema DeSci.",
+});
+const bangkokStat1  = t({ es: "días de hub", en: "hub days", pt: "dias de hub" });
+const bangkokStat2  = t({ es: "asistentes", en: "attendees", pt: "participantes" });
+const bangkokStat3  = t({ es: "LATAM presente", en: "LATAM on stage", pt: "LATAM presente" });
+
+// Buenos Aires card
+const bsasDate  = t({ es: "Noviembre 2025", en: "November 2025", pt: "Novembro 2025" });
+const bsasDesc  = t({
+  es: "DeSci LATAM lideró el Community Hub oficial en Devconnect Buenos Aires 2025. El primer Devconnect en América Latina — y nosotros lo organizamos para la región.",
+  en: "DeSci LATAM led the official Community Hub at Devconnect Buenos Aires 2025. The first Devconnect in Latin America — and we organized it for the region.",
+  pt: "DeSci LATAM liderou o Community Hub oficial no Devconnect Buenos Aires 2025. O primeiro Devconnect na América Latina — e nós o organizamos para a região.",
+});
+const bsasStat1 = t({ es: "año histórico", en: "historic year", pt: "ano histórico" });
+const bsasStat2 = t({ es: "oficial Devconnect", en: "official Devconnect", pt: "oficial Devconnect" });
+const bsasStat3 = t({ es: "1er Devconnect LATAM", en: "1st LATAM Devconnect", pt: "1º Devconnect LATAM" });
+
+const completedLabel = t({ es: "Completado", en: "Completed", pt: "Concluído" });
+const learnMore      = t({ es: "Ver más", en: "Learn more", pt: "Saiba mais" });
+
+// Other events
+const otherTitle = t({ es: "Otros eventos que organizamos", en: "Other events we organized", pt: "Outros eventos que organizamos" });
+
+// DeSci Day BA 2024 photo gallery
+const desdayTitle = t({ es: "DeSci Day Buenos Aires 2024", en: "DeSci Day Buenos Aires 2024", pt: "DeSci Day Buenos Aires 2024" });
+const desdaySubtitle = t({ es: "Donde nació The World of DeSci", en: "Where The World of DeSci was born", pt: "Onde nasceu The World of DeSci" });
+const desdayDesc = t({
+  es: "En agosto de 2024 organizamos DeSci Day Buenos Aires — el evento que inspiró la propuesta global de The World of DeSci presentada en Devcon Bangkok tres meses después. Científicos, médicos y builders reunidos para imaginar el futuro de la ciencia.",
+  en: "In August 2024 we organized DeSci Day Buenos Aires — the event that inspired the global The World of DeSci proposal presented at Devcon Bangkok three months later. Scientists, doctors, and builders gathered to imagine the future of science.",
+  pt: "Em agosto de 2024 organizamos o DeSci Day Buenos Aires — o evento que inspirou a proposta global The World of DeSci apresentada no Devcon Bangkok três meses depois. Cientistas, médicos e builders reunidos para imaginar o futuro da ciência.",
+});
+
+const otherEvents = [
+  {
+    year:     t({ es: "2023 · Buenos Aires", en: "2023 · Buenos Aires", pt: "2023 · Buenos Aires" }),
+    name:     t({ es: "Primer evento DeSci en Argentina", en: "First DeSci event in Argentina", pt: "Primeiro evento DeSci na Argentina" }),
+    location: "📍 Buenos Aires, Argentina",
+    photo:    null,
+    desc:     t({
+      es: "El primer evento DeSci de la región, reuniendo científicos, desarrolladores y entusiastas de Web3 por primera vez en LATAM.",
+      en: "The first DeSci event in the region, bringing together scientists, developers, and Web3 enthusiasts for the first time in LATAM.",
+      pt: "O primeiro evento DeSci da região, reunindo cientistas, desenvolvedores e entusiastas de Web3 pela primeira vez na LATAM.",
+    }),
+  },
+  {
+    year:     t({ es: "2023 · Rio de Janeiro", en: "2023 · Rio de Janeiro", pt: "2023 · Rio de Janeiro" }),
+    name:     t({ es: "DeSci Rio — Co-organización", en: "DeSci Rio — Co-organized", pt: "DeSci Rio — Co-organização" }),
+    location: "📍 Rio de Janeiro, Brasil",
+    photo:    "/events/desci-rio-panel.jpg",
+    desc:     t({
+      es: "Co-organizamos el primer evento DeSci en Brasil en la universidad IBMEC, expandiendo la red al ecosistema de habla portuguesa.",
+      en: "We co-organized the first DeSci event in Brazil at IBMEC university, expanding the network to the Portuguese-speaking ecosystem.",
+      pt: "Co-organizamos o primeiro evento DeSci no Brasil na universidade IBMEC, expandindo a rede para o ecossistema de língua portuguesa.",
+    }),
+  },
+  {
+    year:     t({ es: "2023 · Rio de Janeiro", en: "2023 · Rio de Janeiro", pt: "2023 · Rio de Janeiro" }),
+    name:     t({ es: "Panelistas en Ethereum Rio", en: "Panelists at Ethereum Rio", pt: "Palestrantes no Ethereum Rio" }),
+    location: "📍 Rio de Janeiro, Brasil",
+    photo:    "/events/ethereum-rio-panel.jpg",
+    desc:     t({
+      es: "Panel 'From Open Science to DeSci' en Ethereum Rio, con Brenda Palavicino representando a DeSci LATAM ante la comunidad global de Ethereum.",
+      en: "'From Open Science to DeSci' panel at Ethereum Rio, with Brenda Palavicino representing DeSci LATAM to the global Ethereum community.",
+      pt: "Painel 'From Open Science to DeSci' no Ethereum Rio, com Brenda Palavicino representando DeSci LATAM à comunidade global do Ethereum.",
+    }),
+  },
+  {
+    year:     t({ es: "2024 · Vitalia", en: "2024 · Vitalia", pt: "2024 · Vitalia" }),
+    name:     t({ es: "Presentación en Vitalia", en: "Presentation at Vitalia", pt: "Apresentação na Vitalia" }),
+    location: "📍 Roatán, Honduras",
+    photo:    null,
+    desc:     t({
+      es: "Presentamos DeSci LATAM ante la comunidad global de longevidad y ciencia descentralizada en la ciudad pop-up Vitalia.",
+      en: "We presented DeSci LATAM to the global longevity and decentralized science community at the Vitalia pop-up city.",
+      pt: "Apresentamos DeSci LATAM à comunidade global de longevidade e ciência descentralizada na cidade pop-up Vitalia.",
+    }),
+  },
+  {
+    year:     t({ es: "2024 · Zuzalu", en: "2024 · Zuzalu", pt: "2024 · Zuzalu" }),
+    name:     t({ es: "Participación en Zuzalu", en: "Participation in Zuzalu", pt: "Participação no Zuzalu" }),
+    location: "🌐 Global pop-up community",
+    photo:    null,
+    desc:     t({
+      es: "Parte de la comunidad pop-up Zuzalu, conectando con los builders más avanzados del ecosistema DeSci global.",
+      en: "Part of the Zuzalu pop-up community, connecting with the most advanced builders in the global DeSci ecosystem.",
+      pt: "Parte da comunidade pop-up Zuzalu, conectando-se com os builders mais avançados do ecossistema DeSci global.",
+    }),
+  },
+  {
+    year:     t({ es: "2022–2025 · Online", en: "2022–2025 · Online", pt: "2022–2025 · Online" }),
+    name:     "Octant + Gitcoin Grants",
+    location: "🌐 Online",
+    photo:    null,
+    desc:     t({
+      es: "Financiamiento de la comunidad global a través de Gitcoin Grants (múltiples rondas) y Octant Epoch 4+, obteniendo recursos para crecer el ecosistema.",
+      en: "Community funding through Gitcoin Grants (multiple rounds) and Octant Epoch 4+, obtaining resources to grow the ecosystem.",
+      pt: "Financiamento da comunidade global através de Gitcoin Grants (múltiplas rodadas) e Octant Epoch 4+, obtendo recursos para crescer o ecossistema.",
+    }),
+  },
+];
+---
+
+<section id="eventos" class="w-screen flex justify-center px-4 xl:px-0 py-16">
+  <div class="max-w-screen-xl w-full xl:w-[1280px]">
+
+    <!-- Section header -->
+    <div class="mb-10 flex flex-col gap-2">
+      <p class="text-sm font-bold uppercase tracking-widest" style="color: #9b5aff;">
+        {sectionLabel}
+      </p>
+      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-balance dark:text-white">
+        {sectionTitle}
+      </h2>
+      <p class="text-base text-muted-foreground max-w-xl text-balance">
+        {sectionDesc}
+      </p>
+    </div>
+
+    <!-- THE WORLD OF DESCI — Featured banner -->
+    <div
+      class="rounded-2xl mb-8 overflow-hidden"
+      style="background: linear-gradient(135deg, #0d0330 0%, #1a0a4e 50%, #0d0330 100%); border: 1px solid rgba(155,90,255,0.3);"
+    >
+      <div style="height: 3px; background: linear-gradient(90deg, #6342d2, #9b5aff, #e040fb);"></div>
+
+      <div class="px-6 pt-6 pb-6">
+        <!-- Series label -->
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e040fb" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="text-xs font-bold uppercase tracking-widest" style="color: #e040fb;">
+            {seriesLabel}
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h3 class="font-heading text-3xl lg:text-4xl font-extrabold mb-2" style="background: linear-gradient(135deg, #9b5aff, #e040fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          The World of DeSci
+        </h3>
+        <p class="text-sm mb-6 max-w-xl" style="color: #a89dc8;">
+          {seriesDesc}
+        </p>
+
+        <!-- Event cards grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- BANGKOK 2024 -->
+          <div class="rounded-xl overflow-hidden" style="background: rgba(4,4,20,0.7); border: 1px solid rgba(99,66,210,0.25);">
+            <div class="px-5 pt-5 pb-4 flex items-start gap-4" style="border-bottom: 1px solid rgba(99,66,210,0.2);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style="background: rgba(34,211,238,0.1);">🇹🇭</div>
+              <div>
+                <h4 class="font-heading font-bold text-lg leading-tight" style="color: #f0eaff;">The World of DeSci Bangkok</h4>
+                <p class="text-xs mt-1" style="color: #6b609a;">Devcon SEA · {bangkokDate} · Bangkok, Thailand</p>
+              </div>
+            </div>
+            <div class="px-5 py-4">
+              <p class="text-sm mb-4 leading-relaxed" style="color: #a89dc8;">{bangkokDesc}</p>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="rounded-lg p-3 text-center" style="background: rgba(99,66,210,0.08); border: 1px solid rgba(99,66,210,0.2);">
+                  <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#e040fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">4</span>
+                  <span class="text-xs" style="color: #6b609a;">{bangkokStat1}</span>
+                </div>
+                <div class="rounded-lg p-3 text-center" style="background: rgba(99,66,210,0.08); border: 1px solid rgba(99,66,210,0.2);">
+                  <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#e040fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">12.5k</span>
+                  <span class="text-xs" style="color: #6b609a;">{bangkokStat2}</span>
+                </div>
+                <div class="rounded-lg p-3 text-center" style="background: rgba(99,66,210,0.08); border: 1px solid rgba(99,66,210,0.2);">
+                  <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#e040fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">#1</span>
+                  <span class="text-xs" style="color: #6b609a;">{bangkokStat3}</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-5 py-3 flex items-center justify-between" style="background: rgba(99,66,210,0.06); border-top: 1px solid rgba(99,66,210,0.15);">
+              <span class="flex items-center gap-2 text-xs font-semibold" style="color: #9b5aff;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                {completedLabel}
+              </span>
+              <a href="https://forum.devcon.org/t/sea-community-hub-proposal-the-world-of-desci/3890" target="_blank" rel="noopener noreferrer" class="text-xs flex items-center gap-1" style="color: #6b609a;">
+                {learnMore}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- BUENOS AIRES 2025 -->
+          <div class="rounded-xl overflow-hidden" style="background: rgba(4,4,20,0.7); border: 1px solid rgba(99,66,210,0.25);">
+            <div class="px-5 pt-5 pb-4 flex items-start gap-4" style="border-bottom: 1px solid rgba(99,66,210,0.2);">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style="background: rgba(155,90,255,0.1);">🇦🇷</div>
+              <div>
+                <h4 class="font-heading font-bold text-lg leading-tight" style="color: #f0eaff;">The World of DeSci Buenos Aires</h4>
+                <p class="text-xs mt-1" style="color: #6b609a;">Devconnect ARG · {bsasDate} · Buenos Aires, Argentina</p>
+              </div>
+            </div>
+            <div class="px-5 py-4">
+              <p class="text-sm mb-4 leading-relaxed" style="color: #a89dc8;">{bsasDesc}</p>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="rounded-lg p-3 text-center" style="background: rgba(99,66,210,0.08); border: 1px solid rgba(99,66,210,0.2);">
+                  <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#e040fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">2025</span>
+                  <span class="text-xs" style="color: #6b609a;">{bsasStat1}</span>
+                </div>
+                <div class="rounded-lg p-3 text-center" style="background: rgba(99,66,210,0.08); border: 1px solid rgba(99,66,210,0.2);">
+                  <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#e040fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Hub</span>
+                  <span class="text-xs" style="color: #6b609a;">{bsasStat2}</span>
+                </div>
+                <div class="rounded-lg p-3 text-center" style="background: rgba(99,66,210,0.08); border: 1px solid rgba(99,66,210,0.2);">
+                  <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#e040fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">ARG</span>
+                  <span class="text-xs" style="color: #6b609a;">{bsasStat3}</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-5 py-3 flex items-center justify-between" style="background: rgba(99,66,210,0.06); border-top: 1px solid rgba(99,66,210,0.15);">
+              <span class="flex items-center gap-2 text-xs font-semibold" style="color: #e040fb;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                {completedLabel}
+              </span>
+              <a href="https://forum.devcon.org/t/arg-community-hub-the-world-of-desci/7596" target="_blank" rel="noopener noreferrer" class="text-xs flex items-center gap-1" style="color: #6b609a;">
+                {learnMore}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- DeSci Day Buenos Aires 2024 — Photo section -->
+    <div class="rounded-2xl mb-8 overflow-hidden" style="border: 1px solid rgba(99,66,210,0.25);">
+      <!-- Photo strip -->
+      <div class="grid grid-cols-3 h-52 sm:h-64">
+        <div class="overflow-hidden">
+          <img
+            src="/events/desci-day-ba-stage.jpg"
+            alt="DeSci Day Buenos Aires — presentación en escenario"
+            class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+          />
+        </div>
+        <div class="overflow-hidden">
+          <img
+            src="/events/desci-day-ba-networking.jpg"
+            alt="DeSci Day Buenos Aires — networking"
+            class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+          />
+        </div>
+        <div class="overflow-hidden">
+          <img
+            src="/events/desci-day-ba-audience.jpg"
+            alt="DeSci Day Buenos Aires — audiencia"
+            class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+          />
+        </div>
+      </div>
+
+      <!-- Text content -->
+      <div class="px-6 py-5" style="background: linear-gradient(135deg, #0d0330 0%, #110840 100%);">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="max-w-2xl">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full" style="background: rgba(34,211,238,0.1); color: #22d3ee; border: 1px solid rgba(34,211,238,0.2);">
+                Agosto 2024 · Buenos Aires
+              </span>
+            </div>
+            <h3 class="font-heading text-xl sm:text-2xl font-bold mb-1" style="color: #f0eaff;">{desdayTitle}</h3>
+            <p class="text-sm font-semibold mb-3" style="color: #9b5aff;">{desdaySubtitle}</p>
+            <p class="text-sm leading-relaxed" style="color: #a89dc8;">{desdayDesc}</p>
+          </div>
+          <div class="flex-shrink-0 flex sm:flex-col gap-3 sm:gap-2 sm:text-right">
+            <div class="rounded-lg px-4 py-2 text-center" style="background: rgba(99,66,210,0.1); border: 1px solid rgba(99,66,210,0.2);">
+              <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#22d3ee); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">50+</span>
+              <span class="text-xs" style="color: #6b609a;">asistentes</span>
+            </div>
+            <div class="rounded-lg px-4 py-2 text-center" style="background: rgba(99,66,210,0.1); border: 1px solid rgba(99,66,210,0.2);">
+              <span class="block font-heading text-xl font-bold" style="background: linear-gradient(135deg,#9b5aff,#22d3ee); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">8+</span>
+              <span class="text-xs" style="color: #6b609a;">speakers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other events -->
+    <h3 class="font-heading text-xl font-bold mb-4 dark:text-white">{otherTitle}</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {otherEvents.map(event => (
+        <div class="rounded-xl overflow-hidden flex flex-col" style="background: linear-gradient(135deg, rgba(99,66,210,0.08) 0%, rgba(224,64,251,0.04) 100%); border: 1px solid rgba(99,66,210,0.2);">
+          {event.photo && (
+            <div class="h-36 overflow-hidden">
+              <img
+                src={event.photo}
+                alt={event.name}
+                class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+          )}
+          <div class="p-5 flex-1 flex flex-col">
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: #22d3ee;">{event.year}</p>
+            <h4 class="font-heading font-bold text-base mb-1 dark:text-white">{event.name}</h4>
+            <p class="text-xs mb-2" style="color: #6b609a;">{event.location}</p>
+            <p class="text-xs leading-relaxed mt-auto" style="color: #a89dc8;">{event.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
