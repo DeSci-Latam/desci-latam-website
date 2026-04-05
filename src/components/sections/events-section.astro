@@ -123,7 +123,7 @@ const otherEvents = [
 ];
 ---
 
-<section id="eventos" class="w-screen flex justify-center px-4 xl:px-0 py-16">
+<section id="eventos" class="w-screen flex justify-center px-4 xl:px-0 py-16" style="background: #04040c;">
   <div class="max-w-screen-xl w-full xl:w-[1280px]">
 
     <!-- Section header -->
@@ -131,10 +131,10 @@ const otherEvents = [
       <p class="text-sm font-bold uppercase tracking-widest" style="color: #9b5aff;">
         {sectionLabel}
       </p>
-      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-balance dark:text-white">
+      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-balance" style="color: #f0eaff;">
         {sectionTitle}
       </h2>
-      <p class="text-base text-muted-foreground max-w-xl text-balance">
+      <p class="text-base max-w-xl text-balance" style="color: #a89dc8;">
         {sectionDesc}
       </p>
     </div>
@@ -304,7 +304,7 @@ const otherEvents = [
     </div>
 
     <!-- Other events -->
-    <h3 class="font-heading text-xl font-bold mb-4 dark:text-white">{otherTitle}</h3>
+    <h3 class="font-heading text-xl font-bold mb-4" style="color: #f0eaff;">{otherTitle}</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {otherEvents.map(event => (
         <div class="rounded-xl overflow-hidden flex flex-col" style="background: linear-gradient(135deg, rgba(99,66,210,0.08) 0%, rgba(224,64,251,0.04) 100%); border: 1px solid rgba(99,66,210,0.2);">
@@ -319,7 +319,7 @@ const otherEvents = [
           )}
           <div class="p-5 flex-1 flex flex-col">
             <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color: #22d3ee;">{event.year}</p>
-            <h4 class="font-heading font-bold text-base mb-1 dark:text-white">{event.name}</h4>
+            <h4 class="font-heading font-bold text-base mb-1" style="color: #f0eaff;">{event.name}</h4>
             <p class="text-xs mb-2" style="color: #6b609a;">{event.location}</p>
             <p class="text-xs leading-relaxed mt-auto" style="color: #a89dc8;">{event.desc}</p>
           </div>
